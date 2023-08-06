@@ -9,6 +9,15 @@ export class UpdateOrderDto extends PartialType(CreateOrderDto){
   
   @IsInt()
   user_id: number;
+
+  @IsInt()
+  unilevel_id: number;
+
+  @IsInt()
+  firstmatrix_id: number;
+
+  @IsInt()
+  secondmatrix_id: number;
  
   @IsInt()
   products_id: number;

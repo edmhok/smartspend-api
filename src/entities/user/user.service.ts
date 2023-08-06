@@ -11,10 +11,8 @@ import { Order } from '../order/order.entity';
 import { OrderRepository } from '../order/order.repository';
 import { Affiliate } from '../affiliate/affiliate.entity';
 import { AffiliateRepository } from '../affiliate/affiliate.repository';
-import { Firstmatrix } from '../firstmatrix/firstmatrix.entity';
-import { FirstmatrixRepository } from '../firstmatrix/firstmatrix.repository';
-import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
-import { SecondmatrixRepository } from '../secondmatrix/secondmatrix.repository';
+import { StoreRepository } from '../store/store.repository';
+import { Store } from '../store/store.entity';
 
 @Injectable()
 export class UserService {
@@ -27,22 +25,21 @@ export class UserService {
     private orderRepository: OrderRepository,
     @InjectRepository(Affiliate) 
     private affiliateRepository: AffiliateRepository, 
-    @InjectRepository(Firstmatrix) 
-    private firstmatrixRepository: FirstmatrixRepository, 
-    @InjectRepository(Secondmatrix) 
-    private secondmatrixRepository: SecondmatrixRepository, 
+    @InjectRepository(Store) 
+    private storeRepository: StoreRepository, 
+   
   ) {}
 
   findAll(): Promise<User[]> {
     return this.userRepository.find({
-      relations: ['products', 'order', 'affiliate', 'firstmatrix', 'secondmatrix']
+      relations: ['products', 'order', 'affiliate', 'store']
     });
   }
 
   userCredential(query: object | any): Promise<User> {
     const x = this.userRepository.findOne({
       where: query,
-      relations: ['products', 'order', 'affiliate', 'firstmatrix', 'secondmatrix'],
+      relations: ['products', 'order', 'affiliate', 'store'],
     });
     return x;
   }
@@ -52,17 +49,17 @@ export class UserService {
       where: {
         id: id,
       },
-      relations: ['products', 'order', 'affiliate', 'firstmatrix', 'secondmatrix']
+      relations: ['products', 'order', 'affiliate', 'store']
     });
     return x;
   }
 
   async create(_user: CreateUserDto): Promise<User> {
     const user = new User();
+    user.role = _user.role;
     user.username = _user.username;
     user.password = _user.password;
     user.membership = _user.membership;
-    user.commission_fee = _user.commission_fee;
     user.first_name = _user.first_name;
     user.middle_name = _user.middle_name;
     user.last_name = _user.last_name;
@@ -73,12 +70,18 @@ export class UserService {
     user.state = _user.state;
     user.country = _user.country;
     user.zipcode = _user.zipcode;
-
-    if(_user.products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: _user.products_id},
+    
+    if(_user.affiliate_id) {
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: _user.affiliate_id },
       });
-      user.products = [products];
+      user.affiliate = [affiliate];
+    }
+    if(_user.store_id) {
+      const store = await this.storeRepository.findOne({
+        where: { id: _user.store_id },
+      });
+      user.store = [store];
     }
     if(_user.order_id) {
       const order = await this.orderRepository.findOne({
@@ -86,23 +89,11 @@ export class UserService {
       });
       user.order = [order];
     }
-    if(_user.affiliate_id) {
-      const affiliate = await this.affiliateRepository.findOne({
-        where: { id: _user.affiliate_id },
+    if(_user.products_id) {
+      const products = await this.productsRepository.findOne({
+        where: { id: _user.products_id },
       });
-      user.affiliate = [affiliate];
-    }
-    if(_user.firstmatrix_id) {
-      const firstmatrix = await this.firstmatrixRepository.findOne({
-        where: { id: _user.firstmatrix_id },
-      });
-      user.firstmatrix = [firstmatrix];
-    }
-    if(_user.secondmatrix_id) {
-      const secondmatrix = await this.secondmatrixRepository.findOne({
-        where: { id: _user.secondmatrix_id },
-      });
-      user.secondmatrix = [secondmatrix];
+      user.products = [products];
     }
 
     return this.userRepository.save(user);
@@ -112,10 +103,10 @@ export class UserService {
     const user = await this.findOne(id);
    
     const { 
+      role,
       username, 
       password, 
       membership,
-      commission_fee, 
       first_name, 
       middle_name, 
       last_name, 
@@ -127,15 +118,14 @@ export class UserService {
       country, 
       zipcode, 
       products_id, 
-      order_id,
+      order_id, 
       affiliate_id,
-      firstmatrix_id,
-      secondmatrix_id,
+      store_id,
      } = updateUserDto;
+    user.role = role;
     user.username = username;
     user.password = password;
     user.membership = membership;
-    user.commission_fee = commission_fee;
     user.first_name = first_name;
     user.middle_name = middle_name;
     user.last_name = last_name;
@@ -147,11 +137,17 @@ export class UserService {
     user.country = country;
     user.zipcode = zipcode;
 
-    if(products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: products_id },
+    if(affiliate_id) {
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: affiliate_id },
       });
-      user.products = [products];
+      user.affiliate = [affiliate];
+    }
+    if(store_id) {
+      const store = await this.storeRepository.findOne({
+        where: { id: store_id },
+      });
+      user.store = [store];
     }
     if(order_id) {
       const order = await this.orderRepository.findOne({
@@ -159,26 +155,14 @@ export class UserService {
       });
       user.order = [order];
     }
-    if(affiliate_id) {
-      const affiliate = await this.affiliateRepository.findOne({
-        where: { id: affiliate_id },
+    if(products_id) {
+      const products = await this.productsRepository.findOne({
+        where: { id: products_id },
       });
-      user.affiliate = [affiliate];
+      user.products = [products];
     }
-    if(firstmatrix_id) {
-      const firstmatrix = await this.firstmatrixRepository.findOne({
-        where: { id: firstmatrix_id },
-      });
-      user.firstmatrix = [firstmatrix];
-    }
-    if(secondmatrix_id) {
-      const secondmatrix = await this.secondmatrixRepository.findOne({
-        where: { id: secondmatrix_id },
-      });
-      user.secondmatrix = [secondmatrix];
-    }
-    
     return await user.save();
+    
   }
 
   async remove(id: number): Promise<void> {

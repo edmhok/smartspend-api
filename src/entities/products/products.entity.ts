@@ -6,22 +6,27 @@ import {
     JoinTable,
     BaseEntity,
     ManyToMany,
+    OneToMany,
+    ManyToOne,
+    JoinColumn,
   } from 'typeorm';
   import { User } from '../user/user.entity';
   import { Order } from '../order/order.entity';
+import { Store } from '../store/store.entity';
 
   @Entity({ name: 'products' })
   export class Products extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(() => User, (user) => user.products, { onDelete: 'CASCADE' })
-    @JoinTable()
+    @OneToMany(() => User, (user) => user.products, { onDelete: 'CASCADE' })
     user: User[];
 
-    @ManyToMany(() => Order, (order) => order.products, { onDelete: 'CASCADE' })
-    @JoinTable()
+    @OneToMany(() => Order, (order) => order.products, { onDelete: 'CASCADE' })
     order: Order[];
+
+    @OneToMany(() => Store, (store) => store.products, { onDelete: 'CASCADE' })
+    store: Store[];
 
     @Column()
     title: string;

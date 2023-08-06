@@ -11,6 +11,9 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   user_id: number;
 
   @IsInt()
+  store_id: number;
+
+  @IsInt()
   order_id: number;
 
   @IsString()

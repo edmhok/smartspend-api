@@ -12,8 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Affiliate = void 0;
 const typeorm_1 = require("typeorm");
 const user_entity_1 = require("../user/user.entity");
+const unilevel_entity_1 = require("../unilevel/unilevel.entity");
 const firstmatrix_entity_1 = require("../firstmatrix/firstmatrix.entity");
 const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
+const order_entity_1 = require("../order/order.entity");
 let Affiliate = exports.Affiliate = class Affiliate extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,33 +23,30 @@ __decorate([
     __metadata("design:type", Number)
 ], Affiliate.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.affiliate, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.OneToMany)(() => unilevel_entity_1.Unilevel, (unilevel) => unilevel.affiliate, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
-], Affiliate.prototype, "user", void 0);
+], Affiliate.prototype, "unilevel", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => firstmatrix_entity_1.Firstmatrix, (firstmatrix) => firstmatrix.affiliate, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.OneToMany)(() => firstmatrix_entity_1.Firstmatrix, (firstmatrix) => firstmatrix.affiliate, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Affiliate.prototype, "firstmatrix", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => secondmatrix_entity_1.Secondmatrix, (secondmatrix) => secondmatrix.affiliate, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.OneToMany)(() => secondmatrix_entity_1.Secondmatrix, (secondmatrix) => secondmatrix.affiliate, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Affiliate.prototype, "secondmatrix", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Affiliate.prototype, "status", void 0);
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.affiliate, { onDelete: 'CASCADE' }),
+    __metadata("design:type", Array)
+], Affiliate.prototype, "order", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", Date)
-], Affiliate.prototype, "enrolled_date", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], Affiliate.prototype, "link", void 0);
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.affiliate, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinTable)(),
+    __metadata("design:type", Array)
+], Affiliate.prototype, "user", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], Affiliate.prototype, "comment", void 0);
+], Affiliate.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

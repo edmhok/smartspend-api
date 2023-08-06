@@ -25,6 +25,10 @@ const firstmatrix_module_1 = require("./entities/firstmatrix/firstmatrix.module"
 const firstmatrix_entity_1 = require("./entities/firstmatrix/firstmatrix.entity");
 const secondmatrix_entity_1 = require("./entities/secondmatrix/secondmatrix.entity");
 const secondmatrix_module_1 = require("./entities/secondmatrix/secondmatrix.module");
+const unilevel_module_1 = require("./entities/unilevel/unilevel.module");
+const unilevel_entity_1 = require("./entities/unilevel/unilevel.entity");
+const store_module_1 = require("./entities/store/store.module");
+const store_entity_1 = require("./entities/store/store.entity");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -44,7 +48,9 @@ exports.AppModule = AppModule = __decorate([
                     user_entity_1.User,
                     products_entity_1.Products,
                     order_entity_1.Order,
+                    store_entity_1.Store,
                     affiliate_entity_1.Affiliate,
+                    unilevel_entity_1.Unilevel,
                     firstmatrix_entity_1.Firstmatrix,
                     secondmatrix_entity_1.Secondmatrix,
                 ],
@@ -56,6 +62,8 @@ exports.AppModule = AppModule = __decorate([
             products_module_1.ProductsModule,
             order_module_1.OrderModule,
             affiliate_module_1.AffiliateModule,
+            store_module_1.StoreModule,
+            unilevel_module_1.UnilevelModule,
             firstmatrix_module_1.FirstmatrixModule,
             secondmatrix_module_1.SecondmatrixModule,
         ],

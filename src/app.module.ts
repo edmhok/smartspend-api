@@ -18,6 +18,10 @@ import { FirstmatrixModule } from './entities/firstmatrix/firstmatrix.module';
 import { Firstmatrix } from './entities/firstmatrix/firstmatrix.entity';
 import { Secondmatrix } from './entities/secondmatrix/secondmatrix.entity';
 import { SecondmatrixModule } from './entities/secondmatrix/secondmatrix.module';
+import { UnilevelModule } from './entities/unilevel/unilevel.module';
+import { Unilevel } from './entities/unilevel/unilevel.entity';
+import { StoreModule } from './entities/store/store.module';
+import { Store } from './entities/store/store.entity';
 
 
 @Module({
@@ -36,7 +40,9 @@ import { SecondmatrixModule } from './entities/secondmatrix/secondmatrix.module'
         User,
         Products,
         Order,
+        Store,
         Affiliate,
+        Unilevel,
         Firstmatrix,
         Secondmatrix,
 
@@ -49,8 +55,10 @@ import { SecondmatrixModule } from './entities/secondmatrix/secondmatrix.module'
     ProductsModule,
     OrderModule,
     AffiliateModule,
+    StoreModule,
+    UnilevelModule,
     FirstmatrixModule, 
-    SecondmatrixModule,
+    SecondmatrixModule, 
   ],
   controllers: [AppController],
   providers: [AppService],

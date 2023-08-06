@@ -21,15 +21,15 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], CreateFirstmatrixDto.prototype, "secondmatrix_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateFirstmatrixDto.prototype, "user_id", void 0);
+], CreateFirstmatrixDto.prototype, "order_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreateFirstmatrixDto.prototype, "affiliate_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateFirstmatrixDto.prototype, "commission_fee", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

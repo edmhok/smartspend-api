@@ -30,9 +30,6 @@ let AffiliateController = exports.AffiliateController = class AffiliateControlle
     async findOne(id) {
         return this.affiliateService.findOne(+id);
     }
-    async findByDate(date) {
-        return this.affiliateService.findByDate(date);
-    }
     create(createAffiliateDto) {
         return this.affiliateService.create(createAffiliateDto);
     }
@@ -60,14 +57,6 @@ __decorate([
     __metadata("design:paramtypes", [Number]),
     __metadata("design:returntype", Promise)
 ], AffiliateController.prototype, "findOne", null);
-__decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
-    (0, common_1.Get)('date/:date'),
-    __param(0, (0, common_1.Param)('date')),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Date]),
-    __metadata("design:returntype", Promise)
-], AffiliateController.prototype, "findByDate", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),

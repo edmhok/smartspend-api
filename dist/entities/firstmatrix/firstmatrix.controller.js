@@ -17,13 +17,13 @@ const common_1 = require("@nestjs/common");
 const firstmatrix_service_1 = require("./firstmatrix.service");
 const create_firstmatrix_dto_1 = require("./dto/create-firstmatrix.dto");
 const update_firstmatrix_dto_1 = require("./dto/update-firstmatrix.dto");
-const user_service_1 = require("../user/user.service");
 const affiliate_service_1 = require("../affiliate/affiliate.service");
+const order_service_1 = require("../order/order.service");
 let FirstmatrixController = exports.FirstmatrixController = class FirstmatrixController {
-    constructor(firstmatrixService, affiliateService, userService) {
+    constructor(firstmatrixService, affiliateService, orderService) {
         this.firstmatrixService = firstmatrixService;
         this.affiliateService = affiliateService;
-        this.userService = userService;
+        this.orderService = orderService;
     }
     async findAll() {
         return this.firstmatrixService.findAll();
@@ -91,9 +91,9 @@ __decorate([
 exports.FirstmatrixController = FirstmatrixController = __decorate([
     (0, common_1.Controller)('firstmatrix'),
     __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => affiliate_service_1.AffiliateService))),
-    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => user_service_1.UserService))),
+    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => order_service_1.OrderService))),
     __metadata("design:paramtypes", [firstmatrix_service_1.FirstmatrixService,
         affiliate_service_1.AffiliateService,
-        user_service_1.UserService])
+        order_service_1.OrderService])
 ], FirstmatrixController);
 //# sourceMappingURL=firstmatrix.controller.js.map

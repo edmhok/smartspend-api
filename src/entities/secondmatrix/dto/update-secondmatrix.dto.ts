@@ -6,15 +6,18 @@ import { CreateSecondmatrixDto } from './create-secondmatrix.dto';
 export class UpdateSecondmatrixDto extends PartialType(CreateSecondmatrixDto){
   @IsInt()
   id: number;
-  
-  @IsInt()
-  firstmatrix_id: number;
 
   @IsInt()
-  user_id: number;
+  order_id: number;
 
   @IsInt()
   affiliate_id: number;
+
+  @IsInt()
+  level: number;
+
+  @IsInt()
+  commission_fee: number;
 
   @IsString()
   comment: string;

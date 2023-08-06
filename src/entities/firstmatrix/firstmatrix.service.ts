@@ -6,10 +6,10 @@ import { FirstmatrixRepository } from './firstmatrix.repository';
 import { CreateFirstmatrixDto } from './dto/create-firstmatrix.dto';
 import { UpdateFirstmatrixDto } from './dto/update-firstmatrix.dto';
 
-import { User } from '../user/user.entity';
-import { UserRepository } from '../user/user.repository';
 import { Affiliate } from '../affiliate/affiliate.entity';
 import { AffiliateRepository } from '../affiliate/affiliate.repository';
+import { Order } from '../order/order.entity';
+import { OrderRepository } from '../order/order.repository';
 
 @Injectable()
 export class FirstmatrixService {
@@ -18,14 +18,14 @@ export class FirstmatrixService {
     private firstmatrixRepository: FirstmatrixRepository,
     @InjectRepository(Affiliate)
     private affiliateRepository: AffiliateRepository,
-    @InjectRepository(User)
-    private userRepository: UserRepository,
+    @InjectRepository(Order)
+    private orderRepository: OrderRepository,
 
   ) {}
 
   findAll(): Promise<Firstmatrix[]> {
     return this.firstmatrixRepository.find({
-      relations: ['user'],
+      relations: ['affiliate', 'order'],
     });
   }
 
@@ -34,7 +34,7 @@ export class FirstmatrixService {
       where: {
         id : id,
       },
-      relations: ['user']
+      relations: ['affiliate', 'order']
     });
     return x;
   }
@@ -49,20 +49,22 @@ export class FirstmatrixService {
 
   async create(_firstmatrix: CreateFirstmatrixDto): Promise<Firstmatrix> {
     const firstmatrix = new Firstmatrix();
+    firstmatrix.commission_fee = _firstmatrix.commission_fee;
     firstmatrix.comment = _firstmatrix.comment;
 
-    if(_firstmatrix.user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: _firstmatrix.user_id},
-      });
-      firstmatrix.user = [user];
-    }
     if(_firstmatrix.affiliate_id) {
-        const affiliate = await this.affiliateRepository.findOne({
-          where: { id: _firstmatrix.affiliate_id},
-        });
-        firstmatrix.affiliate = [affiliate];
-      }
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: _firstmatrix.affiliate_id},
+      });
+      firstmatrix.affiliate = [affiliate];
+    }
+    if(_firstmatrix.order_id) {
+      const order = await this.orderRepository.findOne({
+        where: { id: _firstmatrix.order_id},
+      });
+      firstmatrix.order = [order];
+    }
+  
     return this.firstmatrixRepository.save(firstmatrix);
   }
 
@@ -72,21 +74,22 @@ export class FirstmatrixService {
   ): Promise<Firstmatrix> {
     const firstmatrix = await this.findOne(id);
     
-    const { comment, user_id, affiliate_id } = updateFirstmatrixDto;
+    const { commission_fee, comment, affiliate_id, order_id } = updateFirstmatrixDto;
+    firstmatrix.commission_fee = commission_fee;
     firstmatrix.comment = comment;
 
-    if(user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: user_id },
-      });
-      firstmatrix.user = [user];
-    }
     if(affiliate_id) {
-        const affiliate = await this.affiliateRepository.findOne({
-          where: { id: affiliate_id },
-        });
-        firstmatrix.affiliate = [affiliate];
-      }
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: affiliate_id },
+      });
+      firstmatrix.affiliate = [affiliate];
+    }
+    if(order_id) {
+      const order = await this.orderRepository.findOne({
+        where: { id: order_id },
+      });
+      firstmatrix.order = [order];
+    }
     return await firstmatrix.save();
   }
 

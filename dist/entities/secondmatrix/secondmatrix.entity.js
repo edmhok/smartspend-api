@@ -11,9 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Secondmatrix = void 0;
 const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../user/user.entity");
 const affiliate_entity_1 = require("../affiliate/affiliate.entity");
-const firstmatrix_entity_1 = require("../firstmatrix/firstmatrix.entity");
+const order_entity_1 = require("../order/order.entity");
 let Secondmatrix = exports.Secondmatrix = class Secondmatrix extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,20 +20,21 @@ __decorate([
     __metadata("design:type", Number)
 ], Secondmatrix.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => firstmatrix_entity_1.Firstmatrix, (firstmatrix) => firstmatrix.secondmatrix, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.secondmatrix, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
-], Secondmatrix.prototype, "firstmatrix", void 0);
+], Secondmatrix.prototype, "order", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.secondmatrix, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Array)
-], Secondmatrix.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => affiliate_entity_1.Affiliate, (affiliate) => affiliate.secondmatrix, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.OneToMany)(() => affiliate_entity_1.Affiliate, (affiliate) => affiliate.secondmatrix, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Secondmatrix.prototype, "affiliate", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Secondmatrix.prototype, "level", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Secondmatrix.prototype, "commission_fee", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

@@ -17,19 +17,19 @@ const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
 const firstmatrix_entity_1 = require("./firstmatrix.entity");
 const firstmatrix_repository_1 = require("./firstmatrix.repository");
-const user_entity_1 = require("../user/user.entity");
-const user_repository_1 = require("../user/user.repository");
 const affiliate_entity_1 = require("../affiliate/affiliate.entity");
 const affiliate_repository_1 = require("../affiliate/affiliate.repository");
+const order_entity_1 = require("../order/order.entity");
+const order_repository_1 = require("../order/order.repository");
 let FirstmatrixService = exports.FirstmatrixService = class FirstmatrixService {
-    constructor(firstmatrixRepository, affiliateRepository, userRepository) {
+    constructor(firstmatrixRepository, affiliateRepository, orderRepository) {
         this.firstmatrixRepository = firstmatrixRepository;
         this.affiliateRepository = affiliateRepository;
-        this.userRepository = userRepository;
+        this.orderRepository = orderRepository;
     }
     findAll() {
         return this.firstmatrixRepository.find({
-            relations: ['user'],
+            relations: ['affiliate', 'order'],
         });
     }
     async findOne(id) {
@@ -37,7 +37,7 @@ let FirstmatrixService = exports.FirstmatrixService = class FirstmatrixService {
             where: {
                 id: id,
             },
-            relations: ['user']
+            relations: ['affiliate', 'order']
         });
         return x;
     }
@@ -50,36 +50,38 @@ let FirstmatrixService = exports.FirstmatrixService = class FirstmatrixService {
     }
     async create(_firstmatrix) {
         const firstmatrix = new firstmatrix_entity_1.Firstmatrix();
+        firstmatrix.commission_fee = _firstmatrix.commission_fee;
         firstmatrix.comment = _firstmatrix.comment;
-        if (_firstmatrix.user_id) {
-            const user = await this.userRepository.findOne({
-                where: { id: _firstmatrix.user_id },
-            });
-            firstmatrix.user = [user];
-        }
         if (_firstmatrix.affiliate_id) {
             const affiliate = await this.affiliateRepository.findOne({
                 where: { id: _firstmatrix.affiliate_id },
             });
             firstmatrix.affiliate = [affiliate];
         }
+        if (_firstmatrix.order_id) {
+            const order = await this.orderRepository.findOne({
+                where: { id: _firstmatrix.order_id },
+            });
+            firstmatrix.order = [order];
+        }
         return this.firstmatrixRepository.save(firstmatrix);
     }
     async update(id, updateFirstmatrixDto) {
         const firstmatrix = await this.findOne(id);
-        const { comment, user_id, affiliate_id } = updateFirstmatrixDto;
+        const { commission_fee, comment, affiliate_id, order_id } = updateFirstmatrixDto;
+        firstmatrix.commission_fee = commission_fee;
         firstmatrix.comment = comment;
-        if (user_id) {
-            const user = await this.userRepository.findOne({
-                where: { id: user_id },
-            });
-            firstmatrix.user = [user];
-        }
         if (affiliate_id) {
             const affiliate = await this.affiliateRepository.findOne({
                 where: { id: affiliate_id },
             });
             firstmatrix.affiliate = [affiliate];
+        }
+        if (order_id) {
+            const order = await this.orderRepository.findOne({
+                where: { id: order_id },
+            });
+            firstmatrix.order = [order];
         }
         return await firstmatrix.save();
     }
@@ -91,9 +93,9 @@ exports.FirstmatrixService = FirstmatrixService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(firstmatrix_entity_1.Firstmatrix)),
     __param(1, (0, typeorm_1.InjectRepository)(affiliate_entity_1.Affiliate)),
-    __param(2, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
+    __param(2, (0, typeorm_1.InjectRepository)(order_entity_1.Order)),
     __metadata("design:paramtypes", [firstmatrix_repository_1.FirstmatrixRepository,
         affiliate_repository_1.AffiliateRepository,
-        user_repository_1.UserRepository])
+        order_repository_1.OrderRepository])
 ], FirstmatrixService);
 //# sourceMappingURL=firstmatrix.service.js.map

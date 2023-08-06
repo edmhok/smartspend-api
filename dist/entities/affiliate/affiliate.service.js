@@ -26,30 +26,21 @@ let AffiliateService = exports.AffiliateService = class AffiliateService {
     }
     findAll() {
         return this.affiliateRepository.find({
-            relations: ['user'],
+            relations: ['user']
         });
     }
     async findOne(id) {
-        const x = this.affiliateRepository.findOne({
+        const getOnebyId = this.affiliateRepository.findOne({
             where: {
                 id: id,
             },
             relations: ['user']
         });
-        return x;
-    }
-    async findByDate(enrolled_date) {
-        return await this.affiliateRepository.find({
-            where: {
-                enrolled_date,
-            },
-        });
+        return getOnebyId;
     }
     async create(_affiliate) {
         const affiliate = new affiliate_entity_1.Affiliate();
-        affiliate.enrolled_date = _affiliate.enrolled_date;
-        affiliate.link = _affiliate.link;
-        affiliate.comment = _affiliate.comment;
+        affiliate.name = _affiliate.name;
         if (_affiliate.user_id) {
             const user = await this.userRepository.findOne({
                 where: { id: _affiliate.user_id },
@@ -60,10 +51,8 @@ let AffiliateService = exports.AffiliateService = class AffiliateService {
     }
     async update(id, updateAffiliateDto) {
         const affiliate = await this.findOne(id);
-        const { enrolled_date, link, comment, user_id } = updateAffiliateDto;
-        affiliate.enrolled_date = enrolled_date;
-        affiliate.link = link;
-        affiliate.comment = comment;
+        const { name, user_id } = updateAffiliateDto;
+        affiliate.name = name;
         if (user_id) {
             const user = await this.userRepository.findOne({
                 where: { id: user_id },

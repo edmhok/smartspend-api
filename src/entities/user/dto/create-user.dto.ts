@@ -6,19 +6,19 @@ export class CreateUserDto {
     id: number;
 
     @IsOptional()
-    firstmatrix_id: number;
-
-    @IsOptional()
-    secondmatrix_id: number;
-
-    @IsOptional()
     affiliate_id: number;
+
+    @IsInt()
+    store_id: number;
 
     @IsOptional()
     products_id: number;
 
     @IsOptional()
     order_id: number;
+
+    @IsString()
+    role: string;
 
     @IsString()
     username: string;
@@ -28,9 +28,6 @@ export class CreateUserDto {
 
     @IsOptional()
     membership: string;
-
-    @IsOptional()
-    commission_fee: number;
 
     @IsOptional()
     first_name: string;

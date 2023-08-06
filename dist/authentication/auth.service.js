@@ -44,14 +44,14 @@ let AuthService = exports.AuthService = class AuthService {
         return null;
     }
     async login(user) {
-        var _a;
+        var _a, _b;
         const payload = {
             userPayload: {
                 id: user.user.id,
+                role: user.user.role,
                 username: user.user.username,
                 password: user.user.password,
                 membership: user.user.membership,
-                commission_fee: user.user.commission_fee,
                 first_name: user.user.first_name,
                 middle_name: user.user.middle_name,
                 last_name: user.user.last_name,
@@ -67,6 +67,7 @@ let AuthService = exports.AuthService = class AuthService {
         return {
             access_token: this.jwtService.sign(payload),
             affiliate_id: (_a = user.user.affiliate) === null || _a === void 0 ? void 0 : _a.id,
+            store_id: (_b = user.user.store) === null || _b === void 0 ? void 0 : _b.id,
         };
     }
     async create(data) {

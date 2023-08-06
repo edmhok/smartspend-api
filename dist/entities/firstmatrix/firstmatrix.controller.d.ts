@@ -1,13 +1,13 @@
 import { FirstmatrixService } from './firstmatrix.service';
 import { CreateFirstmatrixDto } from './dto/create-firstmatrix.dto';
 import { UpdateFirstmatrixDto } from './dto/update-firstmatrix.dto';
-import { UserService } from '../user/user.service';
 import { AffiliateService } from '../affiliate/affiliate.service';
+import { OrderService } from '../order/order.service';
 export declare class FirstmatrixController {
     private firstmatrixService;
     private readonly affiliateService;
-    private readonly userService;
-    constructor(firstmatrixService: FirstmatrixService, affiliateService: AffiliateService, userService: UserService);
+    private readonly orderService;
+    constructor(firstmatrixService: FirstmatrixService, affiliateService: AffiliateService, orderService: OrderService);
     findAll(): Promise<import("./firstmatrix.entity").Firstmatrix[]>;
     findOne(id: number): Promise<import("./firstmatrix.entity").Firstmatrix>;
     findByDate(date: Date): Promise<import("./firstmatrix.entity").Firstmatrix[]>;

@@ -1,10 +1,12 @@
 import { BaseEntity } from 'typeorm';
 import { User } from '../user/user.entity';
 import { Order } from '../order/order.entity';
+import { Store } from '../store/store.entity';
 export declare class Products extends BaseEntity {
     id: number;
     user: User[];
     order: Order[];
+    store: Store[];
     title: string;
     type: string;
     sku: string;

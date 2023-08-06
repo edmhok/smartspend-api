@@ -8,19 +8,19 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     id: number;
 
     @IsInt()
-    firstmatrix_id: number;
+    affiliate_id: number;
 
     @IsInt()
-    secondmatrix_id: number;
-    
-    @IsInt()
-    affiliate_id: number;
+    store_id: number;
     
     @IsInt()
     products_id: number;
 
     @IsInt()
     order_id: number;
+
+    @IsString()
+    role: string;
 
     @IsString()
     username: string;
@@ -30,9 +30,6 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
 
     @IsString()
     membership: string;
-
-    @IsInt()
-    commission_fee: number;
 
     @IsString()
     first_name: string;

@@ -9,6 +9,9 @@ export class CreateProductsDto {
   user_id: number;
 
   @IsInt()
+  store_id: number;
+
+  @IsInt()
   order_id: number;
   
   @IsString()

@@ -41,16 +41,15 @@ let OrderService = exports.OrderService = class OrderService {
         });
         return x;
     }
-    async findByDate(date) {
+    async findByDate(createdAt) {
         return await this.orderRepository.find({
             where: {
-                date
+                createdAt
             },
         });
     }
     async create(_order) {
         const order = new order_entity_1.Order();
-        order.date = _order.date;
         order.status = _order.status;
         order.item_subtotal = _order.item_subtotal;
         order.item_qty = _order.item_qty;
@@ -77,7 +76,6 @@ let OrderService = exports.OrderService = class OrderService {
     async update(id, updateOrderDto) {
         const order = await this.findOne(id);
         const { date, status, item_subtotal, item_qty, discount, shipping, shipping_fee, isPaid, payment_method, tracking, user_id, products_id } = updateOrderDto;
-        order.date = date;
         order.status = status;
         order.item_subtotal = item_subtotal;
         order.item_qty = item_qty;

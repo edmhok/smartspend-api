@@ -23,15 +23,11 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], UpdateUserDto.prototype, "firstmatrix_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], UpdateUserDto.prototype, "secondmatrix_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "affiliate_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], UpdateUserDto.prototype, "store_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
@@ -40,6 +36,10 @@ __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], UpdateUserDto.prototype, "order_id", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], UpdateUserDto.prototype, "role", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
@@ -52,10 +52,6 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], UpdateUserDto.prototype, "membership", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], UpdateUserDto.prototype, "commission_fee", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

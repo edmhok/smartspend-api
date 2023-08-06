@@ -23,15 +23,19 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], UpdateSecondmatrixDto.prototype, "firstmatrix_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], UpdateSecondmatrixDto.prototype, "user_id", void 0);
+], UpdateSecondmatrixDto.prototype, "order_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], UpdateSecondmatrixDto.prototype, "affiliate_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], UpdateSecondmatrixDto.prototype, "level", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], UpdateSecondmatrixDto.prototype, "commission_fee", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

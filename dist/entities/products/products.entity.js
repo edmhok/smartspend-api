@@ -13,6 +13,7 @@ exports.Products = void 0;
 const typeorm_1 = require("typeorm");
 const user_entity_1 = require("../user/user.entity");
 const order_entity_1 = require("../order/order.entity");
+const store_entity_1 = require("../store/store.entity");
 let Products = exports.Products = class Products extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -20,15 +21,17 @@ __decorate([
     __metadata("design:type", Number)
 ], Products.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.products, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.OneToMany)(() => user_entity_1.User, (user) => user.products, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Products.prototype, "user", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => order_entity_1.Order, (order) => order.products, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.OneToMany)(() => order_entity_1.Order, (order) => order.products, { onDelete: 'CASCADE' }),
     __metadata("design:type", Array)
 ], Products.prototype, "order", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => store_entity_1.Store, (store) => store.products, { onDelete: 'CASCADE' }),
+    __metadata("design:type", Array)
+], Products.prototype, "store", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

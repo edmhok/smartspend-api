@@ -22,14 +22,13 @@ const user_entity_1 = require("../entities/user/user.entity");
 const products_entity_1 = require("../entities/products/products.entity");
 const order_entity_1 = require("../entities/order/order.entity");
 const affiliate_entity_1 = require("../entities/affiliate/affiliate.entity");
-const firstmatrix_entity_1 = require("../entities/firstmatrix/firstmatrix.entity");
-const secondmatrix_entity_1 = require("../entities/secondmatrix/secondmatrix.entity");
+const store_entity_1 = require("../entities/store/store.entity");
 let AuthModule = exports.AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, products_entity_1.Products, order_entity_1.Order, affiliate_entity_1.Affiliate, firstmatrix_entity_1.Firstmatrix, secondmatrix_entity_1.Secondmatrix]),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User, store_entity_1.Store, affiliate_entity_1.Affiliate, order_entity_1.Order, products_entity_1.Products]),
             user_entity_1.User,
             user_module_1.UserModule,
             passport_1.PassportModule,

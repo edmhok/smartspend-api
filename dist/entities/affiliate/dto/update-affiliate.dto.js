@@ -27,6 +27,10 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
+], UpdateAffiliateDto.prototype, "unilevel_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
 ], UpdateAffiliateDto.prototype, "firstmatrix_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
@@ -35,19 +39,7 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], UpdateAffiliateDto.prototype, "status", void 0);
-__decorate([
-    (0, class_validator_1.IsDate)(),
-    __metadata("design:type", Date)
-], UpdateAffiliateDto.prototype, "enrolled_date", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], UpdateAffiliateDto.prototype, "link", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], UpdateAffiliateDto.prototype, "comment", void 0);
+], UpdateAffiliateDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)

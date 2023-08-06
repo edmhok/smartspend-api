@@ -8,7 +8,6 @@ export declare class AffiliateController {
     constructor(affiliateService: AffiliateService, userService: UserService);
     findAll(): Promise<import("./affiliate.entity").Affiliate[]>;
     findOne(id: number): Promise<import("./affiliate.entity").Affiliate>;
-    findByDate(date: Date): Promise<import("./affiliate.entity").Affiliate[]>;
     create(createAffiliateDto: CreateAffiliateDto): Promise<import("./affiliate.entity").Affiliate>;
     update(id: number, updateAffiliateDto: UpdateAffiliateDto): string;
     remove(id: number): string;

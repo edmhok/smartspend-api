@@ -16,13 +16,23 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 import { ProductsService } from '../products/products.service';
+import { OrderService } from '../order/order.service';
+import { AffiliateService } from '../affiliate/affiliate.service';
+import { StoreService } from '../store/store.service';
+
 
 @Controller('users')
 export class UserController {
   constructor(
     private userService: UserService,
+    @Inject(forwardRef(() => AffiliateService))
+    private readonly affiliateService: AffiliateService,
     @Inject(forwardRef(() => ProductsService))
     private readonly productsService: ProductsService,
+    @Inject(forwardRef(() => OrderService))
+    private readonly orderService: OrderService,
+    @Inject(forwardRef(() => StoreService))
+    private readonly storeService: StoreService,
   ) {}
   
   @UseGuards(JwtAuthGuard)

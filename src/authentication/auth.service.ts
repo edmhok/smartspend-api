@@ -27,10 +27,10 @@ export class AuthService {
     const payload = {
       userPayload: {
       id: user.user.id,
+      role: user.user.role,
       username: user.user.username,
       password: user.user.password,
       membership : user.user.membership,
-      commission_fee: user.user.commission_fee,
       first_name: user.user.first_name,
       middle_name: user.user.middle_name,
       last_name : user.user.last_name,
@@ -41,13 +41,12 @@ export class AuthService {
       state: user.user.state,
       country: user.user.country,
       zipcode: user.user.zipcode,
-       
       },
     };
     return {
       access_token: this.jwtService.sign(payload),
       affiliate_id: user.user.affiliate?.id,
-      // order_id: user.user.order?.id,
+      store_id: user.user.store?.id,
 
     };
   }

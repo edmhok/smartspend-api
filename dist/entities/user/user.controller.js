@@ -19,10 +19,16 @@ const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const jwt_auth_guard_1 = require("../../authentication/guard/jwt-auth.guard");
 const products_service_1 = require("../products/products.service");
+const order_service_1 = require("../order/order.service");
+const affiliate_service_1 = require("../affiliate/affiliate.service");
+const store_service_1 = require("../store/store.service");
 let UserController = exports.UserController = class UserController {
-    constructor(userService, productsService) {
+    constructor(userService, affiliateService, productsService, orderService, storeService) {
         this.userService = userService;
+        this.affiliateService = affiliateService;
         this.productsService = productsService;
+        this.orderService = orderService;
+        this.storeService = storeService;
     }
     async fillAll() {
         return this.userService.findAll();
@@ -96,8 +102,14 @@ __decorate([
 ], UserController.prototype, "remove", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('users'),
-    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => products_service_1.ProductsService))),
+    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => affiliate_service_1.AffiliateService))),
+    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => products_service_1.ProductsService))),
+    __param(3, (0, common_1.Inject)((0, common_1.forwardRef)(() => order_service_1.OrderService))),
+    __param(4, (0, common_1.Inject)((0, common_1.forwardRef)(() => store_service_1.StoreService))),
     __metadata("design:paramtypes", [user_service_1.UserService,
-        products_service_1.ProductsService])
+        affiliate_service_1.AffiliateService,
+        products_service_1.ProductsService,
+        order_service_1.OrderService,
+        store_service_1.StoreService])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

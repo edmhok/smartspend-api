@@ -9,7 +9,6 @@ export declare class AffiliateService {
     constructor(affiliateRepository: AffiliateRepository, userRepository: UserRepository);
     findAll(): Promise<Affiliate[]>;
     findOne(id: number): Promise<Affiliate>;
-    findByDate(enrolled_date: Date): Promise<Affiliate[]>;
     create(_affiliate: CreateAffiliateDto): Promise<Affiliate>;
     update(id: number, updateAffiliateDto: UpdateAffiliateDto): Promise<Affiliate>;
     remove(id: number): Promise<void>;

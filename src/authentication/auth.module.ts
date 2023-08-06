@@ -16,10 +16,13 @@ import { Order } from 'src/entities/order/order.entity';
 import { Affiliate } from 'src/entities/affiliate/affiliate.entity';
 import { Firstmatrix } from 'src/entities/firstmatrix/firstmatrix.entity';
 import { Secondmatrix } from 'src/entities/secondmatrix/secondmatrix.entity';
+import { Store } from 'src/entities/store/store.entity';
+import { StoreModule } from 'src/entities/store/store.module';
+import { AffiliateModule } from 'src/entities/affiliate/affiliate.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Products, Order, Affiliate, Firstmatrix, Secondmatrix ]),
+    TypeOrmModule.forFeature([User, Store, Affiliate, Order, Products]),
     User,
     UserModule,
     PassportModule,

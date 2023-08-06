@@ -3,12 +3,12 @@ import { ProductsRepository } from './products.repository';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
 import { UserRepository } from '../user/user.repository';
-import { OrderRepository } from '../order/order.repository';
+import { StoreRepository } from '../store/store.repository';
 export declare class ProductsService {
     private productsRepository;
-    private orderRepository;
     private userRepository;
-    constructor(productsRepository: ProductsRepository, orderRepository: OrderRepository, userRepository: UserRepository);
+    private storeRepository;
+    constructor(productsRepository: ProductsRepository, userRepository: UserRepository, storeRepository: StoreRepository);
     findAll(): Promise<Products[]>;
     findOne(id: number): Promise<Products>;
     findByDate(createdAt: Date): Promise<Products[]>;

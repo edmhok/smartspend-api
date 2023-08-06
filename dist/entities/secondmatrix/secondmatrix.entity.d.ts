@@ -1,12 +1,12 @@
 import { BaseEntity } from 'typeorm';
-import { User } from '../user/user.entity';
 import { Affiliate } from '../affiliate/affiliate.entity';
-import { Firstmatrix } from '../firstmatrix/firstmatrix.entity';
+import { Order } from '../order/order.entity';
 export declare class Secondmatrix extends BaseEntity {
     id: number;
-    firstmatrix: Firstmatrix[];
-    user: User[];
+    order: Order[];
     affiliate: Affiliate[];
+    level: number;
+    commission_fee: number;
     comment: string;
     createdAt: Date;
 }

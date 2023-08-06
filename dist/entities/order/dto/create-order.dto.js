@@ -25,6 +25,18 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
+], CreateOrderDto.prototype, "unilevel_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateOrderDto.prototype, "firstmatrix_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateOrderDto.prototype, "secondmatrix_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
 ], CreateOrderDto.prototype, "products_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),

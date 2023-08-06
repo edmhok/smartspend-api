@@ -14,18 +14,12 @@ import {
   import { SecondmatrixService } from './secondmatrix.service';
   import { CreateSecondmatrixDto } from './dto/create-secondmatrix.dto';
   import { UpdateSecondmatrixDto } from './dto/update-secondmatrix.dto';
-  import { FirstmatrixService } from '../firstmatrix/firstmatrix.service';
   import { UserService } from '../user/user.service';
-  import { AffiliateService } from '../affiliate/affiliate.service';
   
   @Controller('secondmatrix')
   export class SecondmatrixController {
     constructor(
       private secondmatrixService: SecondmatrixService,
-      @Inject(forwardRef(() => FirstmatrixService))
-      private readonly firstmatrixService: FirstmatrixService,
-      @Inject(forwardRef(() => AffiliateService))
-      private readonly affiliateService: AffiliateService,
       @Inject(forwardRef(() => UserService))
       private readonly userService: UserService,
     ) {}

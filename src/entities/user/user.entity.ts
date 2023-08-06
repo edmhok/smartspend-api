@@ -3,36 +3,40 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn,
+    JoinColumn,
     ManyToMany,
     JoinTable,
     BaseEntity,
+    ManyToOne,
+    OneToMany,
   } from 'typeorm';
 import { Products } from '../products/products.entity';
+import { Store } from '../store/store.entity';
 import { Order } from '../order/order.entity';
 import { Affiliate } from '../affiliate/affiliate.entity';
-import { Firstmatrix } from '../firstmatrix/firstmatrix.entity';
-import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
-  
+import { IsPhoneNumber } from '@nestjs/class-validator';
+
 @Entity({ name: 'user' })
   export class User extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(() => Firstmatrix, (firstmatrix) => firstmatrix.user, { onDelete: 'CASCADE' })
-    firstmatrix: Firstmatrix[];
-
-    @ManyToMany(() => Secondmatrix, (secondmatrix) => secondmatrix.user, { onDelete: 'CASCADE' })
-    secondmatrix: Secondmatrix[];
-
     @ManyToMany(() => Affiliate, (affiliate) => affiliate.user, { onDelete: 'CASCADE' })
-    @JoinTable()
     affiliate: Affiliate[];
 
-    @ManyToMany(() => Products, (products) => products.user, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Products, (products) => products.user, { onDelete: 'CASCADE' })
+    @JoinColumn()
     products: Products[];
 
-    @ManyToMany(() => Order, (order) => order.user, { onDelete: 'CASCADE' })
+    @ManyToOne(() => Order, (order) => order.user, { onDelete: 'CASCADE' })
+    @JoinColumn()
     order: Order[];
+
+    @ManyToMany(() => Store, (store) => store.user, { onDelete: 'CASCADE' })
+    store: Store[];
+
+    @Column()
+    role: string;
 
     @Column()
     username: string;
@@ -42,9 +46,6 @@ import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
 
     @Column()
     membership: string;
-
-    @Column()
-    commission_fee: number;
 
     @Column()
     first_name: string;
@@ -59,6 +60,7 @@ import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
     birthdate: Date;
 
     @Column()
+    @IsPhoneNumber()
     phone: number;
 
     @Column()
@@ -81,3 +83,5 @@ import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
 
 
   }
+
+

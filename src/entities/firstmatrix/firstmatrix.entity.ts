@@ -6,29 +6,31 @@ import {
     JoinTable,
     BaseEntity,
     ManyToMany,
+    JoinColumn,
+    OneToMany,
+    ManyToOne,
   } from 'typeorm';
-import { User } from '../user/user.entity';
 import { Affiliate } from '../affiliate/affiliate.entity';
-import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
+import { Order } from '../order/order.entity';
 
   @Entity({ name: 'firstmatrix' })
   export class Firstmatrix extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @ManyToMany(() => Secondmatrix, (secondmatrix) => secondmatrix.firstmatrix, { onDelete: 'CASCADE' })
-    secondmatrix: Secondmatrix[];
-
-    @ManyToMany(() => User, (user) => user.firstmatrix, { onDelete: 'CASCADE' })
-    @JoinTable()
-    user: User[];
+    @ManyToOne(() => Order, (order) => order.firstmatrix, { onDelete: 'CASCADE' })
+    @JoinColumn()
+    order: Order[];
   
-    @ManyToMany(() => Affiliate, (affiliate) => affiliate.firstmatrix, { onDelete: 'CASCADE' })
-    @JoinTable()
+    @ManyToOne(() => Affiliate, (affiliate) => affiliate.firstmatrix, { onDelete: 'CASCADE' })
+    @JoinColumn()
     affiliate: Affiliate[];
   
     @Column()
     comment: string;
+
+    @Column()
+    commission_fee: number;
 
     @CreateDateColumn()
     createdAt: Date;

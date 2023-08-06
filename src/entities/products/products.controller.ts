@@ -15,7 +15,7 @@ import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
 import { UserService } from '../user/user.service';
-import { OrderService } from '../order/order.service';
+import { StoreService } from '../store/store.service';
 
 @Controller('products')
 export class ProductsController {
@@ -23,8 +23,9 @@ export class ProductsController {
     private productsService: ProductsService,
     @Inject(forwardRef(() => UserService))
     private readonly userService: UserService,
-    @Inject(forwardRef(() => OrderService))
-    private readonly orderService: OrderService,
+    @Inject(forwardRef(() => StoreService))
+    private readonly storeService: StoreService,
+
     ) {}
 
     @Get()

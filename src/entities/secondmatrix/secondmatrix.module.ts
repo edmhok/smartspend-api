@@ -13,32 +13,38 @@ import { FirstmatrixRepository } from '../firstmatrix/firstmatrix.repository';
 import { UserService } from '../user/user.service';
 import { FirstmatrixService } from '../firstmatrix/firstmatrix.service';
 import { AffiliateService } from '../affiliate/affiliate.service';
-import { ProductsRepository } from '../products/products.repository';
+import { Unilevel } from '../unilevel/unilevel.entity';
+import { UnilevelRepository } from '../unilevel/unilevel.repository';
+import { UnilevelService } from '../unilevel/unilevel.service';
+import { StoreRepository } from '../store/store.repository';
+import { Store } from '../store/store.entity';
 import { Products } from '../products/products.entity';
-import { ProductsService } from '../products/products.service';
+import { ProductsRepository } from '../products/products.repository';
 import { OrderRepository } from '../order/order.repository';
 import { Order } from '../order/order.entity';
-import { OrderService } from '../order/order.service';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([
       Secondmatrix,
       SecondmatrixRepository,
-      User,
-      UserRepository,
       Firstmatrix,
       FirstmatrixRepository,
+      Unilevel,
+      UnilevelRepository,
+      User,
+      UserRepository,
+      Store,
+      StoreRepository,
       Affiliate,
       AffiliateRepository,
       Products,
       ProductsRepository,
       Order,
       OrderRepository
-
     ]),
   ],
   controllers: [SecondmatrixController],
-  providers: [SecondmatrixService, UserService, FirstmatrixService, AffiliateService, ProductsService, OrderService ]
+  providers: [SecondmatrixService, UserService]
 })
 export class SecondmatrixModule {}

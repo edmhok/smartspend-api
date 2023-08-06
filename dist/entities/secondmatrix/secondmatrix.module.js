@@ -20,14 +20,14 @@ const affiliate_repository_1 = require("../affiliate/affiliate.repository");
 const firstmatrix_entity_1 = require("../firstmatrix/firstmatrix.entity");
 const firstmatrix_repository_1 = require("../firstmatrix/firstmatrix.repository");
 const user_service_1 = require("../user/user.service");
-const firstmatrix_service_1 = require("../firstmatrix/firstmatrix.service");
-const affiliate_service_1 = require("../affiliate/affiliate.service");
-const products_repository_1 = require("../products/products.repository");
+const unilevel_entity_1 = require("../unilevel/unilevel.entity");
+const unilevel_repository_1 = require("../unilevel/unilevel.repository");
+const store_repository_1 = require("../store/store.repository");
+const store_entity_1 = require("../store/store.entity");
 const products_entity_1 = require("../products/products.entity");
-const products_service_1 = require("../products/products.service");
+const products_repository_1 = require("../products/products.repository");
 const order_repository_1 = require("../order/order.repository");
 const order_entity_1 = require("../order/order.entity");
-const order_service_1 = require("../order/order.service");
 let SecondmatrixModule = exports.SecondmatrixModule = class SecondmatrixModule {
 };
 exports.SecondmatrixModule = SecondmatrixModule = __decorate([
@@ -36,10 +36,14 @@ exports.SecondmatrixModule = SecondmatrixModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([
                 secondmatrix_entity_1.Secondmatrix,
                 secondmatrix_repository_1.SecondmatrixRepository,
-                user_entity_1.User,
-                user_repository_1.UserRepository,
                 firstmatrix_entity_1.Firstmatrix,
                 firstmatrix_repository_1.FirstmatrixRepository,
+                unilevel_entity_1.Unilevel,
+                unilevel_repository_1.UnilevelRepository,
+                user_entity_1.User,
+                user_repository_1.UserRepository,
+                store_entity_1.Store,
+                store_repository_1.StoreRepository,
                 affiliate_entity_1.Affiliate,
                 affiliate_repository_1.AffiliateRepository,
                 products_entity_1.Products,
@@ -49,7 +53,7 @@ exports.SecondmatrixModule = SecondmatrixModule = __decorate([
             ]),
         ],
         controllers: [secondmatrix_controller_1.SecondmatrixController],
-        providers: [secondmatrix_service_1.SecondmatrixService, user_service_1.UserService, firstmatrix_service_1.FirstmatrixService, affiliate_service_1.AffiliateService, products_service_1.ProductsService, order_service_1.OrderService]
+        providers: [secondmatrix_service_1.SecondmatrixService, user_service_1.UserService]
     })
 ], SecondmatrixModule);
 //# sourceMappingURL=secondmatrix.module.js.map

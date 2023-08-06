@@ -21,31 +21,23 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
+], CreateAffiliateDto.prototype, "user_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
+], CreateAffiliateDto.prototype, "unilevel_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
 ], CreateAffiliateDto.prototype, "firstmatrix_id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
 ], CreateAffiliateDto.prototype, "secondmatrix_id", void 0);
 __decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateAffiliateDto.prototype, "user_id", void 0);
-__decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], CreateAffiliateDto.prototype, "status", void 0);
-__decorate([
-    (0, class_validator_1.IsDate)(),
-    __metadata("design:type", Date)
-], CreateAffiliateDto.prototype, "enrolled_date", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateAffiliateDto.prototype, "link", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateAffiliateDto.prototype, "comment", void 0);
+], CreateAffiliateDto.prototype, "name", void 0);
 __decorate([
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)

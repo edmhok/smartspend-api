@@ -11,9 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Firstmatrix = void 0;
 const typeorm_1 = require("typeorm");
-const user_entity_1 = require("../user/user.entity");
 const affiliate_entity_1 = require("../affiliate/affiliate.entity");
-const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
+const order_entity_1 = require("../order/order.entity");
 let Firstmatrix = exports.Firstmatrix = class Firstmatrix extends typeorm_1.BaseEntity {
 };
 __decorate([
@@ -21,23 +20,23 @@ __decorate([
     __metadata("design:type", Number)
 ], Firstmatrix.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => secondmatrix_entity_1.Secondmatrix, (secondmatrix) => secondmatrix.firstmatrix, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, (order) => order.firstmatrix, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Array)
-], Firstmatrix.prototype, "secondmatrix", void 0);
+], Firstmatrix.prototype, "order", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.firstmatrix, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
-    __metadata("design:type", Array)
-], Firstmatrix.prototype, "user", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => affiliate_entity_1.Affiliate, (affiliate) => affiliate.firstmatrix, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinTable)(),
+    (0, typeorm_1.ManyToOne)(() => affiliate_entity_1.Affiliate, (affiliate) => affiliate.firstmatrix, { onDelete: 'CASCADE' }),
+    (0, typeorm_1.JoinColumn)(),
     __metadata("design:type", Array)
 ], Firstmatrix.prototype, "affiliate", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Firstmatrix.prototype, "comment", void 0);
+__decorate([
+    (0, typeorm_1.Column)(),
+    __metadata("design:type", Number)
+], Firstmatrix.prototype, "commission_fee", void 0);
 __decorate([
     (0, typeorm_1.CreateDateColumn)(),
     __metadata("design:type", Date)

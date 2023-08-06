@@ -27,6 +27,10 @@ __decorate([
 __decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
+], UpdateProductsDto.prototype, "store_id", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", Number)
 ], UpdateProductsDto.prototype, "order_id", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),

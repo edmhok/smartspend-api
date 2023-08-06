@@ -6,30 +6,25 @@ import { SecondmatrixRepository } from './secondmatrix.repository';
 import { CreateSecondmatrixDto } from './dto/create-secondmatrix.dto';
 import { UpdateSecondmatrixDto } from './dto/update-secondmatrix.dto';
 
-import { User } from '../user/user.entity';
-import { UserRepository } from '../user/user.repository';
 import { Affiliate } from '../affiliate/affiliate.entity';
 import { AffiliateRepository } from '../affiliate/affiliate.repository';
-import { Firstmatrix } from '../firstmatrix/firstmatrix.entity';
-import { FirstmatrixRepository } from '../firstmatrix/firstmatrix.repository';
+import { Order } from '../order/order.entity';
+import { OrderRepository } from '../order/order.repository';
 
 @Injectable()
 export class SecondmatrixService {
   constructor( 
     @InjectRepository(Secondmatrix)
     private secondmatrixRepository: SecondmatrixRepository,
-    @InjectRepository(Firstmatrix)
-    private firstmatrixRepository: FirstmatrixRepository,
     @InjectRepository(Affiliate)
     private affiliateRepository: AffiliateRepository,
-    @InjectRepository(User)
-    private userRepository: UserRepository,
-
+    @InjectRepository(Order)
+    private orderRepository: OrderRepository,
   ) {}
 
   findAll(): Promise<Secondmatrix[]> {
     return this.secondmatrixRepository.find({
-      relations: ['user','affiliate','firstmatrix'],
+      relations: ['affiliate', 'order'],
     });
   }
 
@@ -38,7 +33,7 @@ export class SecondmatrixService {
       where: {
         id : id,
       },
-      relations: ['user','affiliate', 'firstmatrix']
+      relations: ['affiliate', 'order']
     });
     return x;
   }
@@ -53,26 +48,23 @@ export class SecondmatrixService {
 
   async create(_secondmatrix: CreateSecondmatrixDto): Promise<Secondmatrix> {
     const secondmatrix = new Secondmatrix();
+    secondmatrix.level = _secondmatrix.level;
+    secondmatrix.commission_fee = _secondmatrix.commission_fee;
     secondmatrix.comment = _secondmatrix.comment;
 
-    if(_secondmatrix.user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: _secondmatrix.user_id},
-      });
-      secondmatrix.user = [user];
-    }
     if(_secondmatrix.affiliate_id) {
-        const affiliate = await this.affiliateRepository.findOne({
-          where: { id: _secondmatrix.affiliate_id},
-        });
-        secondmatrix.affiliate = [affiliate];
-      }
-      if(_secondmatrix.firstmatrix_id) {
-        const firstmatrix = await this.firstmatrixRepository.findOne({
-          where: { id: _secondmatrix.firstmatrix_id},
-        });
-        secondmatrix.firstmatrix = [firstmatrix];
-      }
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: _secondmatrix.affiliate_id},
+      });
+      secondmatrix.affiliate = [affiliate];
+    }
+    if(_secondmatrix.order_id) {
+      const order = await this.orderRepository.findOne({
+        where: { id: _secondmatrix.order_id},
+      });
+      secondmatrix.order = [order];
+    }
+   
     return this.secondmatrixRepository.save(secondmatrix);
   }
 
@@ -82,27 +74,23 @@ export class SecondmatrixService {
   ): Promise<Secondmatrix> {
     const secondmatrix = await this.findOne(id);
     
-    const { comment, user_id, affiliate_id, firstmatrix_id } = updateSecondmatrixDto;
+    const { level, commission_fee, comment, affiliate_id, order_id } = updateSecondmatrixDto;
+    secondmatrix.level = level;
+    secondmatrix.commission_fee = commission_fee;
     secondmatrix.comment = comment;
 
-    if(user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: user_id },
-      });
-      secondmatrix.user = [user];
-    }
     if(affiliate_id) {
-        const affiliate = await this.affiliateRepository.findOne({
-          where: { id: affiliate_id },
-        });
-        secondmatrix.affiliate = [affiliate];
-      }
-      if(firstmatrix_id) {
-        const firstmatrix = await this.firstmatrixRepository.findOne({
-          where: { id: firstmatrix_id },
-        });
-        secondmatrix.firstmatrix = [firstmatrix];
-      }
+      const affiliate = await this.affiliateRepository.findOne({
+        where: { id: affiliate_id },
+      });
+      secondmatrix.affiliate = [affiliate];
+    }
+    if(order_id) {
+      const order = await this.orderRepository.findOne({
+        where: { id: order_id },
+      });
+      secondmatrix.order = [order];
+    }
     return await secondmatrix.save();
   }
 

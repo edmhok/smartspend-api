@@ -11,11 +11,12 @@ import {
     Request,
     UseGuards,
   } from '@nestjs/common';
-  import { FirstmatrixService } from './firstmatrix.service';
-  import { CreateFirstmatrixDto } from './dto/create-firstmatrix.dto';
-  import { UpdateFirstmatrixDto } from './dto/update-firstmatrix.dto';
-  import { UserService } from '../user/user.service';
-  import { AffiliateService } from '../affiliate/affiliate.service';
+import { FirstmatrixService } from './firstmatrix.service';
+import { CreateFirstmatrixDto } from './dto/create-firstmatrix.dto';
+import { UpdateFirstmatrixDto } from './dto/update-firstmatrix.dto';
+import { UserService } from '../user/user.service';
+import { AffiliateService } from '../affiliate/affiliate.service';
+import { OrderService } from '../order/order.service';
   
   @Controller('firstmatrix')
   export class FirstmatrixController {
@@ -23,8 +24,8 @@ import {
       private firstmatrixService: FirstmatrixService,
       @Inject(forwardRef(() => AffiliateService))
       private readonly affiliateService: AffiliateService,
-      @Inject(forwardRef(() => UserService))
-      private readonly userService: UserService,
+      @Inject(forwardRef(() => OrderService))
+      private readonly orderService: OrderService,
     ) {}
     
     @Get()

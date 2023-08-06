@@ -13,21 +13,22 @@ const firstmatrix_entity_1 = require("./firstmatrix.entity");
 const firstmatrix_repository_1 = require("./firstmatrix.repository");
 const firstmatrix_service_1 = require("./firstmatrix.service");
 const firstmatrix_controller_1 = require("./firstmatrix.controller");
-const user_entity_1 = require("../user/user.entity");
-const user_repository_1 = require("../user/user.repository");
 const affiliate_entity_1 = require("../affiliate/affiliate.entity");
 const affiliate_repository_1 = require("../affiliate/affiliate.repository");
-const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
-const secondmatrix_repository_1 = require("../secondmatrix/secondmatrix.repository");
-const secondmatrix_service_1 = require("../secondmatrix/secondmatrix.service");
-const user_service_1 = require("../user/user.service");
 const affiliate_service_1 = require("../affiliate/affiliate.service");
-const products_entity_1 = require("../products/products.entity");
-const products_repository_1 = require("../products/products.repository");
-const products_service_1 = require("../products/products.service");
 const order_entity_1 = require("../order/order.entity");
 const order_repository_1 = require("../order/order.repository");
 const order_service_1 = require("../order/order.service");
+const unilevel_entity_1 = require("../unilevel/unilevel.entity");
+const unilevel_repository_1 = require("../unilevel/unilevel.repository");
+const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
+const secondmatrix_repository_1 = require("../secondmatrix/secondmatrix.repository");
+const user_repository_1 = require("../user/user.repository");
+const user_entity_1 = require("../user/user.entity");
+const store_entity_1 = require("../store/store.entity");
+const store_repository_1 = require("../store/store.repository");
+const products_entity_1 = require("../products/products.entity");
+const products_repository_1 = require("../products/products.repository");
 let FirstmatrixModule = exports.FirstmatrixModule = class FirstmatrixModule {
 };
 exports.FirstmatrixModule = FirstmatrixModule = __decorate([
@@ -36,20 +37,24 @@ exports.FirstmatrixModule = FirstmatrixModule = __decorate([
             typeorm_1.TypeOrmModule.forFeature([
                 firstmatrix_entity_1.Firstmatrix,
                 firstmatrix_repository_1.FirstmatrixRepository,
+                unilevel_entity_1.Unilevel,
+                unilevel_repository_1.UnilevelRepository,
+                secondmatrix_entity_1.Secondmatrix,
+                secondmatrix_repository_1.SecondmatrixRepository,
                 user_entity_1.User,
                 user_repository_1.UserRepository,
                 affiliate_entity_1.Affiliate,
                 affiliate_repository_1.AffiliateRepository,
-                secondmatrix_entity_1.Secondmatrix,
-                secondmatrix_repository_1.SecondmatrixRepository,
-                products_entity_1.Products,
-                products_repository_1.ProductsRepository,
+                store_entity_1.Store,
+                store_repository_1.StoreRepository,
                 order_entity_1.Order,
                 order_repository_1.OrderRepository,
+                products_entity_1.Products,
+                products_repository_1.ProductsRepository,
             ]),
         ],
         controllers: [firstmatrix_controller_1.FirstmatrixController],
-        providers: [firstmatrix_service_1.FirstmatrixService, secondmatrix_service_1.SecondmatrixService, user_service_1.UserService, affiliate_service_1.AffiliateService, products_service_1.ProductsService, order_service_1.OrderService]
+        providers: [firstmatrix_service_1.FirstmatrixService, order_service_1.OrderService, affiliate_service_1.AffiliateService]
     })
 ], FirstmatrixModule);
 //# sourceMappingURL=firstmatrix.module.js.map

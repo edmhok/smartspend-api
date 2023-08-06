@@ -22,12 +22,15 @@ const order_service_1 = require("../order/order.service");
 const affiliate_repository_1 = require("../affiliate/affiliate.repository");
 const affiliate_entity_1 = require("../affiliate/affiliate.entity");
 const affiliate_service_1 = require("../affiliate/affiliate.service");
-const firstmatrix_repository_1 = require("../firstmatrix/firstmatrix.repository");
+const store_repository_1 = require("../store/store.repository");
+const store_entity_1 = require("../store/store.entity");
+const store_service_1 = require("../store/store.service");
 const firstmatrix_entity_1 = require("../firstmatrix/firstmatrix.entity");
-const firstmatrix_service_1 = require("../firstmatrix/firstmatrix.service");
-const secondmatrix_repository_1 = require("../secondmatrix/secondmatrix.repository");
+const firstmatrix_repository_1 = require("../firstmatrix/firstmatrix.repository");
+const unilevel_entity_1 = require("../unilevel/unilevel.entity");
+const unilevel_repository_1 = require("../unilevel/unilevel.repository");
 const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
-const secondmatrix_service_1 = require("../secondmatrix/secondmatrix.service");
+const secondmatrix_repository_1 = require("../secondmatrix/secondmatrix.repository");
 let UserModule = exports.UserModule = class UserModule {
 };
 exports.UserModule = UserModule = __decorate([
@@ -42,6 +45,10 @@ exports.UserModule = UserModule = __decorate([
                 order_repository_1.OrderRepository,
                 affiliate_entity_1.Affiliate,
                 affiliate_repository_1.AffiliateRepository,
+                store_entity_1.Store,
+                store_repository_1.StoreRepository,
+                unilevel_entity_1.Unilevel,
+                unilevel_repository_1.UnilevelRepository,
                 firstmatrix_entity_1.Firstmatrix,
                 firstmatrix_repository_1.FirstmatrixRepository,
                 secondmatrix_entity_1.Secondmatrix,
@@ -49,7 +56,7 @@ exports.UserModule = UserModule = __decorate([
             ]),
         ],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, products_service_1.ProductsService, order_service_1.OrderService, affiliate_service_1.AffiliateService, firstmatrix_service_1.FirstmatrixService, secondmatrix_service_1.SecondmatrixService],
+        providers: [user_service_1.UserService, affiliate_service_1.AffiliateService, store_service_1.StoreService, products_service_1.ProductsService, order_service_1.OrderService],
     })
 ], UserModule);
 //# sourceMappingURL=user.module.js.map

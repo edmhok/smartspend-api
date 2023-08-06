@@ -11,7 +11,7 @@ export declare class OrderService {
     constructor(orderRepository: OrderRepository, userRepository: UserRepository, productsRepository: ProductsRepository);
     findAll(): Promise<Order[]>;
     findOne(id: number): Promise<Order>;
-    findByDate(date: Date): Promise<Order[]>;
+    findByDate(createdAt: Date): Promise<Order[]>;
     create(_order: CreateOrderDto): Promise<Order>;
     update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order>;
     remove(id: number): Promise<void>;

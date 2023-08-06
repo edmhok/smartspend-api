@@ -1,6 +1,7 @@
 export declare class CreateProductsDto {
     id: number;
     user_id: number;
+    store_id: number;
     order_id: number;
     title: string;
     type: string;

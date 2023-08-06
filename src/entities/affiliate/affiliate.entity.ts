@@ -6,36 +6,39 @@ import {
     JoinTable,
     BaseEntity,
     ManyToMany,
+    JoinColumn,
+    OneToMany,
+    ManyToOne,
   } from 'typeorm';
 import { User } from '../user/user.entity';
+import { Unilevel } from '../unilevel/unilevel.entity';
 import { Firstmatrix } from '../firstmatrix/firstmatrix.entity';
 import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
+import { Order } from '../order/order.entity';
 
   @Entity({ name: 'affiliate' })
   export class Affiliate extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
   
-    @ManyToMany(() => User, (user) => user.affiliate, { onDelete: 'CASCADE' })
-    user: User[];
+    @OneToMany(() => Unilevel, (unilevel) => unilevel.affiliate, { onDelete: 'CASCADE' })
+    unilevel: Unilevel[];
 
-    @ManyToMany(() => Firstmatrix, (firstmatrix) => firstmatrix.affiliate, { onDelete: 'CASCADE' })
+    @OneToMany(() => Firstmatrix, (firstmatrix) => firstmatrix.affiliate, { onDelete: 'CASCADE' })
     firstmatrix: Firstmatrix[];
 
-    @ManyToMany(() => Secondmatrix, (secondmatrix) => secondmatrix.affiliate, { onDelete: 'CASCADE' })
+    @OneToMany(() => Secondmatrix, (secondmatrix) => secondmatrix.affiliate, { onDelete: 'CASCADE' })
     secondmatrix: Secondmatrix[];
 
-    @Column()
-    status: string;
-    
-    @Column()
-    enrolled_date: Date;
+    @OneToMany(() => Order, (order) => order.affiliate, { onDelete: 'CASCADE' })
+    order: Order[];
+
+    @ManyToMany(() => User, (user) => user.affiliate, { onDelete: 'CASCADE' })
+    @JoinTable()
+    user: User[];
 
     @Column()
-    link: string;
-
-    @Column()
-    comment: string;
+    name: string;
 
     @CreateDateColumn()
     createdAt: Date;

@@ -38,17 +38,16 @@ export class OrderService {
     return x;
   }
 
-   async findByDate(date: Date): Promise<Order[]> {
+   async findByDate(createdAt: Date): Promise<Order[]> {
     return await this.orderRepository.find({
       where: {
-        date
+        createdAt
       },
     });
   }
 
   async create(_order: CreateOrderDto): Promise<Order> {
     const order = new Order();
-    order.date = _order.date;
     order.status = _order.status;
     order.item_subtotal = _order.item_subtotal;
     order.item_qty = _order.item_qty;
@@ -82,7 +81,6 @@ export class OrderService {
     const order = await this.findOne(id);
     
     const { date, status, item_subtotal, item_qty, discount, shipping, shipping_fee, isPaid, payment_method, tracking, user_id, products_id } = updateOrderDto;
-    order.date = date;
     order.status = status;
     order.item_subtotal = item_subtotal;
     order.item_qty = item_qty;

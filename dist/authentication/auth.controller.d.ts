@@ -6,17 +6,17 @@ export declare class AuthController {
     login(req: any): Promise<{
         access_token: string;
         affiliate_id: any;
+        store_id: any;
     }>;
     create(createUsersDto: CreateUserDto): Promise<{
         id: number;
-        firstmatrix: import("../entities/firstmatrix/firstmatrix.entity").Firstmatrix[];
-        secondmatrix: import("../entities/secondmatrix/secondmatrix.entity").Secondmatrix[];
         affiliate: import("../entities/affiliate/affiliate.entity").Affiliate[];
         products: import("../entities/products/products.entity").Products[];
         order: import("../entities/order/order.entity").Order[];
+        store: import("../entities/store/store.entity").Store[];
+        role: string;
         username: string;
         membership: string;
-        commission_fee: number;
         first_name: string;
         middle_name: string;
         last_name: string;

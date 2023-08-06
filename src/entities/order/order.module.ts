@@ -19,6 +19,10 @@ import { FirstmatrixService } from '../firstmatrix/firstmatrix.service';
 import { SecondmatrixService } from '../secondmatrix/secondmatrix.service';
 import { Secondmatrix } from '../secondmatrix/secondmatrix.entity';
 import { SecondmatrixRepository } from '../secondmatrix/secondmatrix.repository';
+import { StoreRepository } from '../store/store.repository';
+import { Store } from '../store/store.entity';
+import { UnilevelRepository } from '../unilevel/unilevel.repository';
+import { Unilevel } from '../unilevel/unilevel.entity';
 
 @Module({
   imports: [
@@ -31,13 +35,17 @@ import { SecondmatrixRepository } from '../secondmatrix/secondmatrix.repository'
       ProductsRepository,
       Affiliate,
       AffiliateRepository,
+      Unilevel,
+      UnilevelRepository,
       Firstmatrix,
       FirstmatrixRepository,
       Secondmatrix,
       SecondmatrixRepository,
+      Store,
+      StoreRepository
     ]),
   ],
   controllers: [OrderController],
-  providers: [OrderService, UserService, ProductsService, AffiliateService, FirstmatrixService, SecondmatrixService]
+  providers: [OrderService, UserService, ProductsService ]
 })
 export class OrderModule {}

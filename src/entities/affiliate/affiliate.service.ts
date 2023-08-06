@@ -12,42 +12,31 @@ import { UserRepository } from '../user/user.repository';
 @Injectable()
 export class AffiliateService {
   constructor( 
-    @InjectRepository(Affiliate)
-    private affiliateRepository: AffiliateRepository,
-    @InjectRepository(User)
-    private userRepository: UserRepository,
-
+  @InjectRepository(Affiliate)
+  private affiliateRepository: AffiliateRepository,
+  @InjectRepository(User)
+  private userRepository: UserRepository,
   ) {}
 
   findAll(): Promise<Affiliate[]> {
     return this.affiliateRepository.find({
-      relations: ['user'],
+      relations: ['user']
     });
   }
 
   async findOne(id: number): Promise<Affiliate> {
-    const x = this.affiliateRepository.findOne({
+    const getOnebyId = this.affiliateRepository.findOne({
       where: {
         id : id,
       },
       relations: ['user']
     });
-    return x;
-  }
-
-   async findByDate(enrolled_date: Date): Promise<Affiliate[]> {
-    return await this.affiliateRepository.find({
-      where: {
-        enrolled_date,
-      },
-    });
+    return getOnebyId;
   }
 
   async create(_affiliate: CreateAffiliateDto): Promise<Affiliate> {
     const affiliate = new Affiliate();
-    affiliate.enrolled_date = _affiliate.enrolled_date;
-    affiliate.link = _affiliate.link;
-    affiliate.comment = _affiliate.comment;
+    affiliate.name = _affiliate.name;
 
     if(_affiliate.user_id) {
       const user = await this.userRepository.findOne({
@@ -55,6 +44,7 @@ export class AffiliateService {
       });
       affiliate.user = [user];
     }
+   
     return this.affiliateRepository.save(affiliate);
   }
 
@@ -64,10 +54,8 @@ export class AffiliateService {
   ): Promise<Affiliate> {
     const affiliate = await this.findOne(id);
     
-    const { enrolled_date, link, comment, user_id } = updateAffiliateDto;
-    affiliate.enrolled_date = enrolled_date;
-    affiliate.link = link;
-    affiliate.comment = comment;
+    const { name, user_id} = updateAffiliateDto;
+    affiliate.name = name;
 
     if(user_id) {
       const user = await this.userRepository.findOne({
@@ -75,6 +63,7 @@ export class AffiliateService {
       });
       affiliate.user = [user];
     }
+    
     return await affiliate.save();
   }
 

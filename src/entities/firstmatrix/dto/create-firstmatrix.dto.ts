@@ -6,13 +6,13 @@ export class CreateFirstmatrixDto {
   id: number;
   
   @IsInt()
-  secondmatrix_id: number;
-
-  @IsInt()
-  user_id: number;
+  order_id: number;
 
   @IsInt()
   affiliate_id: number;
+
+  @IsInt()
+  commission_fee: number;
 
   @IsString()
   comment: string;
