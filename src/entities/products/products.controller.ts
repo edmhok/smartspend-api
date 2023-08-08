@@ -6,26 +6,17 @@ Param,
 Body,
 Delete,
 Patch,
-Inject,
-forwardRef,
-Request,
-UseGuards,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
-import { UserService } from '../user/user.service';
-import { StoreService } from '../store/store.service';
 
 @Controller('products')
 export class ProductsController {
     constructor(
     private productsService: ProductsService,
-    @Inject(forwardRef(() => UserService))
-    private readonly userService: UserService,
-    @Inject(forwardRef(() => StoreService))
-    private readonly storeService: StoreService,
-
+    // @Inject(forwardRef(() => UserService))
+    // private readonly userService: UserService,
     ) {}
 
     @Get()

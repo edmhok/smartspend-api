@@ -18,10 +18,7 @@ export class CreateUserDto {
     order_id: number;
 
     @IsString()
-    role: string;
-
-    @IsString()
-    username: string;
+    email: string;
     
     @IsString()
     password: string;

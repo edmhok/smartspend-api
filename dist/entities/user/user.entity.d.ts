@@ -1,16 +1,7 @@
 import { BaseEntity } from 'typeorm';
-import { Products } from '../products/products.entity';
-import { Store } from '../store/store.entity';
-import { Order } from '../order/order.entity';
-import { Affiliate } from '../affiliate/affiliate.entity';
 export declare class User extends BaseEntity {
     id: number;
-    affiliate: Affiliate[];
-    products: Products[];
-    order: Order[];
-    store: Store[];
-    role: string;
-    username: string;
+    email: string;
     password: string;
     membership: string;
     first_name: string;

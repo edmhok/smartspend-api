@@ -5,59 +5,38 @@ import { User } from './user.entity';
 import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { Products } from '../products/products.entity';
-import { ProductsRepository } from '../products/products.repository';
-import { Order } from '../order/order.entity';
-import { OrderRepository } from '../order/order.repository';
-import { Affiliate } from '../affiliate/affiliate.entity';
-import { AffiliateRepository } from '../affiliate/affiliate.repository';
-import { StoreRepository } from '../store/store.repository';
-import { Store } from '../store/store.entity';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) 
     private userRepository: UserRepository,
-    @InjectRepository(Products) 
-    private productsRepository: ProductsRepository,
-    @InjectRepository(Order) 
-    private orderRepository: OrderRepository,
-    @InjectRepository(Affiliate) 
-    private affiliateRepository: AffiliateRepository, 
-    @InjectRepository(Store) 
-    private storeRepository: StoreRepository, 
    
   ) {}
-
-  findAll(): Promise<User[]> {
-    return this.userRepository.find({
-      relations: ['products', 'order', 'affiliate', 'store']
-    });
-  }
 
   userCredential(query: object | any): Promise<User> {
     const x = this.userRepository.findOne({
       where: query,
-      relations: ['products', 'order', 'affiliate', 'store'],
     });
     return x;
+  }
+
+  findAll(): Promise<User[]> {
+    return this.userRepository.find({});
   }
 
   async findOne(id: number): Promise<User> {
     const x = this.userRepository.findOne({
       where: {
         id: id,
-      },
-      relations: ['products', 'order', 'affiliate', 'store']
+      }
     });
     return x;
   }
 
   async create(_user: CreateUserDto): Promise<User> {
     const user = new User();
-    user.role = _user.role;
-    user.username = _user.username;
+    user.email = _user.email;
     user.password = _user.password;
     user.membership = _user.membership;
     user.first_name = _user.first_name;
@@ -71,30 +50,13 @@ export class UserService {
     user.country = _user.country;
     user.zipcode = _user.zipcode;
     
-    if(_user.affiliate_id) {
-      const affiliate = await this.affiliateRepository.findOne({
-        where: { id: _user.affiliate_id },
-      });
-      user.affiliate = [affiliate];
-    }
-    if(_user.store_id) {
-      const store = await this.storeRepository.findOne({
-        where: { id: _user.store_id },
-      });
-      user.store = [store];
-    }
-    if(_user.order_id) {
-      const order = await this.orderRepository.findOne({
-        where: { id: _user.order_id },
-      });
-      user.order = [order];
-    }
-    if(_user.products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: _user.products_id },
-      });
-      user.products = [products];
-    }
+    
+    // if(_user.products_id) {
+    //   const products = await this.productsRepository.findOne({
+    //     where: { id: _user.products_id },
+    //   });
+    //   user.products = [products];
+    // }
 
     return this.userRepository.save(user);
   }  
@@ -103,8 +65,7 @@ export class UserService {
     const user = await this.findOne(id);
    
     const { 
-      role,
-      username, 
+      email, 
       password, 
       membership,
       first_name, 
@@ -117,13 +78,8 @@ export class UserService {
       state, 
       country, 
       zipcode, 
-      products_id, 
-      order_id, 
-      affiliate_id,
-      store_id,
      } = updateUserDto;
-    user.role = role;
-    user.username = username;
+    user.email = email;
     user.password = password;
     user.membership = membership;
     user.first_name = first_name;
@@ -137,30 +93,12 @@ export class UserService {
     user.country = country;
     user.zipcode = zipcode;
 
-    if(affiliate_id) {
-      const affiliate = await this.affiliateRepository.findOne({
-        where: { id: affiliate_id },
-      });
-      user.affiliate = [affiliate];
-    }
-    if(store_id) {
-      const store = await this.storeRepository.findOne({
-        where: { id: store_id },
-      });
-      user.store = [store];
-    }
-    if(order_id) {
-      const order = await this.orderRepository.findOne({
-        where: { id: order_id },
-      });
-      user.order = [order];
-    }
-    if(products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: products_id },
-      });
-      user.products = [products];
-    }
+    // if(products_id) {
+    //   const products = await this.productsRepository.findOne({
+    //     where: { id: products_id },
+    //   });
+    //   user.products = [products];
+    // }
     return await user.save();
     
   }

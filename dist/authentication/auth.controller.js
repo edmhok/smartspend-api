@@ -22,6 +22,7 @@ let AuthController = exports.AuthController = class AuthController {
         this.authService = authService;
     }
     async login(req) {
+        console.log('in login');
         return this.authService.login(req);
     }
     create(createUsersDto) {

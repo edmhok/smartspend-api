@@ -3,17 +3,8 @@ import {
     CreateDateColumn,
     Entity,
     PrimaryGeneratedColumn,
-    JoinColumn,
-    ManyToMany,
-    JoinTable,
     BaseEntity,
-    ManyToOne,
-    OneToMany,
   } from 'typeorm';
-import { Products } from '../products/products.entity';
-import { Store } from '../store/store.entity';
-import { Order } from '../order/order.entity';
-import { Affiliate } from '../affiliate/affiliate.entity';
 import { IsPhoneNumber } from '@nestjs/class-validator';
 
 @Entity({ name: 'user' })
@@ -21,25 +12,12 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     @PrimaryGeneratedColumn()
     id: number;
 
-    @ManyToMany(() => Affiliate, (affiliate) => affiliate.user, { onDelete: 'CASCADE' })
-    affiliate: Affiliate[];
-
-    @ManyToOne(() => Products, (products) => products.user, { onDelete: 'CASCADE' })
-    @JoinColumn()
-    products: Products[];
-
-    @ManyToOne(() => Order, (order) => order.user, { onDelete: 'CASCADE' })
-    @JoinColumn()
-    order: Order[];
-
-    @ManyToMany(() => Store, (store) => store.user, { onDelete: 'CASCADE' })
-    store: Store[];
+    // @ManyToOne(() => Products, (products) => products.user, { onDelete: 'CASCADE' })
+    // @JoinColumn()
+    // products: Products[];
 
     @Column()
-    role: string;
-
-    @Column()
-    username: string;
+    email: string;
     
     @Column()
     password: string;

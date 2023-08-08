@@ -6,67 +6,23 @@ export class CreateProductsDto {
   id: number;
   
   @IsInt()
-  user_id: number;
-
-  @IsInt()
-  store_id: number;
-
-  @IsInt()
-  order_id: number;
-  
-  @IsString()
   title: string;
 
-  @IsOptional()
-  type: string;
-
-  @IsString()
-  sku: string
-
-  @IsOptional()
-  stock_status: string;
-
-  @IsOptional()
-  stock_at_warehouse: string;
-
-  @IsOptional()
-  reserved: string;
+  @IsInt()
+  price: string;
 
   @IsInt()
-  selling_price: number;
-
-  @IsInt()
-  old_price: number;
-
-  @IsInt()
-  purchase_price: number;
-
-  @IsString()
-  manufacturer: string;
-
-  @IsString()
-  commodity_group: string;
-
-  @IsOptional()
-  category: string;
+  description: string;
   
   @IsString()
-  product_title: string;
+  points: number;
 
   @IsString()
-  variant_title: string;
-
-  @IsString()
-  product_description: string;
-
-  @IsString()
-  image_url: string;
-
-  @IsString()
-  url_key: string;
+  sku: string;
 
   @IsInt()
-  item_id: number;
+  qty: number;
+
 
   @IsDate()
   createdAt: Date;

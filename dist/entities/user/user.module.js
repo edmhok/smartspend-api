@@ -12,51 +12,15 @@ const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./user.entity");
 const user_service_1 = require("./user.service");
 const user_controller_1 = require("./user.controller");
-const user_repository_1 = require("./user.repository");
-const products_entity_1 = require("../products/products.entity");
-const products_repository_1 = require("../products/products.repository");
-const products_service_1 = require("../products/products.service");
-const order_entity_1 = require("../order/order.entity");
-const order_repository_1 = require("../order/order.repository");
-const order_service_1 = require("../order/order.service");
-const affiliate_repository_1 = require("../affiliate/affiliate.repository");
-const affiliate_entity_1 = require("../affiliate/affiliate.entity");
-const affiliate_service_1 = require("../affiliate/affiliate.service");
-const store_repository_1 = require("../store/store.repository");
-const store_entity_1 = require("../store/store.entity");
-const store_service_1 = require("../store/store.service");
-const firstmatrix_entity_1 = require("../firstmatrix/firstmatrix.entity");
-const firstmatrix_repository_1 = require("../firstmatrix/firstmatrix.repository");
-const unilevel_entity_1 = require("../unilevel/unilevel.entity");
-const unilevel_repository_1 = require("../unilevel/unilevel.repository");
-const secondmatrix_entity_1 = require("../secondmatrix/secondmatrix.entity");
-const secondmatrix_repository_1 = require("../secondmatrix/secondmatrix.repository");
 let UserModule = exports.UserModule = class UserModule {
 };
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
         imports: [
-            typeorm_1.TypeOrmModule.forFeature([
-                user_entity_1.User,
-                user_repository_1.UserRepository,
-                products_entity_1.Products,
-                products_repository_1.ProductsRepository,
-                order_entity_1.Order,
-                order_repository_1.OrderRepository,
-                affiliate_entity_1.Affiliate,
-                affiliate_repository_1.AffiliateRepository,
-                store_entity_1.Store,
-                store_repository_1.StoreRepository,
-                unilevel_entity_1.Unilevel,
-                unilevel_repository_1.UnilevelRepository,
-                firstmatrix_entity_1.Firstmatrix,
-                firstmatrix_repository_1.FirstmatrixRepository,
-                secondmatrix_entity_1.Secondmatrix,
-                secondmatrix_repository_1.SecondmatrixRepository,
-            ]),
+            typeorm_1.TypeOrmModule.forFeature([user_entity_1.User]),
         ],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, affiliate_service_1.AffiliateService, store_service_1.StoreService, products_service_1.ProductsService, order_service_1.OrderService],
+        providers: [user_service_1.UserService],
     })
 ], UserModule);
 //# sourceMappingURL=user.module.js.map

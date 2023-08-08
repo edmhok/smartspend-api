@@ -11,10 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.User = void 0;
 const typeorm_1 = require("typeorm");
-const products_entity_1 = require("../products/products.entity");
-const store_entity_1 = require("../store/store.entity");
-const order_entity_1 = require("../order/order.entity");
-const affiliate_entity_1 = require("../affiliate/affiliate.entity");
 const class_validator_1 = require("@nestjs/class-validator");
 let User = exports.User = class User extends typeorm_1.BaseEntity {
 };
@@ -23,31 +19,9 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.ManyToMany)(() => affiliate_entity_1.Affiliate, (affiliate) => affiliate.user, { onDelete: 'CASCADE' }),
-    __metadata("design:type", Array)
-], User.prototype, "affiliate", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => products_entity_1.Products, (products) => products.user, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", Array)
-], User.prototype, "products", void 0);
-__decorate([
-    (0, typeorm_1.ManyToOne)(() => order_entity_1.Order, (order) => order.user, { onDelete: 'CASCADE' }),
-    (0, typeorm_1.JoinColumn)(),
-    __metadata("design:type", Array)
-], User.prototype, "order", void 0);
-__decorate([
-    (0, typeorm_1.ManyToMany)(() => store_entity_1.Store, (store) => store.user, { onDelete: 'CASCADE' }),
-    __metadata("design:type", Array)
-], User.prototype, "store", void 0);
-__decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
-], User.prototype, "role", void 0);
-__decorate([
-    (0, typeorm_1.Column)(),
-    __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], User.prototype, "email", void 0);
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)

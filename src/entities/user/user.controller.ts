@@ -6,8 +6,6 @@ import {
   Body,
   Delete,
   Patch,
-  Inject,
-  forwardRef,
   Request,
   UseGuards,
 } from '@nestjs/common';
@@ -15,35 +13,25 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
-import { ProductsService } from '../products/products.service';
-import { OrderService } from '../order/order.service';
-import { AffiliateService } from '../affiliate/affiliate.service';
-import { StoreService } from '../store/store.service';
+import { LocalAuthGuard } from 'src/authentication/guard/local-auth.guard';
 
 
 @Controller('users')
 export class UserController {
   constructor(
     private userService: UserService,
-    @Inject(forwardRef(() => AffiliateService))
-    private readonly affiliateService: AffiliateService,
-    @Inject(forwardRef(() => ProductsService))
-    private readonly productsService: ProductsService,
-    @Inject(forwardRef(() => OrderService))
-    private readonly orderService: OrderService,
-    @Inject(forwardRef(() => StoreService))
-    private readonly storeService: StoreService,
-  ) {}
-  
-  @UseGuards(JwtAuthGuard)
-    @Get()
-    async fillAll() {
-      return this.userService.findAll();
-    }
+    // private readonly productsService: ProductsService,
+  ) { }
 
-    @UseGuards(JwtAuthGuard)
-    @Get('profile')
-    getProfile(@Request() req) {
+  @UseGuards(JwtAuthGuard)
+  @Get()
+  async fillAll() {
+    return this.userService.findAll();
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('profile')
+  getProfile(@Request() req) {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = JSON.parse(
       Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
@@ -59,7 +47,6 @@ export class UserController {
     return this.userService.findOne(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
@@ -73,7 +60,8 @@ export class UserController {
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.userService.remove(+id);
+  async remove(@Param('id') id: string) {
+    await this.userService.remove(+id);
+    return { status: 'success' };
   }
 }

@@ -17,12 +17,13 @@ const auth_service_1 = require("../auth.service");
 let LocalStrategy = exports.LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
         super({
-            usernameField: 'email',
+            emailField: 'email',
             passwordField: 'password',
         });
         this.authService = authService;
     }
     async validate(email, password) {
+        console.log({ email, password }, 'validate');
         const user = await this.authService.validateUser(email, password);
         if (!user) {
             throw new common_1.UnauthorizedException();

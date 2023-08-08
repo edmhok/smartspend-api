@@ -19,25 +19,19 @@ const products_entity_1 = require("./products.entity");
 const products_repository_1 = require("./products.repository");
 const user_entity_1 = require("../user/user.entity");
 const user_repository_1 = require("../user/user.repository");
-const store_repository_1 = require("../store/store.repository");
-const store_entity_1 = require("../store/store.entity");
 let ProductsService = exports.ProductsService = class ProductsService {
-    constructor(productsRepository, userRepository, storeRepository) {
+    constructor(productsRepository, userRepository) {
         this.productsRepository = productsRepository;
         this.userRepository = userRepository;
-        this.storeRepository = storeRepository;
     }
     findAll() {
-        return this.productsRepository.find({
-            relations: ['user', 'store'],
-        });
+        return this.productsRepository.find({});
     }
     async findOne(id) {
         const x = this.productsRepository.findOne({
             where: {
                 id: id,
-            },
-            relations: ['user', 'store']
+            }
         });
         return x;
     }
@@ -51,70 +45,22 @@ let ProductsService = exports.ProductsService = class ProductsService {
     async create(_products) {
         const products = new products_entity_1.Products();
         products.title = _products.title;
-        products.type = _products.type;
+        products.description = _products.description;
+        products.price = _products.price;
         products.sku = _products.sku;
-        products.stock_status = _products.stock_status;
-        products.stock_at_warehouse = _products.stock_at_warehouse;
-        products.reserved = _products.reserved;
-        products.selling_price = _products.selling_price;
-        products.old_price = _products.old_price;
-        products.purchase_price = _products.purchase_price;
-        products.manufacturer = _products.manufacturer;
-        products.commodity_group = _products.commodity_group;
-        products.category = _products.category;
-        products.product_title = _products.product_title;
-        products.variant_title = _products.variant_title;
-        products.product_description = _products.product_description;
-        products.image_url = _products.image_url;
-        products.url_key = _products.url_key;
-        products.item_id = _products.item_id;
-        if (_products.user_id) {
-            const user = await this.userRepository.findOne({
-                where: { id: _products.user_id },
-            });
-            products.user = [user];
-        }
-        if (_products.store_id) {
-            const store = await this.storeRepository.findOne({
-                where: { id: _products.store_id },
-            });
-            products.store = [store];
-        }
+        products.points = _products.points;
+        products.qty = _products.qty;
         return this.productsRepository.save(products);
     }
     async update(id, updateProductsDto) {
         const products = await this.findOne(id);
-        const { title, type, sku, stock_status, stock_at_warehouse, reserved, selling_price, old_price, purchase_price, manufacturer, commodity_group, category, product_title, variant_title, product_description, image_url, url_key, item_id, user_id, store_id, } = updateProductsDto;
+        const { title, description, price, sku, points, qty } = updateProductsDto;
         products.title = title;
-        products.type = type;
+        products.description = description;
+        products.price = price;
         products.sku = sku;
-        products.stock_status = stock_status;
-        products.stock_at_warehouse = stock_at_warehouse;
-        products.reserved = reserved;
-        products.selling_price = selling_price;
-        products.old_price = old_price;
-        products.purchase_price = purchase_price;
-        products.manufacturer = manufacturer;
-        products.commodity_group = commodity_group;
-        products.category = category;
-        products.product_title = product_title;
-        products.variant_title = variant_title;
-        products.product_description = product_description;
-        products.image_url = image_url;
-        products.url_key = url_key;
-        products.item_id = item_id;
-        if (user_id) {
-            const user = await this.userRepository.findOne({
-                where: { id: user_id },
-            });
-            products.user = [user];
-        }
-        if (store_id) {
-            const store = await this.storeRepository.findOne({
-                where: { id: store_id },
-            });
-            products.store = [store];
-        }
+        products.points = points;
+        products.qty = qty;
         return await products.save();
     }
     async remove(id) {
@@ -125,9 +71,7 @@ exports.ProductsService = ProductsService = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(products_entity_1.Products)),
     __param(1, (0, typeorm_1.InjectRepository)(user_entity_1.User)),
-    __param(2, (0, typeorm_1.InjectRepository)(store_entity_1.Store)),
     __metadata("design:paramtypes", [products_repository_1.ProductsRepository,
-        user_repository_1.UserRepository,
-        store_repository_1.StoreRepository])
+        user_repository_1.UserRepository])
 ], ProductsService);
 //# sourceMappingURL=products.service.js.map

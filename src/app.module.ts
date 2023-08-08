@@ -7,21 +7,14 @@ import { AuthModule } from 'src/authentication/auth.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { User } from './entities/user/user.entity';
-import { UserModule } from './entities/user/user.module';
 import { Products } from './entities/products/products.entity';
+import { Merchant } from './entities/merchant/merchant.entity';
+import { Transaction } from './entities/transaction/transaction.entity';
+import { Patron } from './entities/patron/patron.entity';
+import { MerchantModule } from './entities/merchant/merchant.module';
+import { PatronModule } from './entities/patron/patron.module';
+import { TransactionModule } from './entities/transaction/transaction.module';
 import { ProductsModule } from './entities/products/products.module';
-import { Order } from './entities/order/order.entity';
-import { OrderModule } from './entities/order/order.module';
-import { Affiliate } from './entities/affiliate/affiliate.entity';
-import { AffiliateModule } from './entities/affiliate/affiliate.module';
-import { FirstmatrixModule } from './entities/firstmatrix/firstmatrix.module';
-import { Firstmatrix } from './entities/firstmatrix/firstmatrix.entity';
-import { Secondmatrix } from './entities/secondmatrix/secondmatrix.entity';
-import { SecondmatrixModule } from './entities/secondmatrix/secondmatrix.module';
-import { UnilevelModule } from './entities/unilevel/unilevel.module';
-import { Unilevel } from './entities/unilevel/unilevel.entity';
-import { StoreModule } from './entities/store/store.module';
-import { Store } from './entities/store/store.entity';
 
 
 @Module({
@@ -39,26 +32,19 @@ import { Store } from './entities/store/store.entity';
       entities: [
         User,
         Products,
-        Order,
-        Store,
-        Affiliate,
-        Unilevel,
-        Firstmatrix,
-        Secondmatrix,
-
+        Merchant,
+        Patron,
+        Transaction,
+        Products
       ],
       synchronize: true,
       autoLoadEntities: true,
     }),
     AuthModule,
-    UserModule,
-    ProductsModule,
-    OrderModule,
-    AffiliateModule,
-    StoreModule,
-    UnilevelModule,
-    FirstmatrixModule, 
-    SecondmatrixModule, 
+    MerchantModule,
+    PatronModule,
+    TransactionModule,
+    ProductsModule
   ],
   controllers: [AppController],
   providers: [AppService],

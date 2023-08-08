@@ -6,8 +6,7 @@ export declare class UpdateUserDto extends UpdateUserDto_base {
     store_id: number;
     products_id: number;
     order_id: number;
-    role: string;
-    username: string;
+    email: string;
     password: string;
     membership: string;
     first_name: string;

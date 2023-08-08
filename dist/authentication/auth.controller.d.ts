@@ -10,12 +10,7 @@ export declare class AuthController {
     }>;
     create(createUsersDto: CreateUserDto): Promise<{
         id: number;
-        affiliate: import("../entities/affiliate/affiliate.entity").Affiliate[];
-        products: import("../entities/products/products.entity").Products[];
-        order: import("../entities/order/order.entity").Order[];
-        store: import("../entities/store/store.entity").Store[];
-        role: string;
-        username: string;
+        email: string;
         membership: string;
         first_name: string;
         middle_name: string;

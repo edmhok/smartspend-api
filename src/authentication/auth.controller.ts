@@ -17,6 +17,7 @@ import {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req) {
+      console.log('in login')
       return this.authService.login(req);
     }
   

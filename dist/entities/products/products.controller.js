@@ -17,13 +17,9 @@ const common_1 = require("@nestjs/common");
 const products_service_1 = require("./products.service");
 const create_products_dto_1 = require("./dto/create-products.dto");
 const update_products_dto_1 = require("./dto/update-products.dto");
-const user_service_1 = require("../user/user.service");
-const store_service_1 = require("../store/store.service");
 let ProductsController = exports.ProductsController = class ProductsController {
-    constructor(productsService, userService, storeService) {
+    constructor(productsService) {
         this.productsService = productsService;
-        this.userService = userService;
-        this.storeService = storeService;
     }
     async findAll() {
         return this.productsService.findAll();
@@ -90,10 +86,6 @@ __decorate([
 ], ProductsController.prototype, "remove", null);
 exports.ProductsController = ProductsController = __decorate([
     (0, common_1.Controller)('products'),
-    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => user_service_1.UserService))),
-    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => store_service_1.StoreService))),
-    __metadata("design:paramtypes", [products_service_1.ProductsService,
-        user_service_1.UserService,
-        store_service_1.StoreService])
+    __metadata("design:paramtypes", [products_service_1.ProductsService])
 ], ProductsController);
 //# sourceMappingURL=products.controller.js.map

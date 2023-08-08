@@ -8,8 +8,6 @@ import { UpdateProductsDto } from './dto/update-products.dto';
 
 import { User } from '../user/user.entity';
 import { UserRepository } from '../user/user.repository';
-import { StoreRepository } from '../store/store.repository';
-import { Store } from '../store/store.entity';
 
 
 @Injectable()
@@ -19,22 +17,17 @@ export class ProductsService {
     private productsRepository: ProductsRepository,
     @InjectRepository(User)
     private userRepository: UserRepository,
-    @InjectRepository(Store)
-    private storeRepository: StoreRepository,
   ) {}
 
   findAll(): Promise<Products[]> {
-    return this.productsRepository.find({
-      relations: ['user', 'store'],
-    });
+    return this.productsRepository.find({});
   }
 
   async findOne(id: number): Promise<Products> {
     const x = this.productsRepository.findOne({
       where: {
         id : id,
-      },
-      relations: ['user', 'store']
+      }
     });
     return x;
   }
@@ -50,36 +43,19 @@ export class ProductsService {
   async create(_products: CreateProductsDto): Promise<Products> {
     const products = new Products();
     products.title = _products.title;
-    products.type = _products.type;
+    products.description = _products.description;
+    products.price = _products.price;
     products.sku = _products.sku;
-    products.stock_status = _products.stock_status;
-    products.stock_at_warehouse = _products.stock_at_warehouse;
-    products.reserved = _products.reserved;
-    products.selling_price = _products.selling_price;
-    products.old_price = _products.old_price;
-    products.purchase_price = _products.purchase_price;
-    products.manufacturer = _products.manufacturer;
-    products.commodity_group = _products.commodity_group;
-    products.category = _products.category;
-    products.product_title = _products.product_title;
-    products.variant_title = _products.variant_title;
-    products.product_description = _products.product_description;
-    products.image_url = _products.image_url;
-    products.url_key = _products.url_key;
-    products.item_id = _products.item_id;
+    products.points = _products.points;
+    products.qty = _products.qty;
+    
 
-    if(_products.user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: _products.user_id},
-      });
-      products.user = [user];
-    }
-    if(_products.store_id) {
-      const store = await this.storeRepository.findOne({
-        where: { id: _products.store_id},
-      });
-      products.store = [store];
-    }
+    // if(_products.user_id) {
+    //   const user = await this.userRepository.findOne({
+    //     where: { id: _products.user_id},
+    //   });
+    //   products.user = [user];
+    // }
   
     return this.productsRepository.save(products);
   }
@@ -92,57 +68,25 @@ export class ProductsService {
     
     const { 
         title, 
-        type, 
-        sku, 
-        stock_status, 
-        stock_at_warehouse, 
-        reserved, 
-        selling_price, 
-        old_price, 
-        purchase_price, 
-        manufacturer, 
-        commodity_group, 
-        category,
-        product_title, 
-        variant_title, 
-        product_description, 
-        image_url, 
-        url_key, 
-        item_id, 
-        user_id, 
-        store_id, 
+        description,
+        price,
+        sku,
+        points,
+        qty
         } = updateProductsDto;
     products.title = title;
-    products.type = type;
+    products.description = description;
+    products.price = price;
     products.sku = sku;
-    products.stock_status = stock_status;
-    products.stock_at_warehouse = stock_at_warehouse;
-    products.reserved = reserved;
-    products.selling_price = selling_price;
-    products.old_price = old_price;
-    products.purchase_price = purchase_price;
-    products.manufacturer = manufacturer;
-    products.commodity_group = commodity_group;
-    products.category = category;
-    products.product_title = product_title;
-    products.variant_title = variant_title;
-    products.product_description = product_description;
-    products.image_url = image_url;
-    products.url_key = url_key;
-    products.item_id = item_id;
+    products.points = points;
+    products.qty = qty;
   
-    if(user_id) {
-      const user = await this.userRepository.findOne({
-        where: { id: user_id },
-      });
-      products.user = [user];
-    }
-    if(store_id) {
-      const store = await this.storeRepository.findOne({
-        where: { id: store_id },
-      });
-      products.store = [store];
-    }
+    // if(user_id) {
+    //   const user = await this.userRepository.findOne({
+    //     where: { id: user_id },
+    //   });
+    //   products.user = [user];
+    // }
    
     return await products.save();
   }

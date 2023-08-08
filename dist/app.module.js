@@ -14,21 +14,14 @@ const auth_module_1 = require("./authentication/auth.module");
 const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const user_entity_1 = require("./entities/user/user.entity");
-const user_module_1 = require("./entities/user/user.module");
 const products_entity_1 = require("./entities/products/products.entity");
+const merchant_entity_1 = require("./entities/merchant/merchant.entity");
+const transaction_entity_1 = require("./entities/transaction/transaction.entity");
+const patron_entity_1 = require("./entities/patron/patron.entity");
+const merchant_module_1 = require("./entities/merchant/merchant.module");
+const patron_module_1 = require("./entities/patron/patron.module");
+const transaction_module_1 = require("./entities/transaction/transaction.module");
 const products_module_1 = require("./entities/products/products.module");
-const order_entity_1 = require("./entities/order/order.entity");
-const order_module_1 = require("./entities/order/order.module");
-const affiliate_entity_1 = require("./entities/affiliate/affiliate.entity");
-const affiliate_module_1 = require("./entities/affiliate/affiliate.module");
-const firstmatrix_module_1 = require("./entities/firstmatrix/firstmatrix.module");
-const firstmatrix_entity_1 = require("./entities/firstmatrix/firstmatrix.entity");
-const secondmatrix_entity_1 = require("./entities/secondmatrix/secondmatrix.entity");
-const secondmatrix_module_1 = require("./entities/secondmatrix/secondmatrix.module");
-const unilevel_module_1 = require("./entities/unilevel/unilevel.module");
-const unilevel_entity_1 = require("./entities/unilevel/unilevel.entity");
-const store_module_1 = require("./entities/store/store.module");
-const store_entity_1 = require("./entities/store/store.entity");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
@@ -47,25 +40,19 @@ exports.AppModule = AppModule = __decorate([
                 entities: [
                     user_entity_1.User,
                     products_entity_1.Products,
-                    order_entity_1.Order,
-                    store_entity_1.Store,
-                    affiliate_entity_1.Affiliate,
-                    unilevel_entity_1.Unilevel,
-                    firstmatrix_entity_1.Firstmatrix,
-                    secondmatrix_entity_1.Secondmatrix,
+                    merchant_entity_1.Merchant,
+                    patron_entity_1.Patron,
+                    transaction_entity_1.Transaction,
+                    products_entity_1.Products
                 ],
                 synchronize: true,
                 autoLoadEntities: true,
             }),
             auth_module_1.AuthModule,
-            user_module_1.UserModule,
-            products_module_1.ProductsModule,
-            order_module_1.OrderModule,
-            affiliate_module_1.AffiliateModule,
-            store_module_1.StoreModule,
-            unilevel_module_1.UnilevelModule,
-            firstmatrix_module_1.FirstmatrixModule,
-            secondmatrix_module_1.SecondmatrixModule,
+            merchant_module_1.MerchantModule,
+            patron_module_1.PatronModule,
+            transaction_module_1.TransactionModule,
+            products_module_1.ProductsModule
         ],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],

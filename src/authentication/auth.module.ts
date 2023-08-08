@@ -11,18 +11,10 @@ import { jwtConstants } from './constants';
 import { UserService } from 'src/entities/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user/user.entity';
-import { Products } from 'src/entities/products/products.entity';
-import { Order } from 'src/entities/order/order.entity';
-import { Affiliate } from 'src/entities/affiliate/affiliate.entity';
-import { Firstmatrix } from 'src/entities/firstmatrix/firstmatrix.entity';
-import { Secondmatrix } from 'src/entities/secondmatrix/secondmatrix.entity';
-import { Store } from 'src/entities/store/store.entity';
-import { StoreModule } from 'src/entities/store/store.module';
-import { AffiliateModule } from 'src/entities/affiliate/affiliate.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Store, Affiliate, Order, Products]),
+    TypeOrmModule.forFeature([User, ]),
     User,
     UserModule,
     PassportModule,

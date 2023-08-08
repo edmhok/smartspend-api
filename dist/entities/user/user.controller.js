@@ -18,17 +18,9 @@ const user_service_1 = require("./user.service");
 const create_user_dto_1 = require("./dto/create-user.dto");
 const update_user_dto_1 = require("./dto/update-user.dto");
 const jwt_auth_guard_1 = require("../../authentication/guard/jwt-auth.guard");
-const products_service_1 = require("../products/products.service");
-const order_service_1 = require("../order/order.service");
-const affiliate_service_1 = require("../affiliate/affiliate.service");
-const store_service_1 = require("../store/store.service");
 let UserController = exports.UserController = class UserController {
-    constructor(userService, affiliateService, productsService, orderService, storeService) {
+    constructor(userService) {
         this.userService = userService;
-        this.affiliateService = affiliateService;
-        this.productsService = productsService;
-        this.orderService = orderService;
-        this.storeService = storeService;
     }
     async fillAll() {
         return this.userService.findAll();
@@ -48,8 +40,9 @@ let UserController = exports.UserController = class UserController {
     update(id, updateUserDto) {
         return this.userService.update(+id, updateUserDto);
     }
-    remove(id) {
-        return this.userService.remove(+id);
+    async remove(id) {
+        await this.userService.remove(+id);
+        return { status: 'success' };
     }
 };
 __decorate([
@@ -76,7 +69,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], UserController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
@@ -98,18 +90,10 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
-    __metadata("design:returntype", void 0)
+    __metadata("design:returntype", Promise)
 ], UserController.prototype, "remove", null);
 exports.UserController = UserController = __decorate([
     (0, common_1.Controller)('users'),
-    __param(1, (0, common_1.Inject)((0, common_1.forwardRef)(() => affiliate_service_1.AffiliateService))),
-    __param(2, (0, common_1.Inject)((0, common_1.forwardRef)(() => products_service_1.ProductsService))),
-    __param(3, (0, common_1.Inject)((0, common_1.forwardRef)(() => order_service_1.OrderService))),
-    __param(4, (0, common_1.Inject)((0, common_1.forwardRef)(() => store_service_1.StoreService))),
-    __metadata("design:paramtypes", [user_service_1.UserService,
-        affiliate_service_1.AffiliateService,
-        products_service_1.ProductsService,
-        order_service_1.OrderService,
-        store_service_1.StoreService])
+    __metadata("design:paramtypes", [user_service_1.UserService])
 ], UserController);
 //# sourceMappingURL=user.controller.js.map

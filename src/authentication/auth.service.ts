@@ -11,7 +11,8 @@ export class AuthService {
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.userService.userCredential({ username: email });
+    console.log({email, password})
+    const user = await this.userService.userCredential({ email: email });
     if (!user) return null;
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
@@ -28,7 +29,7 @@ export class AuthService {
       userPayload: {
       id: user.user.id,
       role: user.user.role,
-      username: user.user.username,
+      email: user.user.email,
       password: user.user.password,
       membership : user.user.membership,
       first_name: user.user.first_name,

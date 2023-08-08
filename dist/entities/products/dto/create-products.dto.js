@@ -20,88 +20,28 @@ __decorate([
 ], CreateProductsDto.prototype, "id", void 0);
 __decorate([
     (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "user_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "store_id", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "order_id", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateProductsDto.prototype, "title", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
+    (0, class_validator_1.IsInt)(),
     __metadata("design:type", String)
-], CreateProductsDto.prototype, "type", void 0);
+], CreateProductsDto.prototype, "price", void 0);
+__decorate([
+    (0, class_validator_1.IsInt)(),
+    __metadata("design:type", String)
+], CreateProductsDto.prototype, "description", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", Number)
+], CreateProductsDto.prototype, "points", void 0);
 __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], CreateProductsDto.prototype, "sku", void 0);
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "stock_status", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "stock_at_warehouse", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "reserved", void 0);
-__decorate([
     (0, class_validator_1.IsInt)(),
     __metadata("design:type", Number)
-], CreateProductsDto.prototype, "selling_price", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "old_price", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "purchase_price", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "manufacturer", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "commodity_group", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "category", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "product_title", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "variant_title", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "product_description", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "image_url", void 0);
-__decorate([
-    (0, class_validator_1.IsString)(),
-    __metadata("design:type", String)
-], CreateProductsDto.prototype, "url_key", void 0);
-__decorate([
-    (0, class_validator_1.IsInt)(),
-    __metadata("design:type", Number)
-], CreateProductsDto.prototype, "item_id", void 0);
+], CreateProductsDto.prototype, "qty", void 0);
 __decorate([
     (0, class_validator_1.IsDate)(),
     __metadata("design:type", Date)
