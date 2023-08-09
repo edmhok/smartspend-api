@@ -1,28 +1,39 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { IsString, IsInt, IsDate, IsOptional } from "@nestjs/class-validator";
 
 export class CreateProductsDto {
   @IsInt()
   id: number;
-  
-  @IsInt()
-  title: string;
+
+  @IsString()
+  entryDate: string;
 
   @IsInt()
-  price: string;
+  productName: string;
+
+  @IsString()
+  brand: string;
 
   @IsInt()
   description: string;
-  
-  @IsString()
-  points: number;
 
   @IsString()
   sku: string;
 
   @IsInt()
+  price: string;
+
+  @IsInt()
   qty: number;
 
+  @IsString()
+  points: number;
+
+  @IsString()
+  originalPrice: number;
+
+  @IsInt()
+  discount: number;
 
   @IsDate()
   createdAt: Date;
