@@ -45,7 +45,6 @@ export class PatronController {
     return this.patronService.findOne(+id);
   }
 
-  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createPatronDto: CreatePatronDto) {
     return this.patronService.create(createPatronDto);

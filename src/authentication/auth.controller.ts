@@ -9,6 +9,7 @@ import {
   import { LocalAuthGuard } from './guard/local-auth.guard';
   import { AuthService } from './auth.service';
   import { CreateUserDto } from 'src/entities/user/dto/create-user.dto';
+import { MerchantAuthGuard } from './guard/merchant-auth.guard';
   
   @Controller('auth')
   export class AuthController {
@@ -17,6 +18,13 @@ import {
     @UseGuards(LocalAuthGuard)
     @Post('login')
     async login(@Request() req) {
+      console.log('in login')
+      return this.authService.login(req);
+    }
+
+    @UseGuards(MerchantAuthGuard)
+    @Post('merchant/login')
+    async merchantLogin(@Request() req) {
       console.log('in login')
       return this.authService.login(req);
     }

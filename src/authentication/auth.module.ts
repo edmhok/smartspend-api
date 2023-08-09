@@ -11,10 +11,13 @@ import { jwtConstants } from './constants';
 import { UserService } from 'src/entities/user/user.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user/user.entity';
+import { MerchantStrategy } from './strategy/merchant.strategy';
+import { MerchantService } from 'src/entities/merchant/merchant.service';
+import { Merchant } from 'src/entities/merchant/merchant.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, ]),
+    TypeOrmModule.forFeature([User, Merchant]),
     User,
     UserModule,
     PassportModule,
@@ -23,8 +26,8 @@ import { User } from 'src/entities/user/user.entity';
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  providers: [UserService, AuthService, LocalStrategy, JwtStrategy],
+  providers: [UserService, AuthService, LocalStrategy, JwtStrategy, MerchantStrategy, MerchantService],
   controllers: [AuthController],
-  exports: [UserService, AuthService],
+  exports: [UserService, AuthService, ],
 })
 export class AuthModule {}

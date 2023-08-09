@@ -1,11 +1,11 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Merchant } from './merchant.entity';
 import { MerchantRepository } from './merchant.repository';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
-
+import * as bcrypt from 'bcrypt';
 @Injectable()
 export class MerchantService {
   constructor(
@@ -13,6 +13,26 @@ export class MerchantService {
     private merchantRepository: MerchantRepository,
    
   ) {}
+
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.credential({ email: email });
+    if (!user) return null;
+    const passwordValid = await bcrypt.compare(password, user.password);
+    if (!user) {
+      throw new NotAcceptableException('could not find the user');
+    }
+    if (user && passwordValid) {
+      return user;
+    }
+    return null;
+  }
+
+  credential(query: object | any): Promise<Merchant> {
+    const x = this.merchantRepository.findOne({
+      where: query,
+    });
+    return x;
+  }
 
   findAll(): Promise<Merchant[]> {
     return this.merchantRepository.find({});
@@ -28,10 +48,11 @@ export class MerchantService {
   }
 
   async create(_merchant: CreateMerchantDto): Promise<Merchant> {
+    
     const merchant = new Merchant();
     merchant.role = _merchant.role;
     merchant.email = _merchant.email;
-    merchant.password = _merchant.password;
+    merchant.password = await bcrypt.hash(_merchant.password, 10);
     merchant.membership = _merchant.membership;
     merchant.first_name = _merchant.first_name;
     merchant.middle_name = _merchant.middle_name;

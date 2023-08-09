@@ -13,7 +13,6 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
-import { LocalAuthGuard } from 'src/authentication/guard/local-auth.guard';
 
 
 @Controller('users')
