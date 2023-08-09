@@ -6,6 +6,7 @@ import { MerchantRepository } from './merchant.repository';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class MerchantService {
   constructor(

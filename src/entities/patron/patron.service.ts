@@ -1,10 +1,12 @@
 /* eslint-disable prettier/prettier */
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Patron } from './patron.entity';
 import { PatronRepository } from './patron.repository';
 import { CreatePatronDto } from './dto/create-patron.dto';
 import { UpdatePatronDto } from './dto/update-patron.dto';
+import * as bcrypt from 'bcrypt';
+
 
 @Injectable()
 export class PatronService {
@@ -13,6 +15,26 @@ export class PatronService {
     private patronRepository: PatronRepository,
    
   ) {}
+
+  async validateUser(email: string, password: string): Promise<any> {
+    const user = await this.credential({ email: email });
+    if (!user) return null;
+    const passwordValid = await bcrypt.compare(password, user.password);
+    if (!user) {
+      throw new NotAcceptableException('could not find the user');
+    }
+    if (user && passwordValid) {
+      return user;
+    }
+    return null;
+  }
+
+  credential(query: object | any): Promise<Patron> {
+    const x = this.patronRepository.findOne({
+      where: query,
+    });
+    return x;
+  }
 
   findAll(): Promise<Patron[]> {
     return this.patronRepository.find({});
@@ -31,7 +53,7 @@ export class PatronService {
     const patron = new Patron();
     patron.role = _patron.role;
     patron.email = _patron.email;
-    patron.password = _patron.password;
+    patron.password = await bcrypt.hash(_patron.password, 10);
     patron.membership = _patron.membership;
     patron.first_name = _patron.first_name;
     patron.middle_name = _patron.middle_name;

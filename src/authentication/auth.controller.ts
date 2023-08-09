@@ -10,6 +10,7 @@ import {
   import { AuthService } from './auth.service';
   import { CreateUserDto } from 'src/entities/user/dto/create-user.dto';
 import { MerchantAuthGuard } from './guard/merchant-auth.guard';
+import { PatronAuthGuard } from './guard/patron-auth.guard';
   
   @Controller('auth')
   export class AuthController {
@@ -25,6 +26,13 @@ import { MerchantAuthGuard } from './guard/merchant-auth.guard';
     @UseGuards(MerchantAuthGuard)
     @Post('merchant/login')
     async merchantLogin(@Request() req) {
+      console.log('in login')
+      return this.authService.login(req);
+    }
+
+    @UseGuards(PatronAuthGuard)
+    @Post('patron/login')
+    async patronLogin(@Request() req) {
       console.log('in login')
       return this.authService.login(req);
     }
