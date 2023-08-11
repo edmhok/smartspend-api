@@ -1,34 +1,46 @@
 import {
-    Column,
-    CreateDateColumn,
-    Entity,
-    PrimaryGeneratedColumn,
-    BaseEntity,
-  } from 'typeorm';
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  BaseEntity,
+} from "typeorm";
 
-  @Entity({ name: 'products' })
-  export class Products extends BaseEntity {
-    @PrimaryGeneratedColumn()
-    id: number;
+@Entity({ name: "products" })
+export class Products extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  id: number;
 
-    @Column()
-    title: string;
+  @Column()
+  entryDate: Date;
 
-    @Column()
-    price: string;
+  @Column()
+  productName: string;
 
-    @Column()
-    description: string;
+  @Column()
+  brand: string;
 
-    @Column()
-    points: number;
+  @Column()
+  description: string;
 
-    @Column()
-    sku: string;
+  @Column()
+  sku: string;
 
-    @Column()
-    qty: number;
+  @Column()
+  price: string;
 
-    @CreateDateColumn()
-    createdAt: Date;
-  }
+  @Column()
+  qty: number;
+
+  @Column()
+  points: number;
+
+  @Column()
+  discount: number;
+
+  @Column()
+  originalPrice: number;
+
+  @CreateDateColumn()
+  createdAt: Date;
+}
