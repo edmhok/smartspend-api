@@ -51,10 +51,8 @@ export class MerchantService {
   async create(_merchant: CreateMerchantDto): Promise<Merchant> {
     
     const merchant = new Merchant();
-    merchant.role = _merchant.role;
     merchant.email = _merchant.email;
     merchant.password = await bcrypt.hash(_merchant.password, 10);
-    merchant.membership = _merchant.membership;
     merchant.first_name = _merchant.first_name;
     merchant.middle_name = _merchant.middle_name;
     merchant.last_name = _merchant.last_name;
@@ -81,10 +79,8 @@ export class MerchantService {
     const merchant = await this.findOne(id);
    
     const { 
-      role,
       email, 
       password, 
-      membership,
       first_name, 
       middle_name, 
       last_name, 
@@ -100,10 +96,8 @@ export class MerchantService {
       affiliate_id,
       store_id,
      } = updateMerchantDto;
-    merchant.role = role;
     merchant.email = email;
     merchant.password = password;
-    merchant.membership = membership;
     merchant.first_name = first_name;
     merchant.middle_name = middle_name;
     merchant.last_name = last_name;

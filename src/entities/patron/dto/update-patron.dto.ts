@@ -29,9 +29,6 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     password: string;
 
     @IsString()
-    membership: string;
-
-    @IsString()
     first_name: string;
 
     @IsString()

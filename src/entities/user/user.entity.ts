@@ -23,9 +23,6 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     password: string;
 
     @Column()
-    membership: string;
-
-    @Column()
     first_name: string;
 
     @Column()
@@ -38,7 +35,6 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     birthdate: Date;
 
     @Column()
-    @IsPhoneNumber()
     phone: number;
 
     @Column()

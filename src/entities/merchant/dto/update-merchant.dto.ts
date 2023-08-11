@@ -19,17 +19,12 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
     @IsInt()
     order_id: number;
 
-    @IsString()
-    role: string;
 
     @IsString()
     email: string;
     
     @IsString()
     password: string;
-
-    @IsString()
-    membership: string;
 
     @IsString()
     first_name: string;

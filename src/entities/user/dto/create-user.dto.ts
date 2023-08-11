@@ -24,9 +24,6 @@ export class CreateUserDto {
     password: string;
 
     @IsOptional()
-    membership: string;
-
-    @IsOptional()
     first_name: string;
 
     @IsOptional()

@@ -17,16 +17,10 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     // products: Products[];
 
     @Column()
-    role: string;
-
-    @Column()
     email: string;
     
     @Column()
     password: string;
-
-    @Column()
-    membership: string;
 
     @Column()
     first_name: string;
@@ -41,7 +35,6 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     birthdate: Date;
 
     @Column()
-    @IsPhoneNumber()
     phone: number;
 
     @Column()

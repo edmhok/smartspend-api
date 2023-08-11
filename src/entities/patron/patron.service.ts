@@ -51,10 +51,8 @@ export class PatronService {
 
   async create(_patron: CreatePatronDto): Promise<Patron> {
     const patron = new Patron();
-    patron.role = _patron.role;
     patron.email = _patron.email;
     patron.password = await bcrypt.hash(_patron.password, 10);
-    patron.membership = _patron.membership;
     patron.first_name = _patron.first_name;
     patron.middle_name = _patron.middle_name;
     patron.last_name = _patron.last_name;
@@ -84,7 +82,6 @@ export class PatronService {
       role,
       email, 
       password, 
-      membership,
       first_name, 
       middle_name, 
       last_name, 
@@ -100,10 +97,8 @@ export class PatronService {
       affiliate_id,
       store_id,
      } = updatePatronDto;
-    patron.role = role;
     patron.email = email;
     patron.password = password;
-    patron.membership = membership;
     patron.first_name = first_name;
     patron.middle_name = middle_name;
     patron.last_name = last_name;

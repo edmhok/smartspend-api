@@ -18,16 +18,10 @@ export class CreatePatronDto {
     order_id: number;
 
     @IsString()
-    role: string;
-
-    @IsString()
     email: string;
     
     @IsString()
     password: string;
-
-    @IsOptional()
-    membership: string;
 
     @IsOptional()
     first_name: string;
