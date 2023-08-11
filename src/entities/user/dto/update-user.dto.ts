@@ -20,7 +20,7 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -37,8 +37,8 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsDate()
     birthdate: Date;
 
-    @IsInt()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsString()
     address: string;

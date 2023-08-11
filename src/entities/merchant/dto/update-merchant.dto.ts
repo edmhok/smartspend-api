@@ -38,8 +38,8 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
     @IsDate()
     birthdate: Date;
 
-    @IsInt()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsString()
     address: string;

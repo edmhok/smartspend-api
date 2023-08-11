@@ -18,7 +18,7 @@ export class CreateUserDto {
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -35,8 +35,8 @@ export class CreateUserDto {
     @IsOptional()
     birthdate: Date;
 
-    @IsOptional()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsOptional()
     address: string;

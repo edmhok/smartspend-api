@@ -38,8 +38,8 @@ export class CreateMerchantDto {
     @IsOptional()
     birthdate: Date;
 
-    @IsOptional()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsOptional()
     address: string;

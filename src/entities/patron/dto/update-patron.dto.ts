@@ -40,8 +40,8 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     @IsDate()
     birthdate: Date;
 
-    @IsInt()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsString()
     address: string;

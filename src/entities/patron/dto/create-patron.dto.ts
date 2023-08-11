@@ -35,8 +35,8 @@ export class CreatePatronDto {
     @IsOptional()
     birthdate: Date;
 
-    @IsOptional()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsOptional()
     address: string;

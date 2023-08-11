@@ -35,7 +35,7 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     birthdate: Date;
 
     @Column()
-    phone: number;
+    phone: string;
 
     @Column()
     address: string;
