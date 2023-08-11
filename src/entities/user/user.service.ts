@@ -36,7 +36,7 @@ export class UserService {
 
   async create(_user: CreateUserDto): Promise<User> {
     const user = new User();
-    user.username = _user.username;
+    user.email = _user.email;
     user.password = _user.password;
     user.first_name = _user.first_name;
     user.middle_name = _user.middle_name;
@@ -64,7 +64,7 @@ export class UserService {
     const user = await this.findOne(id);
    
     const { 
-      username, 
+      email, 
       password, 
       first_name, 
       middle_name, 
@@ -77,7 +77,7 @@ export class UserService {
       country, 
       zipcode, 
      } = updateUserDto;
-    user.username = username;
+    user.email = email;
     user.password = password;
     user.first_name = first_name;
     user.middle_name = middle_name;
