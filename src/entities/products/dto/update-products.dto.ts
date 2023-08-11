@@ -7,8 +7,8 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   @IsInt()
   id: number;
 
-  @IsString()
-  entryDate: string;
+  @IsDate()
+  entryDate: Date;
 
   @IsInt()
   productName: string;
@@ -31,7 +31,7 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   @IsString()
   points: number;
 
-  @IsString()
+  @IsInt()
   originalPrice: number;
 
   @IsInt()

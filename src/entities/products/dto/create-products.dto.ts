@@ -5,8 +5,8 @@ export class CreateProductsDto {
   @IsInt()
   id: number;
 
-  @IsString()
-  entryDate: string;
+  @IsDate()
+  entryDate: Date;
 
   @IsInt()
   productName: string;
@@ -29,7 +29,7 @@ export class CreateProductsDto {
   @IsString()
   points: number;
 
-  @IsString()
+  @IsInt()
   originalPrice: number;
 
   @IsInt()

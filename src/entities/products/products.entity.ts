@@ -12,7 +12,7 @@ export class Products extends BaseEntity {
   id: number;
 
   @Column()
-  entryDate: string;
+  entryDate: Date;
 
   @Column()
   productName: string;
