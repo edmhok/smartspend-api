@@ -7,6 +7,9 @@ import { ProductsRepository } from './products.repository';
 import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
 import { UserRepository } from '../user/user.repository';
+import { Order } from '../order/order.entity';
+import { OrderRepository } from '../order/order.repository';
+import { OrderService } from '../order/order.service';
 
 @Module({
   imports: [
@@ -15,6 +18,7 @@ import { UserRepository } from '../user/user.repository';
       ProductsRepository,
       User,
       UserRepository,
+
     ]),
   ],
   controllers: [ProductsController],

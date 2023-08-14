@@ -4,17 +4,17 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     BaseEntity,
+    OneToMany,
   } from 'typeorm';
-import { IsPhoneNumber } from '@nestjs/class-validator';
+import { Order } from '../order/order.entity';
 
 @Entity({ name: 'patron' })
   export class Patron extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // @ManyToOne(() => Products, (products) => products.patron, { onDelete: 'CASCADE' })
-    // @JoinColumn()
-    // products: Products[];
+    @OneToMany(() => Order, (order) => order.patron, { onDelete: 'CASCADE' })
+    order: Order[];
 
     @Column()
     email: string;

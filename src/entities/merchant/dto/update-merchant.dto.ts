@@ -8,17 +8,7 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
     id: number;
 
     @IsInt()
-    affiliate_id: number;
-
-    @IsInt()
-    store_id: number;
-    
-    @IsInt()
-    products_id: number;
-
-    @IsInt()
     order_id: number;
-
 
     @IsString()
     email: string;

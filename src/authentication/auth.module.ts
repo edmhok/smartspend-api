@@ -17,10 +17,12 @@ import { Merchant } from 'src/entities/merchant/merchant.entity';
 import { Patron } from 'src/entities/patron/patron.entity';
 import { PatronStrategy } from './strategy/patron.strategy';
 import { PatronService } from 'src/entities/patron/patron.service';
+import { Order } from 'src/entities/order/order.entity';
+import { OrderService } from 'src/entities/order/order.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Merchant, Patron]),
+    TypeOrmModule.forFeature([User, Merchant, Patron, Order]),
     User,
     UserModule,
     PassportModule,

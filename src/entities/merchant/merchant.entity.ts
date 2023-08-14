@@ -4,17 +4,17 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     BaseEntity,
+    OneToMany,
   } from 'typeorm';
-import { IsPhoneNumber } from '@nestjs/class-validator';
+import { Order } from '../order/order.entity';
 
 @Entity({ name: 'merchant' })
   export class Merchant extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // @ManyToOne(() => Products, (products) => products.merchant, { onDelete: 'CASCADE' })
-    // @JoinColumn()
-    // products: Products[];
+    @OneToMany(() => Order, (order) => order.merchant, { onDelete: 'CASCADE' })
+    order: Order[];
 
     @Column()
     email: string;
@@ -55,7 +55,7 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     @CreateDateColumn()
     createdAt: Date;
 
-
+    
   }
 
 

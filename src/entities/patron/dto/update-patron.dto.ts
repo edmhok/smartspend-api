@@ -8,15 +8,6 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     id: number;
 
     @IsInt()
-    affiliate_id: number;
-
-    @IsInt()
-    store_id: number;
-    
-    @IsInt()
-    products_id: number;
-
-    @IsInt()
     order_id: number;
 
     @IsString()

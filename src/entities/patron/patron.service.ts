@@ -6,6 +6,8 @@ import { PatronRepository } from './patron.repository';
 import { CreatePatronDto } from './dto/create-patron.dto';
 import { UpdatePatronDto } from './dto/update-patron.dto';
 import * as bcrypt from 'bcrypt';
+import { Order } from '../order/order.entity';
+import { OrderRepository } from '../order/order.repository';
 
 
 @Injectable()
@@ -13,6 +15,8 @@ export class PatronService {
   constructor(
     @InjectRepository(Patron) 
     private patronRepository: PatronRepository,
+    // @InjectRepository(Order) 
+    // private orderRepository: OrderRepository,
    
   ) {}
 
@@ -37,14 +41,17 @@ export class PatronService {
   }
 
   findAll(): Promise<Patron[]> {
-    return this.patronRepository.find({});
+    return this.patronRepository.find({
+      // relations: ['order']
+    });
   }
 
   async findOne(id: number): Promise<Patron> {
     const x = this.patronRepository.findOne({
       where: {
         id: id,
-      }
+      },
+      // relations: ['order']
     });
     return x;
   }
@@ -65,11 +72,11 @@ export class PatronService {
     patron.zipcode = _patron.zipcode;
     
     
-    // if(_patron.products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: _patron.products_id },
+    // if(_patron.order_id) {
+    //   const order = await this.orderRepository.findOne({
+    //     where: { id: _patron.order_id },
     //   });
-    //   patron.products = [products];
+    //   patron.order = [order];
     // }
 
     return this.patronRepository.save(patron);
@@ -79,7 +86,6 @@ export class PatronService {
     const patron = await this.findOne(id);
    
     const { 
-      role,
       email, 
       password, 
       first_name, 
@@ -92,10 +98,6 @@ export class PatronService {
       state, 
       country, 
       zipcode, 
-      products_id, 
-      order_id, 
-      affiliate_id,
-      store_id,
      } = updatePatronDto;
     patron.email = email;
     patron.password = password;
@@ -110,11 +112,11 @@ export class PatronService {
     patron.country = country;
     patron.zipcode = zipcode;
 
-    // if(products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: products_id },
+    // if(order_id) {
+    //   const order = await this.orderRepository.findOne({
+    //     where: { id: order_id },
     //   });
-    //   patron.products = [products];
+    //   patron.order = [order];
     // }
     return await patron.save();
     

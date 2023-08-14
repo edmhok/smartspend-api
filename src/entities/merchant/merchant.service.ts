@@ -12,7 +12,7 @@ export class MerchantService {
   constructor(
     @InjectRepository(Merchant) 
     private merchantRepository: MerchantRepository,
-   
+
   ) {}
 
   async validateUser(email: string, password: string): Promise<any> {
@@ -65,13 +65,6 @@ export class MerchantService {
     merchant.zipcode = _merchant.zipcode;
     
     
-    // if(_merchant.products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: _merchant.products_id },
-    //   });
-    //   merchant.products = [products];
-    // }
-
     return this.merchantRepository.save(merchant);
   }  
 
@@ -91,10 +84,6 @@ export class MerchantService {
       state, 
       country, 
       zipcode, 
-      products_id, 
-      order_id, 
-      affiliate_id,
-      store_id,
      } = updateMerchantDto;
     merchant.email = email;
     merchant.password = password;
@@ -109,12 +98,6 @@ export class MerchantService {
     merchant.country = country;
     merchant.zipcode = zipcode;
 
-    // if(products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: products_id },
-    //   });
-    //   merchant.products = [products];
-    // }
     return await merchant.save();
     
   }

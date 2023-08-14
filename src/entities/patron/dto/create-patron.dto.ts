@@ -6,15 +6,6 @@ export class CreatePatronDto {
     id: number;
 
     @IsOptional()
-    affiliate_id: number;
-
-    @IsInt()
-    store_id: number;
-
-    @IsOptional()
-    products_id: number;
-
-    @IsOptional()
     order_id: number;
 
     @IsString()

@@ -5,6 +5,9 @@ export class CreateProductsDto {
   @IsInt()
   id: number;
 
+  @IsInt()
+  order_id: number;
+  
   @IsDate()
   entryDate: Date;
 
