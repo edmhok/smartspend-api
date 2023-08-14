@@ -17,7 +17,7 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     // products: Products[];
 
     @Column()
-    email: string;
+    username: string;
     
     @Column()
     password: string;

@@ -5,20 +5,20 @@ export class CreateUserDto {
     @IsInt()
     id: number;
 
-    @IsOptional()
-    affiliate_id: number;
+    // @IsOptional()
+    // affiliate_id: number;
 
-    @IsInt()
-    store_id: number;
+    // @IsInt()
+    // store_id: number;
 
-    @IsOptional()
-    products_id: number;
+    // @IsOptional()
+    // products_id: number;
 
     @IsOptional()
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
