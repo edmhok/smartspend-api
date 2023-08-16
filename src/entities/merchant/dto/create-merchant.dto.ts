@@ -8,11 +8,11 @@ export class CreateMerchantDto {
     @IsOptional()
     order_id: number;
 
-    @IsString()
-    role: string;
+    // @IsString()
+    // role: string;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -46,6 +46,9 @@ export class CreateMerchantDto {
 
     @IsOptional()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

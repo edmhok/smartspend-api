@@ -17,7 +17,7 @@ import { Order } from '../order/order.entity';
     order: Order[];
 
     @Column()
-    email: string;
+    username: string;
     
     @Column()
     password: string;
@@ -51,6 +51,9 @@ import { Order } from '../order/order.entity';
 
     @Column()
     zipcode: string;
+
+    @Column()
+    points: number;
 
     @CreateDateColumn()
     createdAt: Date;

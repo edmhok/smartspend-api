@@ -20,26 +20,27 @@ import { PatronAuthGuard } from './guard/patron-auth.guard';
     @Post('login')
     async login(@Request() req) {
       console.log('in login')
-      return this.authService.login(req);
+      return this.authService.login(req, 'admin');
     }
 
     @UseGuards(MerchantAuthGuard)
     @Post('merchant/login')
     async merchantLogin(@Request() req) {
       console.log('in login')
-      return this.authService.login(req);
+      return this.authService.login(req, 'merchant');
     }
 
     @UseGuards(PatronAuthGuard)
     @Post('patron/login')
     async patronLogin(@Request() req) {
       console.log('in login')
-      return this.authService.login(req);
+      return this.authService.login(req, 'patron');
     }
   
     @Post('register')
     create(@Body() createUsersDto: CreateUserDto) {
       return this.authService.create(createUsersDto);
     }
+
   }
   

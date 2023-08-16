@@ -9,7 +9,7 @@ export class CreatePatronDto {
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -43,6 +43,9 @@ export class CreatePatronDto {
 
     @IsOptional()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

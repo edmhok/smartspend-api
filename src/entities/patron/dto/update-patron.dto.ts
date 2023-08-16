@@ -10,11 +10,11 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     @IsInt()
     order_id: number;
 
-    @IsString()
-    role: string;
+    // @IsString()
+    // role: string;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -48,6 +48,9 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
 
     @IsString()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

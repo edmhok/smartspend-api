@@ -11,7 +11,7 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
@@ -45,6 +45,9 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
 
     @IsString()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

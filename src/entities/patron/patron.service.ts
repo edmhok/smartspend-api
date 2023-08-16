@@ -20,8 +20,9 @@ export class PatronService {
    
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.credential({ email: email });
+  async validateUser(username: string, password: string): Promise<any> {
+    console.log({username, password});
+    const user = await this.credential({ username: username });
     if (!user) return null;
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
@@ -58,7 +59,7 @@ export class PatronService {
 
   async create(_patron: CreatePatronDto): Promise<Patron> {
     const patron = new Patron();
-    patron.email = _patron.email;
+    patron.username = _patron.username;
     patron.password = await bcrypt.hash(_patron.password, 10);
     patron.first_name = _patron.first_name;
     patron.middle_name = _patron.middle_name;
@@ -70,6 +71,7 @@ export class PatronService {
     patron.state = _patron.state;
     patron.country = _patron.country;
     patron.zipcode = _patron.zipcode;
+    patron.points = _patron.points;
     
     
     // if(_patron.order_id) {
@@ -86,7 +88,7 @@ export class PatronService {
     const patron = await this.findOne(id);
    
     const { 
-      email, 
+      username, 
       password, 
       first_name, 
       middle_name, 
@@ -98,8 +100,9 @@ export class PatronService {
       state, 
       country, 
       zipcode, 
+      points,
      } = updatePatronDto;
-    patron.email = email;
+    patron.username = username;
     patron.password = password;
     patron.first_name = first_name;
     patron.middle_name = middle_name;
@@ -111,6 +114,7 @@ export class PatronService {
     patron.state = state;
     patron.country = country;
     patron.zipcode = zipcode;
+    patron.points = points;
 
     // if(order_id) {
     //   const order = await this.orderRepository.findOne({
