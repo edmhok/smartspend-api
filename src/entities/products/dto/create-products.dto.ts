@@ -21,7 +21,7 @@ export class CreateProductsDto {
   sku: string;
 
   @IsInt()
-  price: string;
+  price: number;
 
   @IsInt()
   qty: number;

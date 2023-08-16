@@ -27,7 +27,7 @@ export class Products extends BaseEntity {
   sku: string;
 
   @Column()
-  price: string;
+  price: number;
 
   @Column()
   qty: number;

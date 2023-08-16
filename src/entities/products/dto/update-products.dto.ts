@@ -23,7 +23,7 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   sku: string;
 
   @IsInt()
-  price: string;
+  price: number;
 
   @IsInt()
   qty: number;
