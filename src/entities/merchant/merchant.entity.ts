@@ -5,8 +5,11 @@ import {
     PrimaryGeneratedColumn,
     BaseEntity,
     OneToMany,
+    ManyToMany,
+    JoinTable,
   } from 'typeorm';
 import { Order } from '../order/order.entity';
+import { Products } from '../products/products.entity';
 
 @Entity({ name: 'merchant' })
   export class Merchant extends BaseEntity {
@@ -15,6 +18,10 @@ import { Order } from '../order/order.entity';
 
     @OneToMany(() => Order, (order) => order.merchant, { onDelete: 'CASCADE' })
     order: Order[];
+
+    @ManyToMany(() => Products, (products) => products.merchant, { onDelete: 'CASCADE' })
+    @JoinTable()
+    products: Products[];
 
     @Column()
     username: string;

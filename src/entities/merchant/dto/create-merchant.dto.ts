@@ -5,11 +5,11 @@ export class CreateMerchantDto {
     @IsInt()
     id: number;
 
-    @IsOptional()
+    @IsInt()
     order_id: number;
 
-    // @IsString()
-    // role: string;
+    @IsInt()
+    product_id: number;
 
     @IsString()
     username: string;
