@@ -12,7 +12,7 @@ import { ProductsRepository } from "../products/products.repository";
 import { Products } from "../products/products.entity";
 
 @Injectable()
-export class OrderService { 
+export class OrderService {
   constructor(
     @InjectRepository(Order)
     private orderRepository: OrderRepository,
@@ -21,13 +21,12 @@ export class OrderService {
     @InjectRepository(Patron)
     private patronRepository: PatronRepository,
     @InjectRepository(Products)
-    private productsRepository: ProductsRepository,
+    private productsRepository: ProductsRepository
   ) {}
 
   findAll(): Promise<Order[]> {
     return this.orderRepository.find({
-      relations: ['products', 'merchant', 'patron']
-    
+      relations: ["products", "merchant", "patron"],
     });
   }
 
@@ -36,7 +35,7 @@ export class OrderService {
       where: {
         id: id,
       },
-        relations: ['products', 'merchant', 'patron']
+      relations: ["products", "merchant", "patron"],
     });
     return x;
   }
@@ -46,48 +45,45 @@ export class OrderService {
       where: {
         createdAt,
       },
-      relations: ['products', 'merchant', 'patron']
+      relations: ["products", "merchant", "patron"],
     });
   }
 
-  async create(_order: CreateOrderDto): Promise<Order> {
+  async create(_order: CreateOrderDto): Promise<Order | any> {
     const order = new Order();
 
-    if (_order.merchant_id) {
-      const merchant = await this.merchantRepository.findOne({
-        where: { id: _order.merchant_id },
-      });
-      order.merchant = merchant;
+    const merchant = await this.merchantRepository.findOne({
+      where: { id: _order.merchant_id },
+    });
+    order.merchant = merchant;
+    const patron = await this.patronRepository.findOne({
+      where: { id: _order.patron_id },
+    });
+    order.patron = patron;
+    const products = await this.productsRepository.findOne({
+      where: { id: _order.products_id },
+    });
+    order.products = [products];
+    const points = products.points;
+
+    if (merchant.points >= points) {
+      merchant.points = merchant.points - points;
+      patron.points = patron.points + points;
+
+      this.merchantRepository.save(merchant);
+      this.patronRepository.save(patron);
+      return this.orderRepository.save(order);
+    } else {
+      return {
+        status: "failed",
+      };
     }
-    if (_order.patron_id) {
-      const patron = await this.patronRepository.findOne({
-        where: { id: _order.patron_id },
-      });
-      order.patron = patron;
-    }
-    if (_order.products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: _order.products_id },
-      });
-      order.products = [products];
-      // const points = products.points;
-
-      // merchant.points = (merchants.point - points)
-      // patron.points = (patron.point + points)
-
-     // this.merchantRepository.save(merchants)
-     // this.patronRepository.save(patron)
-    }
-
-
-
-    return this.orderRepository.save(order);
   }
 
-  async update(id: number, updateOrderDto: UpdateOrderDto ): Promise<Order> {
+  async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
     const order = await this.findOne(id);
 
-    const { products_id, patron_id, merchant_id} = updateOrderDto;
+    const { products_id, patron_id, merchant_id } = updateOrderDto;
 
     if (products_id) {
       const products = await this.productsRepository.findOne({
