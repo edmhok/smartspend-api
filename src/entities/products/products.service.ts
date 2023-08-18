@@ -5,20 +5,26 @@ import { ProductsRepository } from "./products.repository";
 import { CreateProductsDto } from "./dto/create-products.dto";
 import { UpdateProductsDto } from "./dto/update-products.dto";
 
-import { User } from "../user/user.entity";
-import { UserRepository } from "../user/user.repository";
+// import { User } from "../user/user.entity";
+// import { UserRepository } from "../user/user.repository";
+// import { Order } from "../order/order.entity";
+// import { OrderRepository } from "../order/order.repository";
 
 @Injectable()
 export class ProductsService {
   constructor(
     @InjectRepository(Products)
     private productsRepository: ProductsRepository,
-    @InjectRepository(User)
-    private userRepository: UserRepository
+    // @InjectRepository(User)
+    // private userRepository: UserRepository
+    // @InjectRepository(Order)
+    // private orderRepository: OrderRepository
   ) {}
 
   findAll(): Promise<Products[]> {
-    return this.productsRepository.find({});
+    return this.productsRepository.find({
+      // relations: ['order']
+    });
   }
 
   async findOne(id: number): Promise<Products> {
@@ -26,6 +32,8 @@ export class ProductsService {
       where: {
         id: id,
       },
+      // relations: ['order']
+
     });
     return x;
   }
@@ -57,6 +65,13 @@ export class ProductsService {
     //   });
     //   products.user = [user];
     // }
+    // if(_products.order_id) {
+    //   const order = await this.orderRepository.findOne({
+    //     where: { id: _products.order_id},
+    //   });
+    //   products.order = [order];
+    // }
+
 
     return this.productsRepository.save(products);
   }
@@ -78,6 +93,7 @@ export class ProductsService {
       points,
       discount,
       originalPrice,
+      order_id,
     } = updateProductsDto;
     products.entryDate = entryDate;
     products.productName = productName;
@@ -95,6 +111,12 @@ export class ProductsService {
     //     where: { id: user_id },
     //   });
     //   products.user = [user];
+    // }
+    // if(order_id) {
+    //   const order = await this.orderRepository.findOne({
+    //     where: { id: order_id},
+    //   });
+    //   products.order = [order];
     // }
 
     return await products.save();

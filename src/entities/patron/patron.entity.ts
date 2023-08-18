@@ -4,29 +4,23 @@ import {
     Entity,
     PrimaryGeneratedColumn,
     BaseEntity,
+    OneToMany,
   } from 'typeorm';
-import { IsPhoneNumber } from '@nestjs/class-validator';
+import { Order } from '../order/order.entity';
 
 @Entity({ name: 'patron' })
   export class Patron extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
-    // @ManyToOne(() => Products, (products) => products.patron, { onDelete: 'CASCADE' })
-    // @JoinColumn()
-    // products: Products[];
+    @OneToMany(() => Order, (order) => order.patron, { onDelete: 'CASCADE' })
+    order: Order[];
 
     @Column()
-    role: string;
-
-    @Column()
-    email: string;
+    username: string;
     
     @Column()
     password: string;
-
-    @Column()
-    membership: string;
 
     @Column()
     first_name: string;
@@ -41,8 +35,7 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
     birthdate: Date;
 
     @Column()
-    @IsPhoneNumber()
-    phone: number;
+    phone: string;
 
     @Column()
     address: string;
@@ -58,6 +51,9 @@ import { IsPhoneNumber } from '@nestjs/class-validator';
 
     @Column()
     zipcode: string;
+
+    @Column()
+    points: number;
 
     @CreateDateColumn()
     createdAt: Date;

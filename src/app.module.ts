@@ -15,6 +15,8 @@ import { MerchantModule } from './entities/merchant/merchant.module';
 import { PatronModule } from './entities/patron/patron.module';
 import { TransactionModule } from './entities/transaction/transaction.module';
 import { ProductsModule } from './entities/products/products.module';
+import { OrderModule } from './entities/order/order.module';
+import { Order } from './entities/order/order.entity';
 
 
 @Module({
@@ -35,7 +37,8 @@ import { ProductsModule } from './entities/products/products.module';
         Merchant,
         Patron,
         Transaction,
-        Products
+        Products,
+        Order,
       ],
       synchronize: true,
       autoLoadEntities: true,
@@ -44,7 +47,8 @@ import { ProductsModule } from './entities/products/products.module';
     MerchantModule,
     PatronModule,
     TransactionModule,
-    ProductsModule
+    ProductsModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

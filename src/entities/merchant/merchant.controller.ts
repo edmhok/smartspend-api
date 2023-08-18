@@ -8,17 +8,22 @@ import {
   Patch,
   Request,
   UseGuards,
+  Inject,
+  forwardRef,
 } from '@nestjs/common';
 import { MerchantService } from './merchant.service';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
+import { OrderService } from '../order/order.service';
 
 
 @Controller('merchants')
 export class MerchantController {
   constructor(
     private merchantService: MerchantService,
+    // @Inject(forwardRef(() => OrderService))
+    // private readonly orderService: OrderService,
   ) { }
 
   @UseGuards(JwtAuthGuard)

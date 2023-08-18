@@ -14,10 +14,15 @@ import { User } from 'src/entities/user/user.entity';
 import { MerchantStrategy } from './strategy/merchant.strategy';
 import { MerchantService } from 'src/entities/merchant/merchant.service';
 import { Merchant } from 'src/entities/merchant/merchant.entity';
+import { Patron } from 'src/entities/patron/patron.entity';
+import { PatronStrategy } from './strategy/patron.strategy';
+import { PatronService } from 'src/entities/patron/patron.service';
+import { Order } from 'src/entities/order/order.entity';
+import { OrderService } from 'src/entities/order/order.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Merchant]),
+    TypeOrmModule.forFeature([User, Merchant, Patron, Order]),
     User,
     UserModule,
     PassportModule,
@@ -26,7 +31,7 @@ import { Merchant } from 'src/entities/merchant/merchant.entity';
       signOptions: { expiresIn: '24h' },
     }),
   ],
-  providers: [UserService, AuthService, LocalStrategy, JwtStrategy, MerchantStrategy, MerchantService],
+  providers: [UserService, AuthService, LocalStrategy, JwtStrategy, MerchantStrategy, MerchantService, PatronStrategy, PatronService],
   controllers: [AuthController],
   exports: [UserService, AuthService, ],
 })

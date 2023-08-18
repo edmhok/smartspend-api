@@ -6,16 +6,17 @@ import { MerchantRepository } from './merchant.repository';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import * as bcrypt from 'bcrypt';
+
 @Injectable()
 export class MerchantService {
   constructor(
     @InjectRepository(Merchant) 
     private merchantRepository: MerchantRepository,
-   
+
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    const user = await this.credential({ email: email });
+  async validateUser(username: string, password: string): Promise<any> {
+    const user = await this.credential({ username: username });
     if (!user) return null;
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
@@ -50,10 +51,8 @@ export class MerchantService {
   async create(_merchant: CreateMerchantDto): Promise<Merchant> {
     
     const merchant = new Merchant();
-    merchant.role = _merchant.role;
-    merchant.email = _merchant.email;
+    merchant.username = _merchant.username;
     merchant.password = await bcrypt.hash(_merchant.password, 10);
-    merchant.membership = _merchant.membership;
     merchant.first_name = _merchant.first_name;
     merchant.middle_name = _merchant.middle_name;
     merchant.last_name = _merchant.last_name;
@@ -64,15 +63,9 @@ export class MerchantService {
     merchant.state = _merchant.state;
     merchant.country = _merchant.country;
     merchant.zipcode = _merchant.zipcode;
+    merchant.points = _merchant.points;
     
     
-    // if(_merchant.products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: _merchant.products_id },
-    //   });
-    //   merchant.products = [products];
-    // }
-
     return this.merchantRepository.save(merchant);
   }  
 
@@ -80,10 +73,8 @@ export class MerchantService {
     const merchant = await this.findOne(id);
    
     const { 
-      role,
-      email, 
+      username, 
       password, 
-      membership,
       first_name, 
       middle_name, 
       last_name, 
@@ -93,16 +84,11 @@ export class MerchantService {
       city, 
       state, 
       country, 
-      zipcode, 
-      products_id, 
-      order_id, 
-      affiliate_id,
-      store_id,
+      zipcode,
+      points, 
      } = updateMerchantDto;
-    merchant.role = role;
-    merchant.email = email;
+    merchant.username = username;
     merchant.password = password;
-    merchant.membership = membership;
     merchant.first_name = first_name;
     merchant.middle_name = middle_name;
     merchant.last_name = last_name;
@@ -113,13 +99,8 @@ export class MerchantService {
     merchant.state = state;
     merchant.country = country;
     merchant.zipcode = zipcode;
+    merchant.points = points;
 
-    // if(products_id) {
-    //   const products = await this.productsRepository.findOne({
-    //     where: { id: products_id },
-    //   });
-    //   merchant.products = [products];
-    // }
     return await merchant.save();
     
   }

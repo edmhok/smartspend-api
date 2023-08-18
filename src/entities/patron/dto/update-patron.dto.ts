@@ -8,28 +8,16 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     id: number;
 
     @IsInt()
-    affiliate_id: number;
-
-    @IsInt()
-    store_id: number;
-    
-    @IsInt()
-    products_id: number;
-
-    @IsInt()
     order_id: number;
 
-    @IsString()
-    role: string;
+    // @IsString()
+    // role: string;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
-
-    @IsString()
-    membership: string;
 
     @IsString()
     first_name: string;
@@ -43,8 +31,8 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     @IsDate()
     birthdate: Date;
 
-    @IsInt()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsString()
     address: string;
@@ -60,6 +48,9 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
 
     @IsString()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

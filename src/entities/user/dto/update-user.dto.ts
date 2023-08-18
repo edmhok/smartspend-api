@@ -7,26 +7,23 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsInt()
     id: number;
 
-    @IsInt()
-    affiliate_id: number;
+    // @IsInt()
+    // affiliate_id: number;
 
-    @IsInt()
-    store_id: number;
+    // @IsInt()
+    // store_id: number;
     
-    @IsInt()
-    products_id: number;
+    // @IsInt()
+    // products_id: number;
 
     @IsInt()
     order_id: number;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
-
-    @IsString()
-    membership: string;
 
     @IsString()
     first_name: string;
@@ -40,8 +37,8 @@ export class UpdateUserDto extends PartialType(CreateUserDto) {
     @IsDate()
     birthdate: Date;
 
-    @IsInt()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsString()
     address: string;

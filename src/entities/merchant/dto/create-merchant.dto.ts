@@ -6,28 +6,16 @@ export class CreateMerchantDto {
     id: number;
 
     @IsOptional()
-    affiliate_id: number;
-
-    @IsInt()
-    store_id: number;
-
-    @IsOptional()
-    products_id: number;
-
-    @IsOptional()
     order_id: number;
 
-    @IsString()
-    role: string;
+    // @IsString()
+    // role: string;
 
     @IsString()
-    email: string;
+    username: string;
     
     @IsString()
     password: string;
-
-    @IsOptional()
-    membership: string;
 
     @IsOptional()
     first_name: string;
@@ -41,8 +29,8 @@ export class CreateMerchantDto {
     @IsOptional()
     birthdate: Date;
 
-    @IsOptional()
-    phone: number;
+    @IsString()
+    phone: string;
 
     @IsOptional()
     address: string;
@@ -58,6 +46,9 @@ export class CreateMerchantDto {
 
     @IsOptional()
     zipcode: string;
+
+    @IsInt()
+    points: number;
 
     @IsDate()
     createdAt: Date;

@@ -10,9 +10,9 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async validateUser(email: string, password: string): Promise<any> {
-    console.log({email, password})
-    const user = await this.userService.userCredential({ email: email });
+  async validateUser(username: string, password: string): Promise<any> {
+    console.log({username, password})
+    const user = await this.userService.userCredential({ username: username });
     if (!user) return null;
     const passwordValid = await bcrypt.compare(password, user.password);
     if (!user) {
@@ -24,14 +24,12 @@ export class AuthService {
     return null;
   }
 
-  async login(user: any) {
+  async login(user: any, role: string) {
+    console.log('in authservice', user.user)
     const payload = {
       userPayload: {
-      id: user.user.id,
-      role: user.user.role,
-      email: user.user.email,
+      username: user.user.username,
       password: user.user.password,
-      membership : user.user.membership,
       first_name: user.user.first_name,
       middle_name: user.user.middle_name,
       last_name : user.user.last_name,
@@ -42,12 +40,12 @@ export class AuthService {
       state: user.user.state,
       country: user.user.country,
       zipcode: user.user.zipcode,
+      points: user.user.points,
       },
     };
     return {
       access_token: this.jwtService.sign(payload),
-      affiliate_id: user.user.affiliate?.id,
-      store_id: user.user.store?.id,
+      role: role,
 
     };
   }

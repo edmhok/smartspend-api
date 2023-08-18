@@ -4,12 +4,17 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   BaseEntity,
+  ManyToMany,
 } from "typeorm";
+import { Order } from "../order/order.entity";
 
 @Entity({ name: "products" })
 export class Products extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
+
+  @ManyToMany(() => Order, (order) => order.products, { onDelete: 'CASCADE' })
+  order: Order[];
 
   @Column()
   entryDate: Date;
