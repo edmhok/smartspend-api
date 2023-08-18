@@ -40,11 +40,9 @@ export class MerchantService {
   }
 
   async findOne(id: number): Promise<Merchant> {
-    const x = this.merchantRepository.findOne({
-      where: {
-        id: id,
-      }
-    });
+    console.log({id})
+    const x = await this.merchantRepository.findOne({where: { id: id}});
+    console.log({x})
     return x;
   }
 
