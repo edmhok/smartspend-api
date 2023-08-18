@@ -7,6 +7,7 @@ import {
   ManyToMany,
 } from "typeorm";
 import { Order } from "../order/order.entity";
+import { Merchant } from "../merchant/merchant.entity";
 
 @Entity({ name: "products" })
 export class Products extends BaseEntity {
@@ -15,6 +16,9 @@ export class Products extends BaseEntity {
 
   @ManyToMany(() => Order, (order) => order.products, { onDelete: 'CASCADE' })
   order: Order[];
+
+  @ManyToMany(() => Merchant, (merchant) => merchant.products, { onDelete: 'CASCADE' })
+  merchant: Merchant[];
 
   @Column()
   entryDate: Date;

@@ -70,7 +70,16 @@ export class OrderService {
         where: { id: _order.products_id },
       });
       order.products = [products];
+      // const points = products.points;
+
+      // merchant.points = (merchants.point - points)
+      // patron.points = (patron.point + points)
+
+     // this.merchantRepository.save(merchants)
+     // this.patronRepository.save(patron)
     }
+
+
 
     return this.orderRepository.save(order);
   }

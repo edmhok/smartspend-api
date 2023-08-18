@@ -10,6 +10,9 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   @IsInt()
   order_id: number;
 
+  @IsInt()
+  products_id: number;
+
   @IsDate()
   entryDate: Date;
 
