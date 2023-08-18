@@ -47,6 +47,7 @@ export class MerchantController {
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: number) {
+    console.log({id})
     return this.merchantService.findOne(+id);
   }
 
