@@ -53,6 +53,11 @@ export class ProductsService {
     products.brand = _products.brand;
     products.description = _products.description;
     products.sku = _products.sku;
+    products.category = _products.category;
+    products.variant = _products.variant;
+    products.size = _products.size;
+    products.color = _products.color;
+    products.tags = _products.tags;
     products.price = _products.price;
     products.qty = _products.qty;
     products.points = _products.points;
@@ -88,6 +93,11 @@ export class ProductsService {
       brand,
       description,
       sku,
+      category,
+      variant,
+      size,
+      color,
+      tags,
       price,
       qty,
       points,
@@ -100,6 +110,11 @@ export class ProductsService {
     products.brand = brand;
     products.description = description;
     products.sku = sku;
+    products.category = category;
+    products.variant = variant;
+    products.size = size;
+    products.color = color;
+    products.tags = tags;
     products.price = price;
     products.qty = qty;
     products.points = points;

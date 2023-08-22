@@ -36,6 +36,21 @@ export class Products extends BaseEntity {
   sku: string;
 
   @Column()
+  category: string;
+
+  @Column()
+  variant: string;
+
+  @Column()
+  size: string;
+
+  @Column()
+  color: string;
+
+  @Column()
+  tags: string;
+
+  @Column()
   price: number;
 
   @Column()

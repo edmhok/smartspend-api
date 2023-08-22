@@ -26,6 +26,21 @@ export class CreateProductsDto {
   @IsString()
   sku: string;
 
+  @IsString()
+  category: string;
+
+  @IsString()
+  variant: string;
+
+  @IsString()
+  size: string;
+
+  @IsString()
+  color: string;
+
+  @IsString()
+  tags: string;
+
   @IsInt()
   price: number;
 
