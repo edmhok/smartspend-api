@@ -16,6 +16,7 @@ import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 import { OrderService } from '../order/order.service';
+import { ObjectId } from 'mongoose';
 
 
 @Controller('merchants')
@@ -41,14 +42,14 @@ export class MerchantController {
     );
     const merchant_id = decodedToken.merchantPayload.id;
 
-    return this.merchantService.findOne(+merchant_id);
+    return this.merchantService.findOne(merchant_id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: number) {
+  async findOne(@Param('id') id: ObjectId) {
     console.log({id})
-    return this.merchantService.findOne(+id);
+    return this.merchantService.findOne(id);
   }
 
   @Post()
@@ -59,14 +60,13 @@ export class MerchantController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMerchantDto: UpdateMerchantDto) {
-    return this.merchantService.update(+id, updateMerchantDto);
+  update(@Param('id') id: ObjectId, @Body() updateMerchantDto: UpdateMerchantDto) {
+    return this.merchantService.update(id, updateMerchantDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.merchantService.remove(+id);
-    return { status: 'success' };
+  async remove(@Param('id') id: ObjectId) {
+    return this.merchantService.remove(id);
   }
 }

@@ -1,53 +1,47 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { User } from './user.entity';
-import { UserRepository } from './user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { IUser } from './user.model';
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(User) 
-    private userRepository: UserRepository,
-   
+    @InjectModel('User')
+    private readonly userModel: Model<IUser>,
   ) {}
 
-  userCredential(query: object | any): Promise<User> {
-    const x = this.userRepository.findOne({
-      where: query,
-    });
+  async userCredential(query: object | any): Promise<IUser> {
+    const x = await this.userModel.findOne(query);
     return x;
   }
 
-  findAll(): Promise<User[]> {
-    return this.userRepository.find({});
+  findAll(): Promise<IUser[]> {
+    return this.userModel.find().lean();
   }
 
-  async findOne(id: number): Promise<User> {
-    const x = this.userRepository.findOne({
-      where: {
-        id: id,
-      }
-    });
-    return x;
+  async findOne(id: ObjectId): Promise<IUser> {
+    return this.userModel.findById({_id: id}).lean();
   }
 
-  async create(_user: CreateUserDto): Promise<User> {
-    const user = new User();
-    user.username = _user.username;
-    user.password = _user.password;
-    user.first_name = _user.first_name;
-    user.middle_name = _user.middle_name;
-    user.last_name = _user.last_name;
-    user.birthdate = _user.birthdate;
-    user.phone = _user.phone;
-    user.address = _user.address;
-    user.city = _user.city;
-    user.state = _user.state;
-    user.country = _user.country;
-    user.zipcode = _user.zipcode;
+  async create(_user: CreateUserDto): Promise<IUser> {
+    const user = new this.userModel({
+      username: _user.username,
+      password: _user.password,
+      first_name: _user.first_name,
+      middle_name: _user.middle_name,
+      last_name: _user.last_name,
+      birthdate: _user.birthdate,
+      phone: _user.phone,
+      address: _user.address,
+      city: _user.city,
+      state: _user.state,
+      country: _user.country,
+      zipcode: _user.zipcode,
+    })
+    
     
     
     // if(_user.products_id) {
@@ -57,11 +51,11 @@ export class UserService {
     //   user.products = [products];
     // }
 
-    return this.userRepository.save(user);
+    return user.save();
   }  
 
-  async update(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    const user = await this.findOne(id);
+  async update(id: ObjectId, updateUserDto: UpdateUserDto): Promise<IUser> {
+    const user = await this.userModel.findById(id).exec();
    
     const { 
       username, 
@@ -100,7 +94,8 @@ export class UserService {
     
   }
 
-  async remove(id: number): Promise<void> {
-    await this.userRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.userModel.findByIdAndDelete({_id: id}).exec();
+    // return `Deleted ${result.deletedCount} record`;
   }
 }

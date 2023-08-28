@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user.entity';
 import { UserService } from './user.service';
 import { UserController } from './user.controller';
+import { userSchema } from './user.model';
+import { MongooseModule } from '@nestjs/mongoose';
 
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-  ],
+  imports: [MongooseModule.forFeature(
+    [
+      {name: 'User', schema: userSchema},
+    ]
+  )],
   controllers: [UserController],
   providers: [UserService],
 })

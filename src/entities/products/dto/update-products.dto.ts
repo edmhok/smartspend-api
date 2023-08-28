@@ -1,17 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { IsString, IsInt, IsDate, IsOptional } from "@nestjs/class-validator";
 import { PartialType } from "@nestjs/mapped-types";
+import { ObjectId } from "mongoose";
 import { CreateProductsDto } from "./create-products.dto";
 
 export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   @IsInt()
-  id: number;
+  id: ObjectId;
 
   @IsInt()
-  order_id: number;
+  order_id: ObjectId;
 
   @IsInt()
-  products_id: number;
+  products_id: ObjectId;
 
   @IsDate()
   entryDate: Date;

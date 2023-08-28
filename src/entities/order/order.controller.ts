@@ -7,14 +7,12 @@ import {
     Delete,
     Patch,
     UseGuards,
-    Request,
-    forwardRef,
-    Inject,
     } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
+import { ObjectId } from 'mongoose';
 
     
     @Controller('order')
@@ -32,8 +30,8 @@ import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 
     @UseGuards(JwtAuthGuard)
     @Get(':id')
-    async findOne(@Param('id') id: number) {
-        return this.orderService.findOne(+id);
+    async findOne(@Param('id') id: ObjectId) {
+        return this.orderService.findOne(id);
     }
 
     @UseGuards(JwtAuthGuard)
@@ -64,17 +62,17 @@ import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
     @UseGuards(JwtAuthGuard)
     @Patch(':id')
     update(
-        @Param('id') id: number,
+        @Param('id') id: ObjectId,
         @Body() updateOrderDto: UpdateOrderDto,
     ) {
-        this.orderService.update(+id, updateOrderDto);
+        this.orderService.update(id, updateOrderDto);
         return 'Updated';
     }
     
     @UseGuards(JwtAuthGuard)
     @Delete(':id')
-    remove(@Param('id') id: number) {
-        this.orderService.remove(+id);
+    remove(@Param('id') id: ObjectId) {
+        this.orderService.remove(id);
         return 'Deleted!';
     }
     

@@ -1,22 +1,18 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotAcceptableException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Patron } from './patron.entity';
-import { PatronRepository } from './patron.repository';
 import { CreatePatronDto } from './dto/create-patron.dto';
 import { UpdatePatronDto } from './dto/update-patron.dto';
 import * as bcrypt from 'bcrypt';
-import { Order } from '../order/order.entity';
-import { OrderRepository } from '../order/order.repository';
+import { IPatron } from './patron.model';
+import { Model, ObjectId } from 'mongoose';
+import { InjectModel } from '@nestjs/mongoose';
 
 
 @Injectable()
 export class PatronService {
   constructor(
-    @InjectRepository(Patron) 
-    private patronRepository: PatronRepository,
-    // @InjectRepository(Order) 
-    // private orderRepository: OrderRepository,
+    @InjectModel('Patron')
+    private readonly patronModel: Model<IPatron>,
    
   ) {}
 
@@ -34,58 +30,42 @@ export class PatronService {
     return null;
   }
 
-  credential(query: object | any): Promise<Patron> {
-    const x = this.patronRepository.findOne({
-      where: query,
-    });
+  async credential(query: object | any): Promise<IPatron> {
+    const x = await this.patronModel.findOne(query);
     return x;
   }
 
-  findAll(): Promise<Patron[]> {
-    return this.patronRepository.find({
-      // relations: ['order']
-    });
+  findAll(): Promise<IPatron[]> {
+    return this.patronModel.find().lean();
   }
 
-  async findOne(id: number): Promise<Patron> {
-    const x = this.patronRepository.findOne({
-      where: {
-        id: id,
-      },
-      // relations: ['order']
-    });
-    return x;
+  async findOne(id: ObjectId): Promise<IPatron> {
+    return this.patronModel.findById({_id: id}).lean();
   }
 
-  async create(_patron: CreatePatronDto): Promise<Patron> {
-    const patron = new Patron();
-    patron.username = _patron.username;
-    patron.password = await bcrypt.hash(_patron.password, 10);
-    patron.first_name = _patron.first_name;
-    patron.middle_name = _patron.middle_name;
-    patron.last_name = _patron.last_name;
-    patron.birthdate = _patron.birthdate;
-    patron.phone = _patron.phone;
-    patron.address = _patron.address;
-    patron.city = _patron.city;
-    patron.state = _patron.state;
-    patron.country = _patron.country;
-    patron.zipcode = _patron.zipcode;
-    patron.points = _patron.points;
-    
-    
-    // if(_patron.order_id) {
-    //   const order = await this.orderRepository.findOne({
-    //     where: { id: _patron.order_id },
-    //   });
-    //   patron.order = [order];
-    // }
+  async create(_patron: CreatePatronDto): Promise<IPatron> {
+    const passwordHashed = await bcrypt.hash(_patron.password, 10);
+    const patron = new this.patronModel({
+      username: _patron.username,
+      password: passwordHashed,
+      first_name: _patron.first_name,
+      middle_name: _patron.middle_name,
+      last_name: _patron.last_name,
+      birthdate: _patron.birthdate,
+      phone: _patron.phone,
+      address: _patron.address,
+      city: _patron.city,
+      state: _patron.state,
+      country: _patron.country,
+      zipcode: _patron.zipcode,
+      points: _patron.points,
+    });
 
-    return this.patronRepository.save(patron);
+    return patron.save();
   }  
 
-  async update(id: number, updatePatronDto: UpdatePatronDto): Promise<Patron> {
-    const patron = await this.findOne(id);
+  async update(id: ObjectId, updatePatronDto: UpdatePatronDto): Promise<IPatron> {
+    const patron = await this.patronModel.findById(id).exec();
    
     const { 
       username, 
@@ -122,11 +102,12 @@ export class PatronService {
     //   });
     //   patron.order = [order];
     // }
-    return await patron.save();
+    return patron.save();
     
   }
 
-  async remove(id: number): Promise<void> {
-    await this.patronRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.patronModel.findByIdAndDelete({_id: id}).exec();
+    // return `Deleted ${result.deletedCount} record`;
   }
 }

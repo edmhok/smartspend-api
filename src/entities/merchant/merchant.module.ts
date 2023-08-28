@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Merchant } from './merchant.entity';
+import { merchantSchema } from './merchant.model';
 import { MerchantService } from './merchant.service';
 import { MerchantController } from './merchant.controller';
+import { MongooseModule } from '@nestjs/mongoose';
 
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Merchant]),
-  ],
+  imports: [MongooseModule.forFeature(
+    [
+      {name: 'Merchant', schema: merchantSchema},
+    ]
+  )],
   controllers: [MerchantController],
   providers: [MerchantService],
 })

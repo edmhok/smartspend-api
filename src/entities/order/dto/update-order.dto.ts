@@ -1,19 +1,20 @@
 import { IsInt, IsDate} from '@nestjs/class-validator';
 import { PartialType } from '@nestjs/mapped-types';
+import { ObjectId } from 'mongoose';
 import { CreateOrderDto } from './create-order.dto';
 
 export class UpdateOrderDto extends PartialType(CreateOrderDto){
   @IsInt()
-  id: number;
+  id: ObjectId;
   
   @IsInt()
-  products_id: number;
+  products_id: ObjectId;
 
   @IsInt()
-  merchant_id: number;
+  merchant_id: ObjectId;
 
   @IsInt()
-  patron_id: number;
+  patron_id: ObjectId;
 
   @IsDate()
   createdAt: Date;

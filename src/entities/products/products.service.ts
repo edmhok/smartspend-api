@@ -1,9 +1,9 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Products } from "./products.entity";
-import { ProductsRepository } from "./products.repository";
 import { CreateProductsDto } from "./dto/create-products.dto";
 import { UpdateProductsDto } from "./dto/update-products.dto";
+import { IProducts } from "./products.model";
+import { InjectModel } from "@nestjs/mongoose";
+import { Model, ObjectId } from "mongoose";
 
 // import { User } from "../user/user.entity";
 // import { UserRepository } from "../user/user.repository";
@@ -13,56 +13,43 @@ import { UpdateProductsDto } from "./dto/update-products.dto";
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(Products)
-    private productsRepository: ProductsRepository,
-    // @InjectRepository(User)
-    // private userRepository: UserRepository
-    // @InjectRepository(Order)
-    // private orderRepository: OrderRepository
+    @InjectModel('Products')
+    private readonly productsModel: Model<IProducts>,
   ) {}
 
-  findAll(): Promise<Products[]> {
-    return this.productsRepository.find({
-      // relations: ['order']
-    });
+  findAll(): Promise<IProducts[]> {
+    return this.productsModel.find().lean();
   }
 
-  async findOne(id: number): Promise<Products> {
-    const x = this.productsRepository.findOne({
-      where: {
-        id: id,
-      },
-      // relations: ['order']
-
-    });
-    return x;
+  async findOne(id: ObjectId): Promise<IProducts> {
+    return this.productsModel.findById({_id: id}).lean();
   }
 
-  async findByDate(createdAt: Date): Promise<Products[]> {
-    return await this.productsRepository.find({
-      where: {
-        createdAt,
-      },
-    });
+  async findByDate(createdAt: Date): Promise<IProducts[]> {
+    return await this.productsModel.find({
+      createdAt: createdAt
+    }).lean();
   }
 
-  async create(_products: CreateProductsDto): Promise<Products> {
-    const products = new Products();
-    products.entryDate = _products.entryDate;
-    products.productName = _products.productName;
-    products.brand = _products.brand;
-    products.description = _products.description;
-    products.sku = _products.sku;
-    products.category = _products.category;
-    products.variant = _products.variant;
-    products.size = _products.size;
-    products.color = _products.color;
-    products.tags = _products.tags;
-    products.price = _products.price;
-    products.qty = _products.qty;
-    products.points = _products.points;
-    products.discount = _products.discount;
-    products.originalPrice = _products.originalPrice;
+  async create(_products: CreateProductsDto): Promise<IProducts> {
+    const products = new this.productsModel({
+      entryDate: _products.entryDate,
+      productName: _products.productName,
+      brand: _products.brand,
+      description: _products.description,
+      sku: _products.sku,
+      category: _products.category,
+      variant: _products.variant,
+      size: _products.size,
+      color: _products.color,
+      tags: _products.tags,
+      price: _products.price,
+      qty: _products.qty,
+      points: _products.points,
+      discount: _products.discount,
+      originalPrice: _products.originalPrice,
+    });
+
 
     // if(_products.user_id) {
     //   const user = await this.userRepository.findOne({
@@ -78,14 +65,14 @@ export class ProductsService {
     // }
 
 
-    return this.productsRepository.save(products);
+    return products.save();
   }
 
   async update(
-    id: number,
+    id: ObjectId,
     updateProductsDto: UpdateProductsDto
-  ): Promise<Products> {
-    const products = await this.findOne(id);
+  ): Promise<IProducts> {
+    const products = await this.productsModel.findById(id).exec();
 
     const {
       entryDate,
@@ -137,7 +124,8 @@ export class ProductsService {
     return await products.save();
   }
 
-  async remove(id: number): Promise<void> {
-    await this.productsRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.productsModel.findByIdAndDelete({_id: id}).exec();
+    // return `Deleted ${result.deletedCount} record`;
   }
 }

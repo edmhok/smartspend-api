@@ -2,13 +2,14 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreatePatronDto } from './create-patron.dto';
 import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { ObjectId } from 'mongoose';
 
 export class UpdatePatronDto extends PartialType(CreatePatronDto) {
     @IsInt()
-    id: number;
+    id: ObjectId;
 
     @IsInt()
-    order_id: number;
+    order_id: ObjectId;
 
     // @IsString()
     // role: string;

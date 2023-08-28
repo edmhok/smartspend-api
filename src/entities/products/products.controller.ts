@@ -13,6 +13,7 @@ import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
 import { OrderService } from '../order/order.service';
+import { ObjectId } from 'mongoose';
 
 @Controller('products')
 export class ProductsController {
@@ -28,8 +29,8 @@ export class ProductsController {
     }
   
     @Get(':id')
-    async findOne(@Param('id') id: number) {
-      return this.productsService.findOne(+id);
+    async findOne(@Param('id') id: ObjectId) {
+      return this.productsService.findOne(id);
     }
     
     @Get('createdAtd/:date')
@@ -44,17 +45,15 @@ export class ProductsController {
   
     @Patch(':id')
     update(
-      @Param('id') id: number,
+      @Param('id') id: ObjectId,
       @Body() updateProductsDto: UpdateProductsDto,
     ) {
-      this.productsService.update(+id, updateProductsDto);
-      return 'Updated';
+      return this.productsService.update(id, updateProductsDto);
     }
   
     @Delete(':id')
-    remove(@Param('id') id: number) {
-      this.productsService.remove(+id);
-      return 'Deleted!';
+    remove(@Param('id') id: ObjectId) {
+      return this.productsService.remove(id);
     }
 
 }

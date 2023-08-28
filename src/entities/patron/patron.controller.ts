@@ -13,6 +13,7 @@ import { PatronService } from './patron.service';
 import { CreatePatronDto } from './dto/create-patron.dto';
 import { UpdatePatronDto } from './dto/update-patron.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
+import { ObjectId } from 'mongoose';
 
 
 @Controller('patrons')
@@ -36,13 +37,13 @@ export class PatronController {
     );
     const patron_id = decodedToken.patronPayload.id;
 
-    return this.patronService.findOne(+patron_id);
+    return this.patronService.findOne(patron_id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.patronService.findOne(+id);
+  async findOne(@Param('id') id: ObjectId) {
+    return this.patronService.findOne(id);
   }
 
   @Post()
@@ -52,14 +53,13 @@ export class PatronController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePatronDto: UpdatePatronDto) {
-    return this.patronService.update(+id, updatePatronDto);
+  update(@Param('id') id: ObjectId, @Body() updatePatronDto: UpdatePatronDto) {
+    return this.patronService.update(id, updatePatronDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  async remove(@Param('id') id: string) {
-    await this.patronService.remove(+id);
-    return { status: 'success' };
+  async remove(@Param('id') id: ObjectId) {
+    return this.patronService.remove(id);
   }
 }

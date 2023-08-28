@@ -13,6 +13,7 @@ import { TransactionService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
+import { ObjectId } from 'mongoose';
 
 
 @Controller('transactions')
@@ -36,13 +37,13 @@ export class TransactionController {
     );
     const transaction_id = decodedToken.transactionPayload.id;
 
-    return this.transactionService.findOne(+transaction_id);
+    return this.transactionService.findOne(transaction_id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  async findOne(@Param('id') id: number) {
-    return this.transactionService.findOne(+id);
+  async findOne(@Param('id') id: ObjectId) {
+    return this.transactionService.findOne(id);
   }
 
   @UseGuards(JwtAuthGuard)
@@ -53,13 +54,13 @@ export class TransactionController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateTransactionDto: UpdateTransactionDto) {
-    return this.transactionService.update(+id, updateTransactionDto);
+  update(@Param('id') id: ObjectId, @Body() updateTransactionDto: UpdateTransactionDto) {
+    return this.transactionService.update(id, updateTransactionDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.transactionService.remove(+id);
+  remove(@Param('id') id: ObjectId) {
+    return this.transactionService.remove(id);
   }
 }

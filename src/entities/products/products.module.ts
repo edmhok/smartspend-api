@@ -1,26 +1,18 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Products } from './products.entity';
 import { ProductsService } from './products.service';
 import { ProductsController } from './products.controller';
-import { ProductsRepository } from './products.repository';
-import { User } from '../user/user.entity';
 import { UserService } from '../user/user.service';
-import { UserRepository } from '../user/user.repository';
-import { Order } from '../order/order.entity';
-import { OrderRepository } from '../order/order.repository';
-import { OrderService } from '../order/order.service';
+import { MongooseModule } from '@nestjs/mongoose';
+import { productsSchema } from './products.model';
+import { userSchema } from '../user/user.model';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([
-      Products,
-      ProductsRepository,
-      User,
-      UserRepository,
-
-    ]),
-  ],
+  imports: [MongooseModule.forFeature(
+    [
+      {name: 'Products', schema: productsSchema},
+      {name: 'User', schema: userSchema}
+    ]
+  )],
   controllers: [ProductsController],
   providers: [ProductsService, UserService ]
 })

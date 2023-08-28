@@ -1,18 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Injectable, NotAcceptableException } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Merchant } from './merchant.entity';
-import { MerchantRepository } from './merchant.repository';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
 import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import * as bcrypt from 'bcrypt';
+import { IMerchant } from './merchant.model';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId } from 'mongoose';
 
 @Injectable()
 export class MerchantService {
   constructor(
-    @InjectRepository(Merchant) 
-    private merchantRepository: MerchantRepository,
-
+    @InjectModel('Merchant')
+    private readonly merchantModel: Model<IMerchant>,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -28,48 +27,44 @@ export class MerchantService {
     return null;
   }
 
-  credential(query: object | any): Promise<Merchant> {
-    const x = this.merchantRepository.findOne({
-      where: query,
+  async credential(query: object | any): Promise<IMerchant> {
+    const x = await this.merchantModel.findOne(query);
+    return x;
+  }
+
+  findAll(): Promise<IMerchant[]> {
+    return this.merchantModel.find().lean();
+  }
+
+  async findOne(id: ObjectId): Promise<IMerchant> {
+    return this.merchantModel.findById({_id: id}).lean();
+  }
+
+  async create(_merchant: CreateMerchantDto): Promise<IMerchant> {
+    const passwordHashed = await bcrypt.hash(_merchant.password, 10);
+    const merchant = new this.merchantModel({
+      username: _merchant.username,
+      password: passwordHashed,
+      first_name: _merchant.first_name,
+      middle_name: _merchant.middle_name,
+      last_name: _merchant.last_name,
+      birthdate: _merchant.birthdate,
+      phone: _merchant.phone,
+      address: _merchant.address,
+      city: _merchant.city,
+      state: _merchant.state,
+      country: _merchant.country,
+      zipcode: _merchant.zipcode,
+      points: _merchant.points,
     });
-    return x;
-  }
 
-  findAll(): Promise<Merchant[]> {
-    return this.merchantRepository.find({});
-  }
-
-  async findOne(id: number): Promise<Merchant> {
-    console.log({id})
-    const x = await this.merchantRepository.findOne({where: { id: id}});
-    console.log({x})
-    return x;
-  }
-
-  async create(_merchant: CreateMerchantDto): Promise<Merchant> {
+    return merchant.save();
     
-    const merchant = new Merchant();
-    merchant.username = _merchant.username;
-    merchant.password = await bcrypt.hash(_merchant.password, 10);
-    merchant.first_name = _merchant.first_name;
-    merchant.middle_name = _merchant.middle_name;
-    merchant.last_name = _merchant.last_name;
-    merchant.birthdate = _merchant.birthdate;
-    merchant.phone = _merchant.phone;
-    merchant.address = _merchant.address;
-    merchant.city = _merchant.city;
-    merchant.state = _merchant.state;
-    merchant.country = _merchant.country;
-    merchant.zipcode = _merchant.zipcode;
-    merchant.points = _merchant.points;
-    
-    
-    return this.merchantRepository.save(merchant);
   }  
 
-  async update(id: number, updateMerchantDto: UpdateMerchantDto): Promise<Merchant> {
-    const merchant = await this.findOne(id);
-   
+  async update(id: ObjectId, updateMerchantDto: UpdateMerchantDto): Promise<IMerchant> {
+    const merchant = await this.merchantModel.findById(id).exec();
+
     const { 
       username, 
       password, 
@@ -84,7 +79,8 @@ export class MerchantService {
       country, 
       zipcode,
       points, 
-     } = updateMerchantDto;
+    } = updateMerchantDto;
+
     merchant.username = username;
     merchant.password = password;
     merchant.first_name = first_name;
@@ -99,11 +95,12 @@ export class MerchantService {
     merchant.zipcode = zipcode;
     merchant.points = points;
 
-    return await merchant.save();
+    return merchant.save();
     
   }
 
-  async remove(id: number): Promise<void> {
-    await this.merchantRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.merchantModel.findByIdAndDelete({_id: id}).exec();
+    // return `Deleted ${result.deletedCount} record`;
   }
 }

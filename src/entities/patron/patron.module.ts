@@ -1,15 +1,17 @@
 /* eslint-disable prettier/prettier */
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { Patron } from './patron.entity';
 import { PatronService } from './patron.service';
 import { PatronController } from './patron.controller';
+import { patronSchema } from './patron.model';
+import { MongooseModule } from '@nestjs/mongoose';
 
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([Patron]),
-  ],
+  imports: [MongooseModule.forFeature(
+    [
+      {name: 'Patron', schema: patronSchema},
+    ]
+  )],
   controllers: [PatronController],
   providers: [PatronService],
 })

@@ -1,48 +1,44 @@
 /* eslint-disable prettier/prettier */
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Transaction } from './transaction.entity';
-import { TransactionRepository } from './transaction.repository';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
 import { UpdateTransactionDto } from './dto/update-transaction.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model, ObjectId } from 'mongoose';
+import { ITransaction } from './transaction.model';
 
 @Injectable()
 export class TransactionService {
   constructor(
-    @InjectRepository(Transaction) 
-    private transactionRepository: TransactionRepository,
-   
+    @InjectModel('Transaction')
+    private readonly transactionModel: Model<ITransaction>,
   ) {}
 
-  findAll(): Promise<Transaction[]> {
-    return this.transactionRepository.find({});
+  findAll(): Promise<ITransaction[]> {
+    return this.transactionModel.find().lean();
   }
 
-  async findOne(id: number): Promise<Transaction> {
-    const x = this.transactionRepository.findOne({
-      where: {
-        id: id,
-      }
+  async findOne(id: ObjectId): Promise<ITransaction> {
+    return this.transactionModel.findById({_id: id}).lean();
+  }
+
+  async create(_transaction: CreateTransactionDto): Promise<ITransaction> {
+    const transaction = new this.transactionModel({
+      role: _transaction.role,
+      transactionname: _transaction.transactionname,
+      password: _transaction.password,
+      membership: _transaction.membership,
+      first_name: _transaction.first_name,
+      middle_name: _transaction.middle_name,
+      last_name: _transaction.last_name,
+      birthdate: _transaction.birthdate,
+      phone: _transaction.phone,
+      address: _transaction.address,
+      city: _transaction.city,
+      state: _transaction.state,
+      country: _transaction.country,
+      zipcode: _transaction.zipcode,
     });
-    return x;
-  }
-
-  async create(_transaction: CreateTransactionDto): Promise<Transaction> {
-    const transaction = new Transaction();
-    transaction.role = _transaction.role;
-    transaction.transactionname = _transaction.transactionname;
-    transaction.password = _transaction.password;
-    transaction.membership = _transaction.membership;
-    transaction.first_name = _transaction.first_name;
-    transaction.middle_name = _transaction.middle_name;
-    transaction.last_name = _transaction.last_name;
-    transaction.birthdate = _transaction.birthdate;
-    transaction.phone = _transaction.phone;
-    transaction.address = _transaction.address;
-    transaction.city = _transaction.city;
-    transaction.state = _transaction.state;
-    transaction.country = _transaction.country;
-    transaction.zipcode = _transaction.zipcode;
+    
     
     
     // if(_transaction.products_id) {
@@ -52,12 +48,12 @@ export class TransactionService {
     //   transaction.products = [products];
     // }
 
-    return this.transactionRepository.save(transaction);
+    return transaction.save();
   }  
 
-  async update(id: number, updateTransactionDto: UpdateTransactionDto): Promise<Transaction> {
-    const transaction = await this.findOne(id);
-   
+  async update(id: ObjectId, updateTransactionDto: UpdateTransactionDto): Promise<ITransaction> {
+    const transaction = await this.transactionModel.findById(id).exec();
+
     const { 
       role,
       transactionname, 
@@ -103,7 +99,9 @@ export class TransactionService {
     
   }
 
-  async remove(id: number): Promise<void> {
-    await this.transactionRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.transactionModel.findByIdAndDelete({_id: id}).exec();
+    // return `Deleted ${result.deletedCount} record`;
+    
   }
 }

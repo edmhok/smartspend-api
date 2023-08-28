@@ -1,15 +1,16 @@
 /* eslint-disable prettier/prettier */
 import { IsString, IsInt, IsDate, IsOptional } from "@nestjs/class-validator";
+import { ObjectId } from "mongoose";
 
 export class CreateProductsDto {
   @IsInt()
-  id: number;
+  id: ObjectId;
 
   @IsInt()
-  order_id: number;
+  order_id: ObjectId;
 
   @IsInt()
-  products_id: number;
+  products_id: ObjectId;
   
   @IsDate()
   entryDate: Date;

@@ -2,22 +2,23 @@
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateTransactionDto } from './create-transaction.dto';
 import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { ObjectId } from 'mongoose';
 
 export class UpdateTransactionDto extends PartialType(CreateTransactionDto) {
     @IsInt()
-    id: number;
+    id: ObjectId;
 
     @IsInt()
-    affiliate_id: number;
+    affiliate_id: ObjectId;
 
     @IsInt()
-    store_id: number;
+    store_id: ObjectId;
     
     @IsInt()
-    products_id: number;
+    products_id: ObjectId;
 
     @IsInt()
-    order_id: number;
+    order_id: ObjectId;
 
     @IsString()
     role: string;

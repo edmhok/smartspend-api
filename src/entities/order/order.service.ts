@@ -1,78 +1,69 @@
 import { Injectable } from "@nestjs/common";
-import { InjectRepository } from "@nestjs/typeorm";
-import { Order } from "./order.entity";
-import { OrderRepository } from "./order.repository";
 import { CreateOrderDto } from "./dto/create-order.dto";
 import { UpdateOrderDto } from "./dto/update-order.dto";
-import { MerchantRepository } from "../merchant/merchant.repository";
-import { Merchant } from "../merchant/merchant.entity";
-import { Patron } from "../patron/patron.entity";
-import { PatronRepository } from "../patron/patron.repository";
-import { ProductsRepository } from "../products/products.repository";
-import { Products } from "../products/products.entity";
+import { Model, ObjectId } from "mongoose";
+import { InjectModel } from "@nestjs/mongoose";
+import { IMerchant } from "../merchant/merchant.model";
+import { IPatron } from "../patron/patron.model";
+import { IProducts } from "../products/products.model";
+import { IOrder } from "./order.model";
 
 @Injectable()
 export class OrderService {
   constructor(
-    @InjectRepository(Order)
-    private orderRepository: OrderRepository,
-    @InjectRepository(Merchant)
-    private merchantRepository: MerchantRepository,
-    @InjectRepository(Patron)
-    private patronRepository: PatronRepository,
-    @InjectRepository(Products)
-    private productsRepository: ProductsRepository
+    @InjectModel('Order')
+    private readonly orderModel: Model<IOrder>,
+    @InjectModel('Merchant')
+    private readonly merchantModel: Model<IMerchant>,
+    @InjectModel('Patron')
+    private readonly patronModel: Model<IPatron>,
+    @InjectModel('Products')
+    private readonly productsModel: Model<IProducts>,
   ) {}
 
-  findAll(): Promise<Order[]> {
-    return this.orderRepository.find({
-      relations: ["products", "merchant", "patron"],
-    });
+  findAll(): Promise<IOrder[]> {
+    return this.merchantModel.find()
+      .populate('products')
+      .populate('merchant')
+      .populate('patron')
+      .lean();
   }
 
-  async findOne(id: number): Promise<Order> {
-    const x = this.orderRepository.findOne({
-      where: {
-        id: id,
-      },
-      relations: ["products", "merchant", "patron"],
-    });
-    return x;
+  async findOne(id: ObjectId): Promise<IOrder> {
+    return this.orderModel.findById({_id: id})
+      .populate('products')
+      .populate('merchant')
+      .populate('patron')
+      .lean();
   }
 
-  async findByDate(createdAt: Date): Promise<Order[]> {
-    return await this.orderRepository.find({
-      where: {
-        createdAt,
-      },
-      relations: ["products", "merchant", "patron"],
-    });
+  async findByDate(createdAt: Date): Promise<IOrder[]> {
+    return await this.orderModel.find({ createdAt })
+      .populate('products')
+      .populate('merchant')
+      .populate('patron')
+      .lean();
   }
 
-  async create(_order: CreateOrderDto): Promise<Order | any> {
-    const order = new Order();
+  async create(_order: CreateOrderDto): Promise<IOrder | any> {
+    const order = new this.orderModel({
+    })
 
-    const merchant = await this.merchantRepository.findOne({
-      where: { id: _order.merchant_id },
-    });
-    order.merchant = merchant;
-    const patron = await this.patronRepository.findOne({
-      where: { id: _order.patron_id },
-    });
-    order.patron = patron;
-    const products = await this.productsRepository.findOne({
-      where: { id: _order.products_id },
-    });
-    order.products = [products];
+    const merchant = await this.merchantModel.findById({ _id: _order.merchant_id });
+    order.merchant = merchant._id;
+    const patron = await this.patronModel.findById({ _id: _order.patron_id });
+    order.patron = patron._id;
+    const products = await this.productsModel.findById({ _id: _order.products_id });
+    order.products = [products._id];
     const points = products.points;
 
     if (merchant.points >= points) {
       merchant.points = merchant.points - points;
       patron.points = patron.points + points;
 
-      this.merchantRepository.save(merchant);
-      this.patronRepository.save(patron);
-      return this.orderRepository.save(order);
+      merchant.save();
+      patron.save();
+      return order.save();
     } else {
       return {
         status: "failed",
@@ -80,34 +71,28 @@ export class OrderService {
     }
   }
 
-  async update(id: number, updateOrderDto: UpdateOrderDto): Promise<Order> {
-    const order = await this.findOne(id);
+  async update(id: ObjectId, updateOrderDto: UpdateOrderDto): Promise<IOrder> {
+    const order = await this.orderModel.findById(id).exec();
 
     const { products_id, patron_id, merchant_id } = updateOrderDto;
 
     if (products_id) {
-      const products = await this.productsRepository.findOne({
-        where: { id: products_id },
-      });
-      order.products = [products];
+      const products = await this.productsModel.findById({ _id: products_id });
+      order.products = [products._id];
     }
     if (patron_id) {
-      const patron = await this.patronRepository.findOne({
-        where: { id: patron_id },
-      });
-      order.patron = patron;
+      const patron = await this.patronModel.findById({ _id: patron_id });
+      order.patron = patron._id;
     }
     if (merchant_id) {
-      const merchant = await this.merchantRepository.findOne({
-        where: { id: merchant_id },
-      });
-      order.merchant = merchant;
+      const merchant = await this.merchantModel.findById({ _id: merchant_id });
+      order.merchant = merchant._id;
     }
 
     return await order.save();
   }
 
-  async remove(id: number): Promise<void> {
-    await this.orderRepository.delete(id);
+  async remove(id: ObjectId): Promise<string| void> {
+    const result = await this.orderModel.findByIdAndDelete({_id: id}).exec();
   }
 }

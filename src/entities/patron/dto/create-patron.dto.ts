@@ -1,12 +1,13 @@
 /* eslint-disable prettier/prettier */
 import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { ObjectId } from 'mongoose';
 
 export class CreatePatronDto {
     @IsInt()
-    id: number;
+    id: ObjectId;
 
     @IsOptional()
-    order_id: number;
+    order_id: ObjectId;
 
     @IsString()
     username: string;
