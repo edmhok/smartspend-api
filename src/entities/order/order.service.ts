@@ -22,7 +22,8 @@ export class OrderService {
   ) {}
 
   findAll(): Promise<IOrder[]> {
-    return this.merchantModel.find()
+    // @TODO: return points as well in the future
+    return this.orderModel.find()
       .populate('products')
       .populate('merchant')
       .populate('patron')
@@ -47,6 +48,9 @@ export class OrderService {
 
   async create(_order: CreateOrderDto): Promise<IOrder | any> {
     const order = new this.orderModel({
+      qty: _order.qty,
+      isPaid: _order.isPaid,
+      status: _order.status,
     })
 
     const merchant = await this.merchantModel.findById({ _id: _order.merchant_id });
@@ -74,7 +78,10 @@ export class OrderService {
   async update(id: ObjectId, updateOrderDto: UpdateOrderDto): Promise<IOrder> {
     const order = await this.orderModel.findById(id).exec();
 
-    const { products_id, patron_id, merchant_id } = updateOrderDto;
+    const { products_id, patron_id, merchant_id, qty, isPaid, status} = updateOrderDto;
+    order.qty = qty;
+    order.isPaid = isPaid;
+    order.status = status;
 
     if (products_id) {
       const products = await this.productsModel.findById({ _id: products_id });

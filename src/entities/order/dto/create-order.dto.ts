@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsInt, IsDate, } from '@nestjs/class-validator';
+import { IsInt, IsDate, IsBoolean, IsString, } from '@nestjs/class-validator';
 import { ObjectId } from 'mongoose';
 
 export class CreateOrderDto {
@@ -14,6 +14,15 @@ export class CreateOrderDto {
 
   @IsInt()
   patron_id: ObjectId;
+
+  @IsInt()
+  qty: number;
+
+  @IsBoolean()
+  isPaid: boolean;
+
+  @IsString()
+  status: string;
 
   @IsDate()
   createdAt: Date;
