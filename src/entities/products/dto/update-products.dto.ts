@@ -27,6 +27,9 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   description: string;
 
   @IsString()
+  imageUrl: string;
+
+  @IsString()
   sku: string;
 
   @IsString()

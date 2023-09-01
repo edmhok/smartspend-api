@@ -25,6 +25,9 @@ export class CreateProductsDto {
   description: string;
 
   @IsString()
+  imageUrl: string;
+
+  @IsString()
   sku: string;
 
   @IsString()

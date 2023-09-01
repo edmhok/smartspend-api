@@ -46,6 +46,10 @@ export class OrderService {
       .lean();
   }
 
+  async findByBatch(ids: string[]): Promise<IOrder[]> {
+    return this.orderModel.find({ _id: { $in: ids } }).lean();
+  }
+
   async create(_order: CreateOrderDto): Promise<IOrder | any> {
     const order = new this.orderModel({
       qty: _order.qty,

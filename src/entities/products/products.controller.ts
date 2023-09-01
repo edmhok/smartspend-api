@@ -6,14 +6,14 @@ Param,
 Body,
 Delete,
 Patch,
-forwardRef,
-Inject,
+Query,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
 import { OrderService } from '../order/order.service';
 import { ObjectId } from 'mongoose';
+// import { S3Service } from 'src/utils/S3Service';
 
 @Controller('products')
 export class ProductsController {
@@ -54,6 +54,22 @@ export class ProductsController {
     @Delete(':id')
     remove(@Param('id') id: ObjectId) {
       return this.productsService.remove(id);
+    }
+
+    // add find by batch
+    @Get('batch')
+    async findByBatch(@Query('ids') _ids: string) {
+      const ids = _ids.split(',') || []
+      const response = await this.productsService.findByBatch(ids);
+      console.log({response})
+      return await Promise.all(
+        response.map(async (item) => {
+          return {
+            ...item,
+            // photo: await this.s3Service.getFile(item.photo) || '',  
+          }
+        })
+      );
     }
 
 }

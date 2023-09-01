@@ -7,6 +7,7 @@ import {
     Delete,
     Patch,
     UseGuards,
+    Query,
     } from '@nestjs/common';
 import { OrderService } from './order.service';
 import { CreateOrderDto } from './dto/create-order.dto';
@@ -74,6 +75,22 @@ import { ObjectId } from 'mongoose';
     remove(@Param('id') id: ObjectId) {
         this.orderService.remove(id);
         return 'Deleted!';
+    }
+    
+    // add find by batch
+    @Get('batch')
+    async findByBatch(@Query('ids') _ids: string) {
+      const ids = _ids.split(',') || []
+      const response = await this.orderService.findByBatch(ids);
+      console.log({response})
+      return await Promise.all(
+        response.map(async (item) => {
+          return {
+            ...item,
+            // photo: await this.s3Service.getFile(item.photo) || '',  
+          }
+        })
+      );
     }
     
 }

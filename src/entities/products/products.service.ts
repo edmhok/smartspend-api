@@ -30,6 +30,9 @@ export class ProductsService {
       createdAt: createdAt
     }).lean();
   }
+  async findByBatch(ids: string[]): Promise<IProducts[]> {
+    return this.productsModel.find({ _id: { $in: ids } }).lean();
+  }
 
   async create(_products: CreateProductsDto): Promise<IProducts> {
     const products = new this.productsModel({
@@ -37,6 +40,7 @@ export class ProductsService {
       productName: _products.productName,
       brand: _products.brand,
       description: _products.description,
+      imageUrl: _products.imageUrl,
       sku: _products.sku,
       category: _products.category,
       variant: _products.variant,
@@ -79,6 +83,7 @@ export class ProductsService {
       productName,
       brand,
       description,
+      imageUrl,
       sku,
       category,
       variant,
@@ -96,6 +101,7 @@ export class ProductsService {
     products.productName = productName;
     products.brand = brand;
     products.description = description;
+    products.imageUrl = imageUrl;
     products.sku = sku;
     products.category = category;
     products.variant = variant;
