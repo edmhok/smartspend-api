@@ -1,0 +1,1551 @@
+{
+	"info": {
+		"_postman_id": "1ac9e76f-6d28-457e-af79-7c6e9e1f79c5",
+		"name": "SmartSpend v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27801447"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "role",
+									"value": "admin",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "admin@smartspend.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "membership",
+									"value": "free",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "lchen",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "the",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "great",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								},
+								{
+									"key": "affiliate_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "store_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UserLogin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "admin@smartspend.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NCwiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRsbGF1blpJeTNZcGhRN3JmeVZyTjYuaXZBdkJ6NllJdjZOWDNpelNPbWlCTGFZWksxdXQyQyIsIm1lbWJlcnNoaXAiOiJmcmVlIiwiZmlyc3RfbmFtZSI6ImxjaGVuIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjozNDk4MTA5MjQsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIn0sImlhdCI6MTY5MTYyODgwNCwiZXhwIjoxNjkxNzE1MjA0fQ.gposeTdpT2YwSYq8MCxlEdxY7iBDwX-4FDeYR9xV9O0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "role",
+									"value": "admin",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "user@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "membership",
+									"value": "free",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "lchen",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "the",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "great",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								},
+								{
+									"key": "affiliate_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "store_id",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MywiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQzR1FYMERjeEwwc0w0TE9lUWRjQlh1Q1lndEkxT29sY0J3ZXg3NzZVd0oxY2pyVUxRaTRPLiIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCJ9LCJpYXQiOjE2OTE5ODk2MDMsImV4cCI6MTY5MjA3NjAwM30.ooyJpWCPtpfzc6jKs7czNeor6gQRLVmhA-S1tY2Go2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MywiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQzR1FYMERjeEwwc0w0TE9lUWRjQlh1Q1lndEkxT29sY0J3ZXg3NzZVd0oxY2pyVUxRaTRPLiIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCJ9LCJpYXQiOjE2OTE5ODk2MDMsImV4cCI6MTY5MjA3NjAwM30.ooyJpWCPtpfzc6jKs7czNeor6gQRLVmhA-S1tY2Go2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MywiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQzR1FYMERjeEwwc0w0TE9lUWRjQlh1Q1lndEkxT29sY0J3ZXg3NzZVd0oxY2pyVUxRaTRPLiIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCJ9LCJpYXQiOjE2OTE5ODk2MDMsImV4cCI6MTY5MjA3NjAwM30.ooyJpWCPtpfzc6jKs7czNeor6gQRLVmhA-S1tY2Go2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "user@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "lchen",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "the",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "great",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/users/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MywiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQzR1FYMERjeEwwc0w0TE9lUWRjQlh1Q1lndEkxT29sY0J3ZXg3NzZVd0oxY2pyVUxRaTRPLiIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCJ9LCJpYXQiOjE2OTE5ODk2MDMsImV4cCI6MTY5MjA3NjAwM30.ooyJpWCPtpfzc6jKs7czNeor6gQRLVmhA-S1tY2Go2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/users/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"users",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Merchant",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NCwiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRsbGF1blpJeTNZcGhRN3JmeVZyTjYuaXZBdkJ6NllJdjZOWDNpelNPbWlCTGFZWksxdXQyQyIsIm1lbWJlcnNoaXAiOiJmcmVlIiwiZmlyc3RfbmFtZSI6ImxjaGVuIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjozNDk4MTA5MjQsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIn0sImlhdCI6MTY5MTYyNzQzNCwiZXhwIjoxNjkxNzEzODM0fQ.ZnqrlelBY0kdcYK0AbshCqFYi5fxKpPt4F1ZvQP7NKM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "role",
+									"value": "admin",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "username",
+									"value": "merchant@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "membership",
+									"value": "free",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "first_name",
+									"value": "Leo",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "P",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "dela Cruz",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								},
+								{
+									"key": "points",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "store_id",
+									"value": "1",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/merchants",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchants"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkVW5XNHhWcnU3WVJPcVBQeWEuMlBMLnJGWHBGa0dDYUtPYldlUGtsNm9DUVhjQUxmOFBDQjIiLCJmaXJzdF9uYW1lIjoiRGFyd2luIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjoiMDM0OTgxMDkyNCIsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIiwicG9pbnRzIjoxfSwiaWF0IjoxNjkyMzM5OTc5LCJleHAiOjE2OTI0MjYzNzl9.okpF3oyk7d4A62S2q9G8tuGiBIrVIgsJMzatdUAflRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/merchants/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchants",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkVW5XNHhWcnU3WVJPcVBQeWEuMlBMLnJGWHBGa0dDYUtPYldlUGtsNm9DUVhjQUxmOFBDQjIiLCJmaXJzdF9uYW1lIjoiRGFyd2luIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjoiMDM0OTgxMDkyNCIsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIiwicG9pbnRzIjoxfSwiaWF0IjoxNjkyMzM5OTc5LCJleHAiOjE2OTI0MjYzNzl9.okpF3oyk7d4A62S2q9G8tuGiBIrVIgsJMzatdUAflRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/merchants/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchants",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRCQWpIUVByTi9PaE44bnMvMVUvT0tlM09wUDR1TC5iQzQ5ZXA2ejJVUnovWlFQMHJaVFBDaSIsIm1lbWJlcnNoaXAiOiJmcmVlIiwiZmlyc3RfbmFtZSI6ImxjaGVuIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjozNDk4MTA5MjQsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIn0sImlhdCI6MTY5MTQ0ODI4MSwiZXhwIjoxNjkxNTM0NjgxfQ.HuchSDwUxX9_75J_-DQDlmMmPAlAPmikGo06HagPWbY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "user@test.com2sd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/merchants/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchants",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MSwicm9sZSI6ImFkbWluIiwidXNlcm5hbWUiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRCQWpIUVByTi9PaE44bnMvMVUvT0tlM09wUDR1TC5iQzQ5ZXA2ejJVUnovWlFQMHJaVFBDaSIsIm1lbWJlcnNoaXAiOiJmcmVlIiwiZmlyc3RfbmFtZSI6ImxjaGVuIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjozNDk4MTA5MjQsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIn0sImlhdCI6MTY5MTQ0ODI4MSwiZXhwIjoxNjkxNTM0NjgxfQ.HuchSDwUxX9_75J_-DQDlmMmPAlAPmikGo06HagPWbY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/merchants/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"merchants",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkVW5XNHhWcnU3WVJPcVBQeWEuMlBMLnJGWHBGa0dDYUtPYldlUGtsNm9DUVhjQUxmOFBDQjIiLCJmaXJzdF9uYW1lIjoiRGFyd2luIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjoiMDM0OTgxMDkyNCIsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIiwicG9pbnRzIjoxfSwiaWF0IjoxNjkyMzM5OTc5LCJleHAiOjE2OTI0MjYzNzl9.okpF3oyk7d4A62S2q9G8tuGiBIrVIgsJMzatdUAflRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "merchant@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/merchant/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"merchant",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Patron",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NCwiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRsbGF1blpJeTNZcGhRN3JmeVZyTjYuaXZBdkJ6NllJdjZOWDNpelNPbWlCTGFZWksxdXQyQyIsIm1lbWJlcnNoaXAiOiJmcmVlIiwiZmlyc3RfbmFtZSI6ImxjaGVuIiwibWlkZGxlX25hbWUiOiJ0aGUiLCJsYXN0X25hbWUiOiJncmVhdCIsImJpcnRoZGF0ZSI6IjIwMDAtMTAtMTRUMTY6MDA6MDAuMDAwWiIsInBob25lIjozNDk4MTA5MjQsImFkZHJlc3MiOiJyZWxvYyIsImNpdHkiOiJkYXZhbyIsInN0YXRlIjoiZGF2YW8gZGVsIHN1ciIsImNvdW50cnkiOiJwaGlsaXBwaW5lcyIsInppcGNvZGUiOiI4MDAwIn0sImlhdCI6MTY5MTU1NDk2OSwiZXhwIjoxNjkxNjQxMzY5fQ.1udDzhvG7hhfFjuR7YWoOgIc-FIrToLQxKvd2SrEurY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "patron@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "lchen",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "the",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "great",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								},
+								{
+									"key": "points",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/patrons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"patrons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkZHhOMnRwTkxCZGp3d1k5SFc5cDJ6dTByQzFTT0VVUWxJTHd2RUxkd2t4T3plRmRuQm8yc2kiLCJmaXJzdF9uYW1lIjoiTGVvIiwibWlkZGxlX25hbWUiOiJQIiwibGFzdF9uYW1lIjoiZGVsYSBDcnV6IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAiLCJwb2ludHMiOjF9LCJpYXQiOjE2OTI2OTQ0MTYsImV4cCI6MTY5Mjc4MDgxNn0.-nO_wIdgx0-lb8xrHJ0PXg-bJw52r9Uj4KiwvdYLmtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/patrons",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"patrons"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6InVzZXJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCRVSGd4UTU1STRoWmtRelF5MnIyMTl1V3VVbkk2NkxON3NpbThuSndjbmZBZUxHUFdZTFM1VyIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCIsInBvaW50cyI6MX0sImlhdCI6MTY5MjM0ODMwOCwiZXhwIjoxNjkyNDM0NzA4fQ.4vMXXE_AoJHhXxe9WZErTjfuEiUuh9bl4OEnqmCQD6g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/patrons/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"patrons",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWGpxczZCQWlWNUw5ZTNxV3A2eGMwdU9aZnNBU2U2eUp2bHpMenprdFJ1Zk9EUmJyenZLdi4iLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAifSwiaWF0IjoxNjkxOTg1ODA5LCJleHAiOjE2OTIwNzIyMDl9.IOGl1KCzfOk2uRWd8kffmcnwuRcagv3nm_NROjMVpjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "user@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								},
+								{
+									"key": "first_name",
+									"value": "lchen",
+									"type": "text"
+								},
+								{
+									"key": "middle_name",
+									"value": "the",
+									"type": "text"
+								},
+								{
+									"key": "last_name",
+									"value": "great",
+									"type": "text"
+								},
+								{
+									"key": "birthdate",
+									"value": "2000-10-15",
+									"type": "text"
+								},
+								{
+									"key": "phone",
+									"value": "0349810924",
+									"type": "text"
+								},
+								{
+									"key": "address",
+									"value": "reloc",
+									"type": "text"
+								},
+								{
+									"key": "city",
+									"value": "davao",
+									"type": "text"
+								},
+								{
+									"key": "state",
+									"value": "davao del sur",
+									"type": "text"
+								},
+								{
+									"key": "country",
+									"value": "philippines",
+									"type": "text"
+								},
+								{
+									"key": "zipcode",
+									"value": "8000",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/patrons/6",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"patrons",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWGpxczZCQWlWNUw5ZTNxV3A2eGMwdU9aZnNBU2U2eUp2bHpMenprdFJ1Zk9EUmJyenZLdi4iLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAifSwiaWF0IjoxNjkxOTg1ODA5LCJleHAiOjE2OTIwNzIyMDl9.IOGl1KCzfOk2uRWd8kffmcnwuRcagv3nm_NROjMVpjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/patrons/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"patrons",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "patron@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "qwertyuiop1201",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/auth/patron/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"auth",
+								"patron",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6MywiZW1haWwiOiJhZG1pbjJAdGVzdC5jb20iLCJwYXNzd29yZCI6IiQyYiQxMCQzR1FYMERjeEwwc0w0TE9lUWRjQlh1Q1lndEkxT29sY0J3ZXg3NzZVd0oxY2pyVUxRaTRPLiIsImZpcnN0X25hbWUiOiJsY2hlbiIsIm1pZGRsZV9uYW1lIjoidGhlIiwibGFzdF9uYW1lIjoiZ3JlYXQiLCJiaXJ0aGRhdGUiOiIyMDAwLTEwLTE0VDE2OjAwOjAwLjAwMFoiLCJwaG9uZSI6IjAzNDk4MTA5MjQiLCJhZGRyZXNzIjoicmVsb2MiLCJjaXR5IjoiZGF2YW8iLCJzdGF0ZSI6ImRhdmFvIGRlbCBzdXIiLCJjb3VudHJ5IjoicGhpbGlwcGluZXMiLCJ6aXBjb2RlIjoiODAwMCJ9LCJpYXQiOjE2OTE5ODk2MDMsImV4cCI6MTY5MjA3NjAwM30.ooyJpWCPtpfzc6jKs7czNeor6gQRLVmhA-S1tY2Go2A",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "entryDate",
+									"value": "2023-10-10",
+									"type": "text"
+								},
+								{
+									"key": "productName",
+									"value": "Jacket",
+									"type": "text"
+								},
+								{
+									"key": "brand",
+									"value": "Chanel",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Wool Cloth made from fur of the lion",
+									"type": "text"
+								},
+								{
+									"key": "sku",
+									"value": "jacket101",
+									"type": "text"
+								},
+								{
+									"key": "imageUrl",
+									"value": "#",
+									"type": "text"
+								},
+								{
+									"key": "category",
+									"value": "Jacket",
+									"type": "text"
+								},
+								{
+									"key": "variant",
+									"value": "for Men and Women",
+									"type": "text"
+								},
+								{
+									"key": "tags",
+									"value": "jacket, ",
+									"type": "text"
+								},
+								{
+									"key": "color",
+									"value": "Brown",
+									"type": "text"
+								},
+								{
+									"key": "size",
+									"value": "xl",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "120.00",
+									"type": "text"
+								},
+								{
+									"key": "qty",
+									"value": "12",
+									"type": "text"
+								},
+								{
+									"key": "points",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "discount",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "originalPrice",
+									"value": "220",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "title",
+									"value": "AAA",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "1.1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "description",
+									"value": "'ab'",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "points",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "sku",
+									"value": "1asdf1",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "qty",
+									"value": "10",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/products/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Batch",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/products/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"products",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkZHhOMnRwTkxCZGp3d1k5SFc5cDJ6dTByQzFTT0VVUWxJTHd2RUxkd2t4T3plRmRuQm8yc2kiLCJmaXJzdF9uYW1lIjoiTGVvIiwibWlkZGxlX25hbWUiOiJQIiwibGFzdF9uYW1lIjoiZGVsYSBDcnV6IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAiLCJwb2ludHMiOjF9LCJpYXQiOjE2OTI2OTQ0MTYsImV4cCI6MTY5Mjc4MDgxNn0.-nO_wIdgx0-lb8xrHJ0PXg-bJw52r9Uj4KiwvdYLmtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "products_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "patron_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "merchant_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/order",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"order"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6Im1lcmNoYW50QHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkZHhOMnRwTkxCZGp3d1k5SFc5cDJ6dTByQzFTT0VVUWxJTHd2RUxkd2t4T3plRmRuQm8yc2kiLCJmaXJzdF9uYW1lIjoiTGVvIiwibWlkZGxlX25hbWUiOiJQIiwibGFzdF9uYW1lIjoiZGVsYSBDcnV6IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAiLCJwb2ludHMiOjF9LCJpYXQiOjE2OTI2OTQ0MTYsImV4cCI6MTY5Mjc4MDgxNn0.-nO_wIdgx0-lb8xrHJ0PXg-bJw52r9Uj4KiwvdYLmtI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/order/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"order",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindOne",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWGpxczZCQWlWNUw5ZTNxV3A2eGMwdU9aZnNBU2U2eUp2bHpMenprdFJ1Zk9EUmJyenZLdi4iLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAifSwiaWF0IjoxNjkxOTg1ODA5LCJleHAiOjE2OTIwNzIyMDl9.IOGl1KCzfOk2uRWd8kffmcnwuRcagv3nm_NROjMVpjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/order/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"order",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWGpxczZCQWlWNUw5ZTNxV3A2eGMwdU9aZnNBU2U2eUp2bHpMenprdFJ1Zk9EUmJyenZLdi4iLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAifSwiaWF0IjoxNjkxOTg1ODA5LCJleHAiOjE2OTIwNzIyMDl9.IOGl1KCzfOk2uRWd8kffmcnwuRcagv3nm_NROjMVpjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "products_id",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "patron_id",
+									"value": "7",
+									"type": "text"
+								},
+								{
+									"key": "merchant_id",
+									"value": "7",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/order/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJpZCI6NiwiZW1haWwiOiJ1c2VyQHRlc3QuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkWGpxczZCQWlWNUw5ZTNxV3A2eGMwdU9aZnNBU2U2eUp2bHpMenprdFJ1Zk9EUmJyenZLdi4iLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNFQxNjowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAifSwiaWF0IjoxNjkxOTg1ODA5LCJleHAiOjE2OTIwNzIyMDl9.IOGl1KCzfOk2uRWd8kffmcnwuRcagv3nm_NROjMVpjI",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/order/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"order",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Batch",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
