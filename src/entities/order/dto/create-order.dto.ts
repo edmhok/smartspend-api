@@ -18,8 +18,8 @@ export class CreateOrderDto {
   @IsInt()
   qty: number;
 
-  @IsBoolean()
-  isPaid: boolean;
+  @IsString()
+  isPaid: string;
 
   @IsString()
   status: string;

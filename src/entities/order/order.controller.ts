@@ -66,8 +66,7 @@ import { ObjectId } from 'mongoose';
         @Param('id') id: ObjectId,
         @Body() updateOrderDto: UpdateOrderDto,
     ) {
-        this.orderService.update(id, updateOrderDto);
-        return 'Updated';
+        return this.orderService.update(id, updateOrderDto);
     }
     
     @UseGuards(JwtAuthGuard)

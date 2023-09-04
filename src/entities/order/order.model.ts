@@ -1,10 +1,9 @@
 import { Schema, model, Document, Types } from 'mongoose';
 
 export interface IOrder extends Document {
-  products: Types.ObjectId[];
+  products: any;
   patron: Types.ObjectId;
   merchant: Types.ObjectId;
-  qty: number;
   isPaid: boolean;
   status: string;
 
@@ -13,12 +12,18 @@ export interface IOrder extends Document {
 }
 
 export const orderSchema = new Schema<IOrder>({
-  products: [{ type: Schema.Types.ObjectId, ref: 'Products', required: true }],
+  products: [
+    { 
+      product: {
+        type: Schema.Types.ObjectId, ref: 'Products', required: true 
+      },
+      qty: { type: Number, required: true }
+    }
+  ],
   patron: { type: Schema.Types.ObjectId, ref: 'Patron', required: true },
   merchant: { type: Schema.Types.ObjectId, ref: 'Merchant', required: true },
-  qty: { type: Number, required: true },
-  isPaid: { type: Boolean, required: true },
-  status: { type: String, required: true },
+  isPaid: { type: Boolean},
+  status: { type: String },
   createdAt: { type: Date, default: Date.now },
 });
 

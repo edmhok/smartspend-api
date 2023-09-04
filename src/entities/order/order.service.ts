@@ -24,7 +24,12 @@ export class OrderService {
   findAll(): Promise<IOrder[]> {
     // @TODO: return points as well in the future
     return this.orderModel.find()
-      .populate('products')
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'product'
+        }
+      })
       .populate('merchant')
       .populate('patron')
       .lean();
@@ -52,7 +57,6 @@ export class OrderService {
 
   async create(_order: CreateOrderDto): Promise<IOrder | any> {
     const order = new this.orderModel({
-      qty: _order.qty,
       isPaid: _order.isPaid,
       status: _order.status,
     })
@@ -62,15 +66,15 @@ export class OrderService {
     const patron = await this.patronModel.findById({ _id: _order.patron_id });
     order.patron = patron._id;
     const products = await this.productsModel.findById({ _id: _order.products_id });
-    order.products = [products._id];
+    order.products = [
+      {
+        product: products._id,
+        qty: _order.qty
+      }
+    ];
     const points = products.points;
 
     if (merchant.points >= points) {
-      merchant.points = merchant.points - points;
-      patron.points = patron.points + points;
-
-      merchant.save();
-      patron.save();
       return order.save();
     } else {
       return {
@@ -80,26 +84,41 @@ export class OrderService {
   }
 
   async update(id: ObjectId, updateOrderDto: UpdateOrderDto): Promise<IOrder> {
-    const order = await this.orderModel.findById(id).exec();
+    const order = await this.orderModel.findById(id)
+      .populate({
+        path: 'products',
+        populate: {
+          path: 'product'
+        }
+      })
+      .populate('merchant')
+      .populate('patron')
+      .exec();
 
     const { products_id, patron_id, merchant_id, qty, isPaid, status} = updateOrderDto;
-    order.qty = qty;
-    order.isPaid = isPaid;
+    
     order.status = status;
 
-    if (products_id) {
-      const products = await this.productsModel.findById({ _id: products_id });
-      order.products = [products._id];
-    }
-    if (patron_id) {
-      const patron = await this.patronModel.findById({ _id: patron_id });
-      order.patron = patron._id;
-    }
-    if (merchant_id) {
-      const merchant = await this.merchantModel.findById({ _id: merchant_id });
-      order.merchant = merchant._id;
-    }
+    const totalPoints = order.products.reduce((prev, cur) => prev + cur.product.points, 0)
 
+    const patron = await this.patronModel.findById({ _id: order.patron._id });
+    const merchant = await this.merchantModel.findById({ _id: order.merchant._id });
+
+    if(!order.isPaid && isPaid === 'true') {
+      if (merchant.points >= totalPoints) {
+        merchant.points = merchant.points - totalPoints;
+        patron.points = patron.points + totalPoints;
+  
+        merchant.save();
+        patron.save();
+        order.isPaid = true;
+      }
+      else {
+        console.log(
+          "Merchant points out of balance."
+        )
+      }
+    }
     return await order.save();
   }
 
