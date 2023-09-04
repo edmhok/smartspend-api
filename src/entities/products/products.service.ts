@@ -4,6 +4,7 @@ import { UpdateProductsDto } from "./dto/update-products.dto";
 import { IProducts } from "./products.model";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model, ObjectId } from "mongoose";
+import { IMerchant } from "../merchant/merchant.model";
 
 // import { User } from "../user/user.entity";
 // import { UserRepository } from "../user/user.repository";
@@ -15,6 +16,8 @@ export class ProductsService {
   constructor(
     @InjectModel('Products')
     private readonly productsModel: Model<IProducts>,
+    @InjectModel('Merchant')
+    private readonly merchantModel: Model<IMerchant>,
   ) {}
 
   findAll(): Promise<IProducts[]> {
@@ -35,6 +38,7 @@ export class ProductsService {
   }
 
   async create(_products: CreateProductsDto): Promise<IProducts> {
+    const merchant = await this.merchantModel.findOne({ _id: _products.merchant}).exec();
     const products = new this.productsModel({
       entryDate: _products.entryDate,
       productName: _products.productName,
@@ -52,6 +56,7 @@ export class ProductsService {
       points: _products.points,
       discount: _products.discount,
       originalPrice: _products.originalPrice,
+      merchant: merchant['_id']
     });
 
 

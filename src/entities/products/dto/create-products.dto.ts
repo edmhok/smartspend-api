@@ -60,6 +60,9 @@ export class CreateProductsDto {
   @IsInt()
   discount: number;
 
+  @IsString()
+  merchant: string;
+
   @IsDate()
   createdAt: Date;
 }

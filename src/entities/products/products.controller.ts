@@ -23,6 +23,21 @@ export class ProductsController {
     // private readonly orderService: OrderService,
     ) {}
 
+    // add find by batch
+    @Get('batch')
+    async findByBatch(@Query('ids') _ids: string) {
+      const ids = _ids.split(',') || []
+      const response = await this.productsService.findByBatch(ids);
+      return await Promise.all(
+        response.map(async (item) => {
+          return {
+            ...item,
+            // photo: await this.s3Service.getFile(item.photo) || '',  
+          }
+        })
+      );
+    }
+
     @Get()
     async findAll() {
       return this.productsService.findAll();
@@ -56,20 +71,6 @@ export class ProductsController {
       return this.productsService.remove(id);
     }
 
-    // add find by batch
-    @Get('batch')
-    async findByBatch(@Query('ids') _ids: string) {
-      const ids = _ids.split(',') || []
-      const response = await this.productsService.findByBatch(ids);
-      console.log({response})
-      return await Promise.all(
-        response.map(async (item) => {
-          return {
-            ...item,
-            // photo: await this.s3Service.getFile(item.photo) || '',  
-          }
-        })
-      );
-    }
+    
 
 }
