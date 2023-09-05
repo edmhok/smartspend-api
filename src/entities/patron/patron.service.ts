@@ -59,7 +59,7 @@ export class PatronService {
       country: _patron.country,
       zipcode: _patron.zipcode,
       points: _patron.points || 0,
-      photos: _patron.photos || []
+      photos: _patron.photos || ''
     });
 
     return patron.save();

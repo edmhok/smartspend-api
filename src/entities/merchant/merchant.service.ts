@@ -56,7 +56,7 @@ export class MerchantService {
       country: _merchant.country,
       zipcode: _merchant.zipcode,
       points: _merchant.points || 0,
-      photos: _merchant.photos || []
+      photos: _merchant.photos || ''
     });
     console.log({merchant})
     return merchant.save();
