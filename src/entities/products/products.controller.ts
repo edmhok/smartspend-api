@@ -46,16 +46,20 @@ export class ProductsController {
       );
     }
     
-    @UseGuards(JwtAuthGuard)
     @Get()
     async findAll(@Request() req) {
-      
-      const token = req.headers.authorization.split(' ')[1];
-      const decodedToken = JSON.parse(
-        Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
-      );
-      const user_Id = decodedToken.userPayload.id;
-      const response = await this.productsService.findAll(user_Id);
+      let response;
+      if(req.headers.authorization) {
+        const token = req.headers.authorization.split(' ')[1];
+        const decodedToken = JSON.parse(
+          Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
+        );
+        const user_Id = decodedToken.userPayload.id;
+        response = await this.productsService.findAll(user_Id);
+      }
+      else {
+        response = await this.productsService.findAll();
+      }
 
       return await Promise.all(
         response.map(async (item) => {

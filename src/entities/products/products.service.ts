@@ -20,8 +20,11 @@ export class ProductsService {
     private readonly merchantModel: Model<IMerchant>,
   ) {}
 
-  findAll(user_Id:string): Promise<IProducts[]> {
-    return this.productsModel.find({merchant: user_Id}).lean();
+  findAll(user_Id:string = null): Promise<IProducts[]> {
+    if(user_Id) {
+      return this.productsModel.find({merchant: user_Id}).lean();
+    }
+    return this.productsModel.find().lean();
   }
 
   async findOne(id: ObjectId): Promise<IProducts> {
