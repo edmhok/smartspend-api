@@ -31,7 +31,7 @@ export const patronSchema = new Schema<IPatron>({
   city: { type: String, required: true },
   state: { type: String, required: true },
   zipcode: { type: String, required: true },
-  points: { type: Number, required: true },
+  points: { type: Number },
   createdAt: { type: Date, default: Date.now },
   order: [{ type: SchemaTypes.ObjectId, ref: 'Order', required: true }],
 });

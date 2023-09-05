@@ -31,7 +31,7 @@ export const merchantSchema = new Schema<IMerchant>({
     city: { type: String, required: true },
     state: { type: String, required: true },
     zipcode: { type: String, required: true },
-    points: { type: Number, required: true },
+    points: { type: Number },
     createdAt: { type: Date, default: Date.now },
     order: [{ type: Schema.ObjectId, ref: 'Order', required: true }],
     products: [{ type: Schema.ObjectId, ref: 'Products', required: true }],
