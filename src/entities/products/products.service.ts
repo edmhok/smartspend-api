@@ -20,8 +20,8 @@ export class ProductsService {
     private readonly merchantModel: Model<IMerchant>,
   ) {}
 
-  findAll(): Promise<IProducts[]> {
-    return this.productsModel.find().lean();
+  findAll(user_Id:string): Promise<IProducts[]> {
+    return this.productsModel.find({merchant: user_Id}).lean();
   }
 
   async findOne(id: ObjectId): Promise<IProducts> {
@@ -38,7 +38,7 @@ export class ProductsService {
   }
 
   async create(_products: CreateProductsDto): Promise<IProducts> {
-    const merchant = await this.merchantModel.findOne({ _id: _products.merchant}).exec();
+    console.log({_products})
     const products = new this.productsModel({
       entryDate: _products.entryDate,
       productName: _products.productName,
@@ -56,24 +56,9 @@ export class ProductsService {
       points: _products.points,
       discount: _products.discount,
       originalPrice: _products.originalPrice,
-      merchant: merchant['_id']
+      merchant: _products.merchant
     });
-
-
-    // if(_products.user_id) {
-    //   const user = await this.userRepository.findOne({
-    //     where: { id: _products.user_id},
-    //   });
-    //   products.user = [user];
-    // }
-    // if(_products.order_id) {
-    //   const order = await this.orderRepository.findOne({
-    //     where: { id: _products.order_id},
-    //   });
-    //   products.order = [order];
-    // }
-
-
+    console.log({products})
     return products.save();
   }
 

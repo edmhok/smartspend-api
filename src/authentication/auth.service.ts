@@ -41,6 +41,7 @@ export class AuthService {
       country: user.user.country,
       zipcode: user.user.zipcode,
       points: user.user.points,
+      id: user.user._id,
       },
     };
     return {

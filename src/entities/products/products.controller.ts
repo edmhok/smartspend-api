@@ -9,6 +9,8 @@ Patch,
 Query,
 UseInterceptors,
 UploadedFile,
+Request,
+UseGuards
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
@@ -17,6 +19,7 @@ import { OrderService } from '../order/order.service';
 import { ObjectId } from 'mongoose';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { S3Service } from 'src/utils/S3Service';
+import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 // import { S3Service } from 'src/utils/S3Service';
 
 @Controller('products')
@@ -42,10 +45,18 @@ export class ProductsController {
         })
       );
     }
-
+    
+    @UseGuards(JwtAuthGuard)
     @Get()
-    async findAll() {
-      const response = await this.productsService.findAll();
+    async findAll(@Request() req) {
+      
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = JSON.parse(
+        Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
+      );
+      const user_Id = decodedToken.userPayload.id;
+      const response = await this.productsService.findAll(user_Id);
+
       return await Promise.all(
         response.map(async (item) => {
           return {
@@ -70,9 +81,18 @@ export class ProductsController {
       return this.productsService.findByDate(date);
     }
 
+    @UseGuards(JwtAuthGuard)
     @Post()
     @UseInterceptors(FileInterceptor('photo'))
-    async create(@Body() createProductsDto: CreateProductsDto, @UploadedFile() photo) {
+    async create(@Body() createProductsDto: CreateProductsDto, @UploadedFile() photo, @Request() req) {
+      const token = req.headers.authorization.split(' ')[1];
+      const decodedToken = JSON.parse(
+        Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
+      );
+      console.log({decodedToken})
+      const user_Id = decodedToken.userPayload.id;
+      createProductsDto.merchant = user_Id
+
       if(photo) {
         const response = await this.s3Service.uploadFile(photo)
         if(response) {
