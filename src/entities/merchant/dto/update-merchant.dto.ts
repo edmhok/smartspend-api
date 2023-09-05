@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { PartialType } from '@nestjs/mapped-types';
 import { CreateMerchantDto } from './create-merchant.dto';
-import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { IsString, IsInt, IsDate, IsOptional, IsArray } from '@nestjs/class-validator';
 import { ObjectId } from 'mongoose';
 
 export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
@@ -55,4 +55,7 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
 
     @IsDate()
     createdAt: Date;
+
+    @IsString()
+    photos: string;
 }

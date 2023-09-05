@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { PartialType } from '@nestjs/mapped-types';
 import { CreatePatronDto } from './create-patron.dto';
-import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { IsString, IsInt, IsDate, IsOptional, IsArray } from '@nestjs/class-validator';
 import { ObjectId } from 'mongoose';
 
 export class UpdatePatronDto extends PartialType(CreatePatronDto) {
@@ -55,4 +55,7 @@ export class UpdatePatronDto extends PartialType(CreatePatronDto) {
 
     @IsDate()
     createdAt: Date;
+
+    @IsString()
+    photos: string;
 }

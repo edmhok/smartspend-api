@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { productsSchema } from './products.model';
 import { userSchema } from '../user/user.model';
 import { merchantSchema } from '../merchant/merchant.model';
+import { S3Service } from 'src/utils/S3Service';
 
 @Module({
   imports: [MongooseModule.forFeature(
@@ -16,6 +17,6 @@ import { merchantSchema } from '../merchant/merchant.model';
     ]
   )],
   controllers: [ProductsController],
-  providers: [ProductsService, UserService ]
+  providers: [ProductsService, UserService, S3Service ]
 })
 export class ProductsModule {}

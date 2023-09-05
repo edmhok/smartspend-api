@@ -58,7 +58,8 @@ export class PatronService {
       state: _patron.state,
       country: _patron.country,
       zipcode: _patron.zipcode,
-      points: _patron.points,
+      points: _patron.points || 0,
+      photos: _patron.photos || []
     });
 
     return patron.save();
@@ -67,41 +68,20 @@ export class PatronService {
   async update(id: ObjectId, updatePatronDto: UpdatePatronDto): Promise<IPatron> {
     const patron = await this.patronModel.findById(id).exec();
    
-    const { 
-      username, 
-      password, 
-      first_name, 
-      middle_name, 
-      last_name, 
-      birthdate, 
-      phone, 
-      address, 
-      city, 
-      state, 
-      country, 
-      zipcode, 
-      points,
-     } = updatePatronDto;
-    patron.username = username;
-    patron.password = password;
-    patron.first_name = first_name;
-    patron.middle_name = middle_name;
-    patron.last_name = last_name;
-    patron.birthdate = birthdate;
-    patron.phone = phone;
-    patron.address = address;
-    patron.city = city;
-    patron.state = state;
-    patron.country = country;
-    patron.zipcode = zipcode;
-    patron.points = points;
+    patron.username = updatePatronDto.username || patron.username;
+    patron.password = updatePatronDto.password || patron.password;
+    patron.first_name = updatePatronDto.first_name || patron.first_name;
+    patron.middle_name = updatePatronDto.middle_name || patron.middle_name;
+    patron.last_name = updatePatronDto.last_name || patron.last_name;
+    patron.birthdate = updatePatronDto.birthdate || patron.birthdate;
+    patron.phone = updatePatronDto.phone || patron.phone;
+    patron.address = updatePatronDto.address || patron.address;
+    patron.city = updatePatronDto.city || patron.city;
+    patron.state = updatePatronDto.state || patron.state;
+    patron.country = updatePatronDto.country || patron.country;
+    patron.zipcode = updatePatronDto.zipcode || patron.zipcode;
+    patron.points = updatePatronDto.points || patron.points;
 
-    // if(order_id) {
-    //   const order = await this.orderRepository.findOne({
-    //     where: { id: order_id },
-    //   });
-    //   patron.order = [order];
-    // }
     return patron.save();
     
   }

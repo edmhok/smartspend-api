@@ -7,12 +7,16 @@ Body,
 Delete,
 Patch,
 Query,
+UseInterceptors,
+UploadedFile,
 } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from './dto/create-products.dto';
 import { UpdateProductsDto } from './dto/update-products.dto';
 import { OrderService } from '../order/order.service';
 import { ObjectId } from 'mongoose';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { S3Service } from 'src/utils/S3Service';
 // import { S3Service } from 'src/utils/S3Service';
 
 @Controller('products')
@@ -21,6 +25,7 @@ export class ProductsController {
     private productsService: ProductsService,
     // @Inject(forwardRef(() => OrderService))
     // private readonly orderService: OrderService,
+    private readonly s3Service: S3Service,
     ) {}
 
     // add find by batch
@@ -32,7 +37,7 @@ export class ProductsController {
         response.map(async (item) => {
           return {
             ...item,
-            // photo: await this.s3Service.getFile(item.photo) || '',  
+            photo: await this.s3Service.getFile(item.photo) || '',  
           }
         })
       );
@@ -40,12 +45,24 @@ export class ProductsController {
 
     @Get()
     async findAll() {
-      return this.productsService.findAll();
+      const response = await this.productsService.findAll();
+      return await Promise.all(
+        response.map(async (item) => {
+          return {
+            ...item,
+            photo: await this.s3Service.getFile(item.photo) || ''
+          }
+        })
+      )
     }
   
     @Get(':id')
     async findOne(@Param('id') id: ObjectId) {
-      return this.productsService.findOne(id);
+      const response = await this.productsService.findOne(id);
+      return {
+        ...response,
+        photo: await this.s3Service.getFile(response.photo) || '',
+      };
     }
     
     @Get('createdAtd/:date')
@@ -54,7 +71,14 @@ export class ProductsController {
     }
 
     @Post()
-    create(@Body() createProductsDto: CreateProductsDto) {
+    @UseInterceptors(FileInterceptor('photo'))
+    async create(@Body() createProductsDto: CreateProductsDto, @UploadedFile() photo) {
+      if(photo) {
+        const response = await this.s3Service.uploadFile(photo)
+        if(response) {
+          createProductsDto.photo = response.Key;
+        }
+      }
       return this.productsService.create(createProductsDto);
     }
   

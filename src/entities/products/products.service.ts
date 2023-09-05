@@ -44,7 +44,7 @@ export class ProductsService {
       productName: _products.productName,
       brand: _products.brand,
       description: _products.description,
-      imageUrl: _products.imageUrl,
+      photo: _products.photo,
       sku: _products.sku,
       category: _products.category,
       variant: _products.variant,
@@ -82,60 +82,28 @@ export class ProductsService {
     updateProductsDto: UpdateProductsDto
   ): Promise<IProducts> {
     const products = await this.productsModel.findById(id).exec();
-
-    const {
-      entryDate,
-      productName,
-      brand,
-      description,
-      imageUrl,
-      sku,
-      category,
-      variant,
-      size,
-      color,
-      tags,
-      price,
-      qty,
-      points,
-      discount,
-      originalPrice,
-      order_id,
-    } = updateProductsDto;
-    products.entryDate = entryDate;
-    products.productName = productName;
-    products.brand = brand;
-    products.description = description;
-    products.imageUrl = imageUrl;
-    products.sku = sku;
-    products.category = category;
-    products.variant = variant;
-    products.size = size;
-    products.color = color;
-    products.tags = tags;
-    products.price = price;
-    products.qty = qty;
-    products.points = points;
-    products.discount = discount;
-    products.originalPrice = originalPrice;
-
-    // if(user_id) {
-    //   const user = await this.userRepository.findOne({
-    //     where: { id: user_id },
-    //   });
-    //   products.user = [user];
-    // }
-    // if(order_id) {
-    //   const order = await this.orderRepository.findOne({
-    //     where: { id: order_id},
-    //   });
-    //   products.order = [order];
-    // }
+    
+    products.entryDate = updateProductsDto.entryDate || products.entryDate;
+    products.productName = updateProductsDto.productName || products.productName;
+    products.brand = updateProductsDto.brand || products.brand;
+    products.description = updateProductsDto.description || products.description;
+    products.photo = updateProductsDto.photo || products.photo;
+    products.sku = updateProductsDto.sku || products.sku;
+    products.category = updateProductsDto.category || products.category;
+    products.variant = updateProductsDto.variant || products.variant;
+    products.size = updateProductsDto.size || products.size;
+    products.color = updateProductsDto.color || products.color;
+    products.tags = updateProductsDto.tags || products.tags;
+    products.price = updateProductsDto.price || products.price;
+    products.qty = updateProductsDto.qty || products.qty;
+    products.points = updateProductsDto.points || products.points;
+    products.discount = updateProductsDto.discount || products.discount;
+    products.originalPrice = updateProductsDto.originalPrice || products.originalPrice;
 
     return await products.save();
   }
 
-  async remove(id: ObjectId): Promise<string| void> {
+  async remove(id: ObjectId): Promise<string | void> {
     const result = await this.productsModel.findByIdAndDelete({_id: id}).exec();
     // return `Deleted ${result.deletedCount} record`;
   }

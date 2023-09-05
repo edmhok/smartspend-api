@@ -15,6 +15,7 @@ export interface IPatron extends Document {
   zipcode: string;
   points: number;
   createdAt: Date;
+  photos: string;
   order: Types.ObjectId[];
 }
 
@@ -33,6 +34,7 @@ export const patronSchema = new Schema<IPatron>({
   zipcode: { type: String, required: true },
   points: { type: Number },
   createdAt: { type: Date, default: Date.now },
+  photos: String,
   order: [{ type: SchemaTypes.ObjectId, ref: 'Order', required: true }],
 });
 

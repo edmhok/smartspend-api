@@ -10,6 +10,8 @@ import {
   UseGuards,
   Inject,
   forwardRef,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { MerchantService } from './merchant.service';
 import { CreateMerchantDto } from './dto/create-merchant.dto';
@@ -17,6 +19,8 @@ import { UpdateMerchantDto } from './dto/update-merchant.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 import { OrderService } from '../order/order.service';
 import { ObjectId } from 'mongoose';
+import { S3Service } from 'src/utils/S3Service';
+import { FileInterceptor } from '@nestjs/platform-express';
 
 
 @Controller('merchants')
@@ -25,36 +29,59 @@ export class MerchantController {
     private merchantService: MerchantService,
     // @Inject(forwardRef(() => OrderService))
     // private readonly orderService: OrderService,
+    private readonly s3Service: S3Service,
   ) { }
 
   @UseGuards(JwtAuthGuard)
   @Get()
   async fillAll() {
-    return this.merchantService.findAll();
+    const response = await this.merchantService.findAll();
+    return await Promise.all(
+      response.map(async (item) => {
+        return {
+          ...item,
+          photo: await this.s3Service.getFile(item.photos[0]) || ''
+        }
+      })
+    )
   }
 
   @UseGuards(JwtAuthGuard)
   @Get('profile')
-  getProfile(@Request() req) {
+  async getProfile(@Request() req) {
     const token = req.headers.authorization.split(' ')[1];
     const decodedToken = JSON.parse(
       Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),
     );
     const merchant_id = decodedToken.merchantPayload.id;
 
-    return this.merchantService.findOne(merchant_id);
+    const response = await this.merchantService.findOne(merchant_id);
+    return {
+      ...response,
+      photo: await this.s3Service.getFile(response.photos[0]) || '',
+    };
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: ObjectId) {
     console.log({id})
-    return this.merchantService.findOne(id);
+    const response = await this.merchantService.findOne(id);
+    return {
+      ...response,
+      photo: await this.s3Service.getFile(response.photos[0]) || '',
+    };
   }
 
   @Post()
-  create(@Body() createMerchantDto: CreateMerchantDto) {
-    console.log('tests')
+  @UseInterceptors(FileInterceptor('photos'))
+  async create(@Body() createMerchantDto: CreateMerchantDto, @UploadedFile() photo) {
+    if(photo) {
+      const response = await this.s3Service.uploadFile(photo)
+      if(response) {
+        createMerchantDto.photos = response.Key;
+      }
+    }
     return this.merchantService.create(createMerchantDto);
   }
 

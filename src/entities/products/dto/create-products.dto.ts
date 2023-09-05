@@ -25,9 +25,6 @@ export class CreateProductsDto {
   description: string;
 
   @IsString()
-  imageUrl: string;
-
-  @IsString()
   sku: string;
 
   @IsString()
@@ -65,4 +62,7 @@ export class CreateProductsDto {
 
   @IsDate()
   createdAt: Date;
+
+  @IsString()
+  photo: string;
 }

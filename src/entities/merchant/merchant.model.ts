@@ -16,6 +16,7 @@ export interface IMerchant extends Document {
   points: number;
   createdAt: Date;
   order: Types.ObjectId[];
+  photos: string;
   products: Types.ObjectId[];
 }
 export const merchantSchema = new Schema<IMerchant>({
@@ -34,6 +35,7 @@ export const merchantSchema = new Schema<IMerchant>({
     points: { type: Number },
     createdAt: { type: Date, default: Date.now },
     order: [{ type: Schema.ObjectId, ref: 'Order', required: true }],
+    photos: String,
     products: [{ type: Schema.ObjectId, ref: 'Products', required: true }],
   });
   

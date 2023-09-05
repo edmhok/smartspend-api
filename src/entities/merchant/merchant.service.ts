@@ -55,9 +55,10 @@ export class MerchantService {
       state: _merchant.state,
       country: _merchant.country,
       zipcode: _merchant.zipcode,
-      points: _merchant.points,
+      points: _merchant.points || 0,
+      photos: _merchant.photos || []
     });
-
+    console.log({merchant})
     return merchant.save();
     
   }  
@@ -65,35 +66,19 @@ export class MerchantService {
   async update(id: ObjectId, updateMerchantDto: UpdateMerchantDto): Promise<IMerchant> {
     const merchant = await this.merchantModel.findById(id).exec();
 
-    const { 
-      username, 
-      password, 
-      first_name, 
-      middle_name, 
-      last_name, 
-      birthdate, 
-      phone, 
-      address, 
-      city, 
-      state, 
-      country, 
-      zipcode,
-      points, 
-    } = updateMerchantDto;
-
-    merchant.username = username;
-    merchant.password = password;
-    merchant.first_name = first_name;
-    merchant.middle_name = middle_name;
-    merchant.last_name = last_name;
-    merchant.birthdate = birthdate;
-    merchant.phone = phone;
-    merchant.address = address;
-    merchant.city = city;
-    merchant.state = state;
-    merchant.country = country;
-    merchant.zipcode = zipcode;
-    merchant.points = points;
+    merchant.username = updateMerchantDto.username || merchant.username;
+    merchant.password = updateMerchantDto.password || merchant.password;
+    merchant.first_name = updateMerchantDto.first_name || merchant.first_name;
+    merchant.middle_name = updateMerchantDto.middle_name || merchant.middle_name;
+    merchant.last_name = updateMerchantDto.last_name || merchant.last_name;
+    merchant.birthdate = updateMerchantDto.birthdate || merchant.birthdate;
+    merchant.phone = updateMerchantDto.phone || merchant.phone;
+    merchant.address = updateMerchantDto.address || merchant.address;
+    merchant.city = updateMerchantDto.city || merchant.city;
+    merchant.state = updateMerchantDto.state || merchant.state;
+    merchant.country = updateMerchantDto.country || merchant.country;
+    merchant.zipcode = updateMerchantDto.zipcode || merchant.zipcode;
+    merchant.points = updateMerchantDto.points || merchant.points;
 
     return merchant.save();
     

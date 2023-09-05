@@ -27,9 +27,6 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
   description: string;
 
   @IsString()
-  imageUrl: string;
-
-  @IsString()
   sku: string;
 
   @IsString()
@@ -64,4 +61,7 @@ export class UpdateProductsDto extends PartialType(CreateProductsDto) {
 
   @IsDate()
   createdAt: Date;
+
+  @IsString()
+  photo: string;
 }

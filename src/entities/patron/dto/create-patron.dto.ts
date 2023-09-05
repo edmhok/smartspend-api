@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { IsString, IsInt, IsDate, IsOptional, IsArray } from '@nestjs/class-validator';
 import { ObjectId } from 'mongoose';
 
 export class CreatePatronDto {
@@ -50,4 +50,7 @@ export class CreatePatronDto {
 
     @IsDate()
     createdAt: Date;
+
+    @IsString()
+    photos: string;
 }

@@ -1,5 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { IsString, IsInt, IsDate, IsOptional } from '@nestjs/class-validator';
+import { IsString, IsInt, IsDate, IsOptional, IsArray } from '@nestjs/class-validator';
 import { ObjectId } from 'mongoose';
 
 export class CreateMerchantDto {
@@ -50,6 +50,9 @@ export class CreateMerchantDto {
 
     @IsInt()
     points: number;
+
+    @IsString()
+    photos: string;
 
     @IsDate()
     createdAt: Date;

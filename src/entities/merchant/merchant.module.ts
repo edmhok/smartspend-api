@@ -4,6 +4,7 @@ import { merchantSchema } from './merchant.model';
 import { MerchantService } from './merchant.service';
 import { MerchantController } from './merchant.controller';
 import { MongooseModule } from '@nestjs/mongoose';
+import { S3Service } from 'src/utils/S3Service';
 
 
 @Module({
@@ -13,6 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]
   )],
   controllers: [MerchantController],
-  providers: [MerchantService],
+  providers: [MerchantService, S3Service],
 })
 export class MerchantModule {}

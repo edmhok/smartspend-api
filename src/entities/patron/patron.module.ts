@@ -4,6 +4,7 @@ import { PatronService } from './patron.service';
 import { PatronController } from './patron.controller';
 import { patronSchema } from './patron.model';
 import { MongooseModule } from '@nestjs/mongoose';
+import { S3Service } from 'src/utils/S3Service';
 
 
 @Module({
@@ -13,6 +14,6 @@ import { MongooseModule } from '@nestjs/mongoose';
     ]
   )],
   controllers: [PatronController],
-  providers: [PatronService],
+  providers: [PatronService, S3Service],
 })
 export class PatronModule {}
