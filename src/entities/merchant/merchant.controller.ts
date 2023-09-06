@@ -40,7 +40,7 @@ export class MerchantController {
       response.map(async (item) => {
         return {
           ...item,
-          photo: await this.s3Service.getFile(item.photos[0]) || ''
+          photo: item.photos ? await this.s3Service.getFile(item.photos[0]) : ''
         }
       })
     )
@@ -58,7 +58,7 @@ export class MerchantController {
     const response = await this.merchantService.findOne(merchant_id);
     return {
       ...response,
-      photo: await this.s3Service.getFile(response.photos[0]) || '',
+      photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
     };
   }
 
@@ -69,7 +69,7 @@ export class MerchantController {
     const response = await this.merchantService.findOne(id);
     return {
       ...response,
-      photo: await this.s3Service.getFile(response.photos[0]) || '',
+      photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
     };
   }
 

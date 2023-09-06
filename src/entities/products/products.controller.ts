@@ -40,7 +40,7 @@ export class ProductsController {
         response.map(async (item) => {
           return {
             ...item,
-            photo: await this.s3Service.getFile(item.photo) || '',  
+            photo: item.photo ? await this.s3Service.getFile(item.photo) : '',  
           }
         })
       );
@@ -65,7 +65,7 @@ export class ProductsController {
         response.map(async (item) => {
           return {
             ...item,
-            photo: await this.s3Service.getFile(item.photo) || ''
+            photo: item.photo ? await this.s3Service.getFile(item.photo) : ''
           }
         })
       )
@@ -76,7 +76,7 @@ export class ProductsController {
       const response = await this.productsService.findOne(id);
       return {
         ...response,
-        photo: await this.s3Service.getFile(response.photo) || '',
+        photo: response.photo ? await this.s3Service.getFile(response.photo) : '',
       };
     }
     
@@ -89,6 +89,7 @@ export class ProductsController {
     @Post()
     @UseInterceptors(FileInterceptor('photo'))
     async create(@Body() createProductsDto: CreateProductsDto, @UploadedFile() photo, @Request() req) {
+      console.log('hello here')
       const token = req.headers.authorization.split(' ')[1];
       const decodedToken = JSON.parse(
         Buffer.from(token.split('.')[1], 'base64').toString('utf-8'),

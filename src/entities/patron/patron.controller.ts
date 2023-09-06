@@ -35,7 +35,7 @@ export class PatronController {
         response.map(async (item) => {
           return {
             ...item,
-            photo: await this.s3Service.getFile(item.photos[0]) || ''
+            photo: item.photos ? await this.s3Service.getFile(item.photos[0]) : ''
           }
         })
       )
@@ -53,7 +53,7 @@ export class PatronController {
     const response = await this.patronService.findOne(patron_id);
     return {
       ...response,
-      photo: await this.s3Service.getFile(response.photos[0]) || '',
+      photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
     };
   }
 
@@ -63,7 +63,7 @@ export class PatronController {
     const response = await this.patronService.findOne(id);
     return {
       ...response,
-      photo: await this.s3Service.getFile(response.photos[0]) || '',
+      photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
     };
   }
 
