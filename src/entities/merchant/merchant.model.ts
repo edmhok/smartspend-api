@@ -18,6 +18,7 @@ export interface IMerchant extends Document {
   order: Types.ObjectId[];
   photos: string;
   products: Types.ObjectId[];
+  banks: any[];
 }
 export const merchantSchema = new Schema<IMerchant>({
     username: { type: String, required: true },
@@ -37,6 +38,7 @@ export const merchantSchema = new Schema<IMerchant>({
     order: [{ type: Schema.ObjectId, ref: 'Order', required: true }],
     photos: String,
     products: [{ type: Schema.ObjectId, ref: 'Products', required: true }],
+    banks: [{}],
   });
   
   export const MerchantModel = model('Merchant', merchantSchema);

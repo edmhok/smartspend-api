@@ -6,12 +6,15 @@ import * as bcrypt from 'bcrypt';
 import { IMerchant } from './merchant.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
+import { IMerchantBanks } from '../merchantBanks/merchantBanks.model';
 
 @Injectable()
 export class MerchantService {
   constructor(
     @InjectModel('Merchant')
     private readonly merchantModel: Model<IMerchant>,
+    // @InjectModel('MerchantBanks')
+    // private readonly merchantBanks: Model<IMerchantBanks>,
   ) {}
 
   async validateUser(username: string, password: string): Promise<any> {
@@ -56,7 +59,8 @@ export class MerchantService {
       country: _merchant.country,
       zipcode: _merchant.zipcode,
       points: _merchant.points || 0,
-      photos: _merchant.photos || ''
+      photos: _merchant.photos || '',
+      banks: _merchant.banks || []
     });
     console.log({merchant})
     return merchant.save();
@@ -66,6 +70,7 @@ export class MerchantService {
   async update(id: ObjectId, updateMerchantDto: UpdateMerchantDto): Promise<IMerchant> {
     const merchant = await this.merchantModel.findById(id).exec();
 
+    console.log({updateMerchantDto})
     merchant.username = updateMerchantDto.username || merchant.username;
     merchant.password = updateMerchantDto.password || merchant.password;
     merchant.first_name = updateMerchantDto.first_name || merchant.first_name;
@@ -79,9 +84,9 @@ export class MerchantService {
     merchant.country = updateMerchantDto.country || merchant.country;
     merchant.zipcode = updateMerchantDto.zipcode || merchant.zipcode;
     merchant.points = updateMerchantDto.points || merchant.points;
+    merchant.banks = updateMerchantDto.banks || merchant.banks;
 
     return merchant.save();
-    
   }
 
   async remove(id: ObjectId): Promise<string| void> {

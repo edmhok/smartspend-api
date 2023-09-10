@@ -56,4 +56,6 @@ export class CreateMerchantDto {
 
     @IsDate()
     createdAt: Date;
+
+    banks: [{}];
 }
