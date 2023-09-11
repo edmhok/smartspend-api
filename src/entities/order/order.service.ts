@@ -99,7 +99,12 @@ export class OrderService {
     
     order.status = status;
 
-    const totalPoints = order.products.reduce((prev, cur) => prev + cur.product.points, 0)
+    const totalPoints = order.products.reduce((prev, cur) => {
+      if(!cur.product) {
+        return prev;
+      }
+      return prev + cur.product.points
+    }, 0)
 
     const patron = await this.patronModel.findById({ _id: order.patron._id });
     const merchant = await this.merchantModel.findById({ _id: order.merchant._id });

@@ -59,6 +59,6 @@ export class UpdateMerchantDto extends PartialType(CreateMerchantDto) {
     @IsString()
     photos: string;
 
-    @IsJSON()
-    banks;
+    // @IsJSON()
+    // banks;
 }

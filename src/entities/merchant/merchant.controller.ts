@@ -70,6 +70,14 @@ export class MerchantController {
     return {
       ...response,
       photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
+      banks: await Promise.all(
+        response.banks.map(async (bank) => {
+          return {
+            ...bank,
+            photo: await this.s3Service.getFile(bank.photo) || '',
+          };
+        }),
+      )
     };
   }
 

@@ -13,4 +13,7 @@ export class UpdateMerchantBanksDto extends PartialType(CreateMerchantBanksDto) 
 
     @IsOptional()
     number?: string
+
+    @IsOptional()
+    merchantId: String
 }

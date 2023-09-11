@@ -7,14 +7,16 @@ import { IMerchantBanks } from './merchantBanks.model';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model, ObjectId } from 'mongoose';
 import { IMerchant } from '../merchant/merchant.model';
+import { Utils } from 'src/utils/utils';
 
 @Injectable()
 export class MerchantBanksService {
   constructor(
     @InjectModel('MerchantBanks')
     private readonly merchantBanksModel: Model<IMerchantBanks>,
-    // @InjectModel('Merchant')
-    // private readonly merchantModel: Model<IMerchant>,
+    @InjectModel('Merchant')
+    private readonly merchantModel: Model<IMerchant>,
+    private readonly utils: Utils
   ) {}
 
 
@@ -29,19 +31,21 @@ export class MerchantBanksService {
   async create(_merchantBanks: CreateMerchantBanksDto): Promise<IMerchantBanks> {
 
     
-    const merchantBanks = new this.merchantBanksModel({
+    const merchantBank = new this.merchantBanksModel({
       type: _merchantBanks.type,
       name: _merchantBanks.name,
       number: _merchantBanks.number,
       photo: _merchantBanks.photo || '',
       merchantId: _merchantBanks.merchantId || ''
     });
+    const ret = await merchantBank.save();
 
     // Add bank reference to merchants
-    // const merchant = await this.merchantModel
+    const merchant = await this.merchantModel.findOne({_id: _merchantBanks.merchantId}).exec()
+    merchant.banks = await this.utils.pushWhenNew(merchant.banks, merchantBank);
+    await merchant.save()
 
-    return merchantBanks.save();
-    
+    return ret;
   }  
 
   async update(id: ObjectId, updateMerchantBanksDto: UpdateMerchantBanksDto): Promise<IMerchantBanks> {
@@ -56,6 +60,11 @@ export class MerchantBanksService {
 
   async remove(id: ObjectId): Promise<string| void> {
     const result = await this.merchantBanksModel.findByIdAndDelete({_id: id}).exec();
-    // return `Deleted ${result.deletedCount} record`;
+    return `Deleted ${result} record`;
+  }
+
+  async clear(mid: ObjectId): Promise<string| void> {
+    const result = await this.merchantBanksModel.deleteMany({merchantId: mid}).exec();
+    return `Deleted ${result.deletedCount} record`;
   }
 }
