@@ -40,7 +40,8 @@ export class MerchantService {
   }
 
   async findOne(id: ObjectId): Promise<IMerchant> {
-    return this.merchantModel.findById({_id: id}).lean();
+    return this.merchantModel.findById({_id: id})
+    .populate('banks').lean();
   }
 
   async create(_merchant: CreateMerchantDto): Promise<IMerchant> {
@@ -84,7 +85,7 @@ export class MerchantService {
     merchant.country = updateMerchantDto.country || merchant.country;
     merchant.zipcode = updateMerchantDto.zipcode || merchant.zipcode;
     merchant.points = updateMerchantDto.points || merchant.points;
-    merchant.banks = updateMerchantDto.banks || merchant.banks;
+    // merchant.banks = updateMerchantDto.banks || merchant.banks;
 
     return merchant.save();
   }

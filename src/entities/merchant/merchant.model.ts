@@ -1,4 +1,5 @@
 import { Document, Schema, model, Types } from 'mongoose';
+import { IMerchantBanks } from '../merchantBanks/merchantBanks.model';
 
 export interface IMerchant extends Document {
   username: string;
@@ -18,7 +19,7 @@ export interface IMerchant extends Document {
   order: Types.ObjectId[];
   photos: string;
   products: Types.ObjectId[];
-  banks: any[];
+  banks: IMerchantBanks[];
 }
 export const merchantSchema = new Schema<IMerchant>({
     username: { type: String, required: true },
@@ -35,10 +36,10 @@ export const merchantSchema = new Schema<IMerchant>({
     zipcode: { type: String, required: true },
     points: { type: Number },
     createdAt: { type: Date, default: Date.now },
-    order: [{ type: Schema.ObjectId, ref: 'Order', required: true }],
+    order: [{ type: Schema.ObjectId, ref: 'Order'}],
     photos: String,
-    products: [{ type: Schema.ObjectId, ref: 'Products', required: true }],
-    banks: [{}],
+    products: [{ type: Schema.ObjectId, ref: 'Products' }],
+    banks: [{ type: Schema.ObjectId, ref: 'MerchantBanks'}],
   });
   
   export const MerchantModel = model('Merchant', merchantSchema);

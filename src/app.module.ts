@@ -12,6 +12,7 @@ import { ProductsModule } from './entities/products/products.module';
 import { OrderModule } from './entities/order/order.module';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MerchantBanksModule } from './entities/merchantBanks/merchantBanks.module';
+import { Utils } from './utils/utils';
 
 
 @Module({
@@ -22,13 +23,13 @@ import { MerchantBanksModule } from './entities/merchantBanks/merchantBanks.modu
     MongooseModule.forRoot(process.env.DATABASE_CONNECTION_STRING),
     AuthModule,
     MerchantModule,
-    // MerchantBanksModule,
+    MerchantBanksModule,
     PatronModule,
     TransactionModule,
     ProductsModule,
     OrderModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, Utils],
 })
 export class AppModule {}

@@ -68,4 +68,10 @@ export class MerchantBanksController {
   async remove(@Param('id') id: ObjectId) {
     return this.merchantBanksService.remove(id);
   }
+
+  @UseGuards(JwtAuthGuard)
+  @Delete('clear/:mid')
+  async clear(@Param('mid') mid: ObjectId) {
+    return this.merchantBanksService.clear(mid);
+  }
 }
