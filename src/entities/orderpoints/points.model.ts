@@ -15,4 +15,4 @@ export const PointsSchema = new Schema<IPoints>({
   createdAt: { type: Date, default: Date.now },
 });
 
-export const PointsModel = model<IPoints>("points", PointsSchema);
+export const PointsModel = model<IPoints>("orderpoints", PointsSchema);

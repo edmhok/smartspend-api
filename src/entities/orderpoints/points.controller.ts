@@ -9,15 +9,15 @@ import {
   Request,
   UseGuards,
 } from "@nestjs/common";
-import { PointsService } from "./points.service";
-import { CreatePointsDto } from "./dto/create-points.dto";
-import { UpdatePointsDto } from "./dto/update-points.dto";
+import { OrderPointsService } from "./points.service";
+import { CreateOrderPointsDto } from "./dto/create-points.dto";
+import { UpdateOrderPointsDto } from "./dto/update-points.dto";
 import { JwtAuthGuard } from "src/authentication/guard/jwt-auth.guard";
 import { ObjectId } from "mongoose";
 
-@Controller("points")
-export class PointsController {
-  constructor(private pointsService: PointsService) {}
+@Controller("orderpoints")
+export class OrderPointsController {
+  constructor(private pointsService: OrderPointsService) {}
 
   // @UseGuards(JwtAuthGuard)
   @Get()
@@ -33,13 +33,16 @@ export class PointsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  create(@Body() createPointsDto: CreatePointsDto) {
+  create(@Body() createPointsDto: CreateOrderPointsDto) {
     return this.pointsService.create(createPointsDto);
   }
 
   @UseGuards(JwtAuthGuard)
   @Patch(":id")
-  update(@Param("id") id: ObjectId, @Body() updatePointsDto: UpdatePointsDto) {
+  update(
+    @Param("id") id: ObjectId,
+    @Body() updatePointsDto: UpdateOrderPointsDto
+  ) {
     return this.pointsService.update(id, updatePointsDto);
   }
 

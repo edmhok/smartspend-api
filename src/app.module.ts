@@ -12,7 +12,7 @@ import { ProductsModule } from "./entities/products/products.module";
 import { OrderModule } from "./entities/order/order.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { MerchantBanksModule } from "./entities/merchantBanks/merchantBanks.module";
-import { PointsModule } from "./entities/points/points.module";
+import { OrderPointsModule } from "./entities/orderpoints/points.module";
 
 @Module({
   imports: [
@@ -27,7 +27,7 @@ import { PointsModule } from "./entities/points/points.module";
     TransactionModule,
     ProductsModule,
     OrderModule,
-    PointsModule,
+    OrderPointsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,7 +1,6 @@
-/* eslint-disable prettier/prettier */
 import { Module } from "@nestjs/common";
-import { PointsService } from "./points.service";
-import { PointsController } from "./points.controller";
+import { OrderPointsService } from "./points.service";
+import { OrderPointsController } from "./points.controller";
 import { PointsSchema } from "./points.model";
 import { merchantSchema } from "./../merchant/merchant.model";
 import { MongooseModule } from "@nestjs/mongoose";
@@ -9,11 +8,11 @@ import { MongooseModule } from "@nestjs/mongoose";
 @Module({
   imports: [
     MongooseModule.forFeature([
-      { name: "Points", schema: PointsSchema },
+      { name: "Orderpoints", schema: PointsSchema },
       { name: "Merchant", schema: merchantSchema },
     ]),
   ],
-  controllers: [PointsController],
-  providers: [PointsService],
+  controllers: [OrderPointsController],
+  providers: [OrderPointsService],
 })
-export class PointsModule {}
+export class OrderPointsModule {}
