@@ -65,12 +65,13 @@ export class MerchantController {
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   async findOne(@Param('id') id: ObjectId) {
-    console.log({id})
+    
     const response = await this.merchantService.findOne(id);
+    console.log({response})
     return {
       ...response,
       photo: response.photos ? await this.s3Service.getFile(response.photos[0]) : '',
-      banks: await Promise.all(
+      banks: response.banks && await Promise.all(
         response.banks.map(async (bank) => {
           return {
             ...bank,

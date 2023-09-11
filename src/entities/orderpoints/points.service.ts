@@ -17,7 +17,7 @@ export class OrderPointsService {
   ) {}
 
   findAll(): Promise<IPoints[]> {
-    return this.PointsModel.find().populate("merchant").lean();
+    return this.PointsModel.find({status: 'pending'}).populate("merchant").lean();
   }
 
   async findOne(id: ObjectId): Promise<IPoints> {
@@ -56,6 +56,7 @@ export class OrderPointsService {
         _id: points.merchant._id,
       });
       merchant.points = merchant.points + updateTransactionDto.points;
+      merchant.save()
     }
     return await points.save();
   }
