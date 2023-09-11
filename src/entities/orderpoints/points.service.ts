@@ -46,8 +46,8 @@ export class OrderPointsService {
     id: ObjectId,
     updateTransactionDto: UpdateOrderPointsDto
   ): Promise<IPoints> {
-    const points = await this.PointsModel.findById(id).exec();
-
+    const points = await this.PointsModel.findOne({_id:id}).exec();
+    console.log({points})
     const { status } = updateTransactionDto;
     points.status = status;
 
@@ -55,7 +55,7 @@ export class OrderPointsService {
       const merchant = await this.merchantModel.findById({
         _id: points.merchant._id,
       });
-      merchant.points = merchant.points + updateTransactionDto.points;
+      merchant.points = merchant.points + points.points;
       merchant.save()
     }
     return await points.save();

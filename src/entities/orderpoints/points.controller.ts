@@ -43,6 +43,7 @@ export class OrderPointsController {
     @Param("id") id: ObjectId,
     @Body() updatePointsDto: UpdateOrderPointsDto
   ) {
+    console.log('in here')
     return this.pointsService.update(id, updatePointsDto);
   }
 
