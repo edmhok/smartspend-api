@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "9239267a-9fda-4096-a84a-040070d5dc78",
+		"name": "orderPoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24410069",
+		"_collection_link": "https://winter-meteor-350424.postman.co/workspace/WorkSpace~a25a7630-72f5-4578-8718-0defdfa1979c/collection/24410069-9239267a-9fda-4096-a84a-040070d5dc78?action=share&source=collection_link&creator=24410069"
+	},
+	"item": [
+		{
+			"name": "orderPoints",
+			"item": [
+				{
+					"name": "Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6ImFkbWluQHNtYXJ0c3BlbmQuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOHRuTW9hWFg5SWlkY0RnWDlndk9ST3JjSDZFUElpamRpUm84N1VmOGYuazlnR1Ivd0l2VWkiLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNVQwMDowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAiLCJpZCI6IjY0ZWVmNmRkMjIzYjEyMzdiYmRiYzU5ZCJ9LCJpYXQiOjE2OTQ0MDQzODQsImV4cCI6MTY5NDQ5MDc4NH0.TNk-NJpue5Q_LQiv72mujQKpfF9xGvTFyOCIeA2HDyQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "points",
+									"value": "200",
+									"type": "text"
+								},
+								{
+									"key": "status",
+									"value": "pending",
+									"type": "text"
+								},
+								{
+									"key": "merchant_Id",
+									"value": "64f0129af38d9a41826053ce",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/orderpoints",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"orderpoints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAll",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/orderpoints",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"orderpoints"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getone",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:4000/points/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"points",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patch",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyUGF5bG9hZCI6eyJ1c2VybmFtZSI6ImFkbWluQHNtYXJ0c3BlbmQuY29tIiwicGFzc3dvcmQiOiIkMmIkMTAkOHRuTW9hWFg5SWlkY0RnWDlndk9ST3JjSDZFUElpamRpUm84N1VmOGYuazlnR1Ivd0l2VWkiLCJmaXJzdF9uYW1lIjoibGNoZW4iLCJtaWRkbGVfbmFtZSI6InRoZSIsImxhc3RfbmFtZSI6ImdyZWF0IiwiYmlydGhkYXRlIjoiMjAwMC0xMC0xNVQwMDowMDowMC4wMDBaIiwicGhvbmUiOiIwMzQ5ODEwOTI0IiwiYWRkcmVzcyI6InJlbG9jIiwiY2l0eSI6ImRhdmFvIiwic3RhdGUiOiJkYXZhbyBkZWwgc3VyIiwiY291bnRyeSI6InBoaWxpcHBpbmVzIiwiemlwY29kZSI6IjgwMDAiLCJpZCI6IjY0ZWVmNmRkMjIzYjEyMzdiYmRiYzU5ZCJ9LCJpYXQiOjE2OTQ0MDcxNTYsImV4cCI6MTY5NDQ5MzU1Nn0.jmIf4zrJCLlAvDSaoJd0hQPx6McGIDtOaVNLw82e4c0",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "status",
+									"value": "s",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:4000/points/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"points",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "http://localhost:4000/points/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "4000",
+							"path": [
+								"points",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

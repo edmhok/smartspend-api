@@ -51,11 +51,12 @@ export class OrderPointsService {
     const { status } = updateTransactionDto;
     points.status = status;
 
-    // const merchantPoints = await this.merchantModel.findById({ _id: points.merchant._id });
-
-    // if(status === 'accepted') {
-    //   merchant.points = merchant.points - totalPoints;
-    // }
+    if (status === "accepted") {
+      const merchant = await this.merchantModel.findById({
+        _id: points.merchant._id,
+      });
+      merchant.points = merchant.points + updateTransactionDto.points;
+    }
     return await points.save();
   }
 
