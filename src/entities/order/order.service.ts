@@ -38,7 +38,12 @@ export class OrderService {
   async findOne(id: ObjectId): Promise<IOrder> {
     return this.orderModel.findById({_id: id})
       .populate('products')
-      .populate('merchant')
+      .populate({
+        path: 'merchant',
+        populate: {
+          path: 'banks'
+        }
+      })
       .populate('patron')
       .lean();
   }

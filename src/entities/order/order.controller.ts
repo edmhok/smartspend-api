@@ -14,13 +14,13 @@ import { CreateOrderDto } from './dto/create-order.dto';
 import { UpdateOrderDto } from './dto/update-order.dto';
 import { JwtAuthGuard } from 'src/authentication/guard/jwt-auth.guard';
 import { ObjectId } from 'mongoose';
+import { S3Service } from 'src/utils/S3Service';
 
-    
     @Controller('order')
     export class OrderController {
         constructor(
         private orderService: OrderService,
-
+        private readonly s3Service: S3Service,
         ) {}
         
     @UseGuards(JwtAuthGuard)
@@ -32,7 +32,21 @@ import { ObjectId } from 'mongoose';
     @UseGuards(JwtAuthGuard)
     @Get(':id')
     async findOne(@Param('id') id: ObjectId) {
-        return this.orderService.findOne(id);
+        const orderRet = await this.orderService.findOne(id);
+        console.log(JSON.stringify(orderRet))
+        return {
+            ...orderRet,
+            merchant: {
+                ...orderRet.merchant,
+                banks : await Promise.all(orderRet.merchant.banks.map(async bank => {
+                    console.log({bank})
+                    return {
+                        ...bank,
+                        photo: bank.photo ? await this.s3Service.getFile(bank.photo) : '',
+                    }
+                }))
+            }
+        }
     }
 
     @UseGuards(JwtAuthGuard)

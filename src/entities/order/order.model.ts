@@ -1,9 +1,10 @@
 import { Schema, model, Document, Types } from 'mongoose';
+import { IMerchant } from '../merchant/merchant.model';
 
 export interface IOrder extends Document {
   products: any;
   patron: Types.ObjectId;
-  merchant: Types.ObjectId;
+  merchant: IMerchant;
   isPaid: boolean;
   status: string;
 

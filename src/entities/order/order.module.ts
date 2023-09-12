@@ -9,6 +9,7 @@ import { merchantSchema } from '../merchant/merchant.model';
 import { patronSchema } from '../patron/patron.model';
 import { productsSchema } from '../products/products.model';
 import { orderSchema } from './order.model';
+import { S3Service } from 'src/utils/S3Service';
 
 @Module({
   imports: [MongooseModule.forFeature(
@@ -20,6 +21,6 @@ import { orderSchema } from './order.model';
     ]
   )],
   controllers: [OrderController],
-  providers: [OrderService, ProductsService, PatronService, MerchantService]
+  providers: [OrderService, ProductsService, PatronService, MerchantService, S3Service]
 })
 export class OrderModule {}
