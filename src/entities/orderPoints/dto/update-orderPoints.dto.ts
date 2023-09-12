@@ -1,5 +1,5 @@
 import { PartialType } from "@nestjs/mapped-types";
-import { CreateOrderPointsDto } from "./create-points.dto";
+import { CreateOrderPointsDto } from "./create-orderPoints.dto";
 import { IsString, IsInt, IsDate } from "@nestjs/class-validator";
 import { ObjectId } from "mongoose";
 

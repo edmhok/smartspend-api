@@ -9,9 +9,9 @@ import {
   Request,
   UseGuards,
 } from "@nestjs/common";
-import { OrderPointsService } from "./points.service";
-import { CreateOrderPointsDto } from "./dto/create-points.dto";
-import { UpdateOrderPointsDto } from "./dto/update-points.dto";
+import { OrderPointsService } from "./orderPoints.service";
+import { CreateOrderPointsDto } from "./dto/create-orderPoints.dto";
+import { UpdateOrderPointsDto } from "./dto/update-orderPoints.dto";
 import { JwtAuthGuard } from "src/authentication/guard/jwt-auth.guard";
 import { ObjectId } from "mongoose";
 
@@ -43,7 +43,7 @@ export class OrderPointsController {
     @Param("id") id: ObjectId,
     @Body() updatePointsDto: UpdateOrderPointsDto
   ) {
-    console.log('in here')
+    console.log("in here");
     return this.pointsService.update(id, updatePointsDto);
   }
 
